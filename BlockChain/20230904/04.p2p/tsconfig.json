@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module" : "CommonJS",
+    "outDir" : "./dist",
+    "target" : "ES6",
+    "esModuleInterop" : true,
+    "baseUrl" : ".",
+    "paths" : {
+      // baseUrl 경로 부터 별칭 사용
+      "@core/*" : ["src/core/*"]
+    }
+  },
+  "ts-node": {
+    "require" : ["tsconfig-paths/register"]
+  }
+  
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>수정 페이지</h1>
+    <form action="/bulletin/edit/<%= data.id %>" method="post">
+        <div>
+            <label for="">글번호</label>
+            <input type="text" value="<%= data.id %>" disabled>
+        </div>
+        <div>
+            <label for="">제목</label>
+            <input type="text" name="title" value="<%= data.title %>">
+        </div>
+        <div>
+            <label for="">내용</label>
+            <input type="text" name="content" value="<%= data.content %>">
+        </div>
+        <div><button>수정</button></div>
+    </form>
+</body>
+</html>

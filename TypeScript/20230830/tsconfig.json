@@ -1,0 +1,28 @@
+{
+
+  // include : 컴파일을 진행할 폴더를 지정 할 수 있다.
+  "include": ["./*"],
+
+  //  ./ : 현재 폴더에서 모든 파일의 경로 즉 현재 폴더에 모든 파일을 컴파일 대상으로 지정
+  // src/**/* : src 폴더 하위 폴더와 폴더안에 있는 모든 파일의 경로 지정
+
+  // /** : 폴더
+  // /* : 파일
+
+  // exclude : 컴파일에서 제외 시킬 폴더를 지정할 수 있다.
+  "exclude": [],
+  // compilerOptions : typescript 파일을 컴파일 진행시 어떤 옵션으로 형태로 컴파일을 진행할지 속성 정의
+  "compilerOptions": {
+    // 컴파일된 파일을 내보낼 경로 지정
+    "outDir": "./dist"
+  }
+}
+
+// package.json에 추가
+// "scripts" : {
+//   "build": "tsc"
+// }
+
+// tsc 명령어는 typescript 컴파일을 실행 하는 명령어
+// typescript 코드를 tsconfig.json파일 설정값을 가지고 javascript 코드로 변환해준다.
+

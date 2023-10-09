@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>난 최초 블록! hi hi </h1>
+    <h1>초기의 제네시스 블록은 하드 코딩으로 직접 만들어준다.</h1>
+    <div>
+        <div id="block">
+            <label for="">블록의 버전(블록의 버전 초기값)</label>
+            <h3 id="version"></h3>
+
+            <label for="">블록 높이(제네시스 블록 최초 블록으로 0번) </label>
+            <h3 id="height"></h3>
+            
+            <label for="">블록의 생성 시간 (제네시스 블록 생성 시간) </label>
+            <h3 id="timestamp"></h3>
+            
+            <label for="">이전 블록 해시 (최초의 블록이므로 이전 블록 해시를 0으로 대체) </label>
+            <h3 id="previousHash"></h3>
+            
+            <label for="">블록 해시 (최초 블록이므로 해시 0으로 대체) </label>
+            <h3 id="hash"></h3>
+
+            <label for="">머클 루트( 최초의 블록이므로 머클루트 0으로 대체</label>
+            <h3 id="merkleRoot"></h3>
+
+            <label for="">논스(블록을 생성하는 과정에서 연산을 몇번 진행했는지)</label>
+            <h3 id="nonce"></h3>
+            
+
+            <label for="">난이도 (블록의 생성 주기를 조절하기 위한 값) </label>
+            <h3 id="difficulty"></h3>
+            
+            <label for="">블록 내용(실제 비트코인 최초 블록의 내용)</label>
+            <h3 id="data"></h3>
+
+        </div>
+    </div>
+    <script>
+        // 초기 제네시스 블록
+        // 하드코딩
+
+        const blockData = {
+            version : "1.0.0",
+            height : 0,
+            timestamp : Date.now(),
+            previousHash : "0".repeat(64), // 64개 반복
+            hash : "0".repeat(64),
+            merkleRoot : "0".repeat(64),
+            nonce : 0,
+            difficulty : 0,
+            data : ["The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"],
+        }
+
+        for(const key in blockData){
+            block.children[key].innerHTML = blockData[key];
+        }
+
+        /*
+        타입스크립트로 로또 번호 추첨기를 만드는데 전략패턴으로 제작
+        로또 번호인데 4개의 번호를 뽑는 로직이 있고
+        6개의 번호를 뽑는 로직이 있고
+        8개의 번호를 뽑는 로직이 있다.
+        추가작업이 들어오면 로또 번호를 12개 더 뽑을 수 있는데 전략 패턴으로 작업 구성 확장성 있게
+        유지보수성 편하게
+        클래스 사용 이유 유지보수 편하게
+        
+        */
+    </script>
+</body>
+</html>

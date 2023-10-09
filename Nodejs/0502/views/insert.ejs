@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- post 방식의 메소드로 데이터를 보냄 -->
+    <!-- action 요청할 url 없다면 현재 url -->
+    <!-- {name : 인풋 벨류}, number : 인픗 벨류, series : 인풋 벨류 -->
+    <form action="/insert" method="post">
+        <label for="">이름</label>
+        <input type="text" name="name">
+        <label for="">전화번호</label>
+        <input type="text" name="number">
+        <label for="">시리즈</label>
+        <input type="text" name="series">
+        <button type="submit">추가</button>
+        <!-- 기본이 submit -->
+    </form>
+</body>
+</html>

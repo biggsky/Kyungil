@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit profile</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/editProfile.css">
+</head>
+<body>
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div>프로필 편집</div>
+            <div class="editBtn"><img src="../nav_icon_img/icon_check.png" alt=""></div>
+        </div>
+    </div>
+
+    <!-- edit profile -->
+    <div class="middle_body">
+        <form>
+            <div class="profile_pic_box">
+                <div id="inputFile" class="inputFile">
+                    <img id="preview">
+                    <!-- onerror="style.display='none'" -->
+                    <label class="fileUpload" for="fileUpload">choose file</label>
+                    <input name="img" type="file" id="fileUpload" style="display: none">
+                </div>
+            </div>
+            <div class="edit_profile_section">
+                <div>
+                    <label for="">Name</label>
+                    <input class="nameInput" type="text" disabled>
+                </div>
+                <div>
+                    <label for="">ID</label>
+                    <input class="idInput" type="text" disabled>
+                </div>
+                <div>
+                    <label for="">Nickname</label>
+                    <input class="nicknameInput" type="text" name="nickname">
+                </div>
+                <div class="userInfoBox" style="height: 200px;">
+                    <label for="">Info</label>
+                    <textarea class="infoInput" name="profile_info" cols="30" rows="10" style="resize: none;"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    // 로그인 된 유저 프로필 가져오기
+    async function getProfile() {
+        try {
+            const {data} = await axios.get('http://127.0.0.1:8080/main/getProfile', {
+                // 브라우저가 서버로 쿠키를 전달할 수 있는 옵션
+                withCredentials : true
+            });
+
+            // const profileImg = document.querySelector("#preview");
+            // profileImg.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${data.profile_img}" alt=""></a>`;
+            preview.src = `http://127.0.0.1:8080/user_img/${data.profile_img}`;
+
+            const nameInput = document.querySelector(".nameInput");
+            nameInput.placeholder = data.user_name;
+            const idInput = document.querySelector(".idInput");
+            idInput.placeholder = data.user_id;
+            const nicknameInput = document.querySelector(".nicknameInput");
+            nicknameInput.placeholder = data.nickname;
+            const infoInput = document.querySelector(".infoInput");
+            if(data.profile_info !== null){
+                infoInput.placeholder = data.profile_info;
+            }
+
+            // profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${data.profile_img}" alt=""></a>`;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getProfile();
+
+    const editBtn = document.querySelector(".editBtn");
+    editBtn.onclick = ()=>{
+        const nickname = document.querySelector(".nicknameInput");
+        const profileInfo = document.querySelector(".infoInput");
+
+        const form = new FormData();
+        form.append("img", fileUpload.files[0]);
+        form.append("nickname",nickname.value);
+        form.append("profile_info",profileInfo.value);
+
+        axios.post('http://127.0.0.1:8080/mypage/edit', form, {
+            "Content-Type" : "multipart/form-data",
+            withCredentials : true
+        }).then((e) => {
+            console.log("전달 완료");
+            console.log(e.data);
+        }).catch((err) => {
+            console.log(error);
+        });
+    };
+</script>
+<script src="../js/insert.js"></script>
+</html>

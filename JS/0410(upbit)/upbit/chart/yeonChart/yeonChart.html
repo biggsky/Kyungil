@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./yeonChart.css">
+</head>
+
+<body>
+    <div id="chart"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="./yeonChart.js"></script>
+<script>
+    var options = {
+        series: [
+
+            {
+                name: 'candle',
+                type: 'candlestick',
+                data: [
+                    {
+                        x: new Date(1000),
+                        y: [6629.81, 6650.5, 6623.04, 6633.33]
+                    },
+                    {
+                        x: new Date(2000),
+                        y: [6632.01, 6643.59, 6620, 6630.11]
+                    },
+                    {
+                        x: new Date(3000),
+                        y: [6630.71, 6648.95, 6623.34, 6635.65]
+                    },
+                    {
+                        x: new Date(4000),
+                        y: [6635.65, 6651, 6629.67, 6638.24]
+                    },
+                    {
+                        x: new Date(5000),
+                        y: [6638.24, 6640, 6620, 6624.47]
+                    },
+
+                ]
+            }
+
+
+        ],
+        chart: {
+            height: 350,
+            type: 'line',
+        },
+        title: {
+            text: 'CandleStick Chart',
+            align: 'left'
+        },
+        stroke: {
+            width: [3, 1]
+        },
+        tooltip: {
+            shared: true,
+            custom: [function ({ seriesIndex, dataPointIndex, w }) {
+                return w.globals.series[seriesIndex][dataPointIndex]
+            }, function ({ seriesIndex, dataPointIndex, w }) {
+                var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+                var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+                var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+                var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+                return (
+                    ''
+                )
+            }]
+        },
+        xaxis: {
+            type: 'datetime'
+        }
+    };
+    // let sad = [{ 1: 'asd' }, 2, 3];
+    // sad.push({ 4: 'asd' })
+    // console.log(sad[0])
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    let valueX = 6000;
+//     setInterval(function(){
+//        options.series[0].data.push({x:new Date(valueX),y:[6632.01, 6643.59, 6620, 6630.11]});
+//        chart.updateOptions(options)
+//  valueX +=1000;
+//      },1000);
+
+    chart.render();
+    
+</script>
+
+</html>
+
+
+<!-- options.series[0].data.push({ x: new Date(6000), y: [6630.71, 6648.95, 6623.34, 6635.65] });
+chart.updateOptions(options) -->

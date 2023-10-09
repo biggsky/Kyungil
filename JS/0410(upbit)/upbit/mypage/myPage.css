@@ -1,0 +1,721 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    background-color:rgb(244, 245, 248);
+    position: fixed;
+    z-index: 1;
+    top :0
+
+}
+.header ul{
+    display: flex;
+    list-style: none;
+    width: 1100px; 
+    align-items: center;
+    margin-left: 20px;
+    
+}
+.header li{
+   margin: 15px;
+  
+   font-size: 15px;
+   color: rgb(0, 0, 0);
+}
+.header li:hover{
+    font-weight: 600;
+}
+.sub-header{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.sub-header a{
+    width: 90px;
+}
+.sub-header a:hover{
+    font-weight: 600;
+}
+.sub-banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: rgb(73, 85, 121);
+    color: rgba(255, 255, 255, 0.59);
+    font-size: 30px;
+}
+.con-img{
+position: relative;
+}
+.con-img-box{
+    position: absolute;
+    right: 10%;
+    width: 300px;
+    background-color: white;
+    border: #797979 1px solid;
+    display: none;
+}
+.con:hover .con-img-box{
+    width: 300px;
+    height: 150px;
+    background-color: white;
+    display: block;
+   
+}
+.myPage{
+    margin: 0 auto;
+    margin-top: 80px;
+    width: 100%;
+    max-width: 1000px;
+    height: 170vh;
+    padding: 50px 10px;
+}
+
+h2{
+    font-size: 1.823vw;
+}
+
+.accessInfo p{
+    width: 100%;
+    height: 80px;
+    background-color: rgb(241, 236, 236);
+    margin-top: 40px;
+    font-size: 20px;
+    padding: 25px 20px;
+}
+
+/* 내정보 */
+
+.myInfo{
+    margin-top: 40px;
+}
+
+.myInfo h3{
+    font-size: 22px;
+}
+
+.group{
+    border: 1px solid rgba(128, 128, 128, 0.436);
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 20px;
+}
+
+.group button{
+    width: 130px;
+    height: 40px;
+    font-size: 15px;
+    border: none;
+    background-color: dodgerblue;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.group button:active{
+    transform: scale(0.94);
+}
+
+.group .changeNic{
+    margin-left: 300px;
+}
+
+.infoText{
+    line-height: 1.6;
+}
+
+.infoText .title{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 닉네임 변경 팝업 */
+
+
+.nickName{
+    width: 100%;
+    max-width: 400px;
+    height: 17.646vw;
+    background-color: white;
+    border-radius: 18px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 20px;
+    position: fixed;
+    display: none;
+}
+
+.nickName.active{
+    display: block;
+    max-width: 400px;
+    height: 17.646vw;
+    background-color: white;
+    border-radius: 18px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 20px;
+    position: fixed;
+}
+
+.nickName h3{
+    text-align: center;
+}
+
+.nickName input{
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    margin-top: 60px;
+}
+
+.close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.submit{
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    margin-top: 50px;
+}
+
+.nickName button:active{
+    transform: scale(0.94);
+}
+
+.cautionText{
+    font-size: 13px;
+}
+
+body::before{
+    content: '';
+    background-color: rgba(0, 0, 0, 0.379);
+    width: 100%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+body.active::before{
+    display: block;
+    
+}
+
+/* 내 계좌 */
+
+.account{
+    margin-top: 50px;
+}
+
+.account h3{
+    font-size: 22px;
+}
+
+.accountText{
+    line-height: 1.6;
+}
+
+.account .title{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 계좌조회 팝업창 */
+
+.bankAccount{
+    background-color: rgb(237, 237, 237);
+    width: 100%;
+    max-width: 900px;
+    height: 46.042vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 20px;
+    position: fixed;
+    display: none;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+.bankAccount.active{
+    background-color: rgb(237, 237, 237);
+    width: 100%;
+    max-width: 900px;
+    height: 46.042vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 20px;
+    position: fixed;
+}
+
+.close_account{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+/* 보유자산 */
+
+
+.myAsset, .KRW-trade{
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    background-color: white;
+}
+
+.totalAsset{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.totalAsset .total{
+    font-weight: bolder;
+    font-size: 17px;
+}
+
+.totalAsset .money{
+    font-size: 13px;
+}
+
+.totalAsset .moneyNum{
+    font-size: 30px;
+    font-weight: bolder;
+    color: red;
+}
+
+.searchCoin{
+    position: relative;
+    height: 50px;
+}
+
+.searchCoin .findCoin{
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    border: none;
+    border-top: 1px solid rgb(199, 199, 199);
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.searchCoin img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.accountList{
+    height: 85%;
+}
+
+.container{
+    overflow-y: scroll;
+    height: 65.802vh;
+}
+
+.list-title{
+    list-style: none;
+    display: flex;
+    background-color: rgb(250, 244, 235);
+}
+
+.list-title li{
+    height: 30px;
+    text-align: center;
+    line-height: 2.2;
+    font-size: 13px;
+    
+}
+
+.list-title .name,
+.list-descrip .name{
+    width: 150px;
+}
+
+.list-descrip .name{
+    border: none;
+    border-bottom: 1px solid rgb(214, 214, 214);
+    font-weight: bold;
+}
+
+.list-title .percent,
+.list-descrip .percent{
+    width: 110px;
+}
+
+.list-descrip .percent{
+    border-top: none;
+}
+
+.list-title .haveNum,
+.list-descrip .haveNum{
+    width: 160px;
+}
+
+.list-descrip .haveNum{
+    border: none;
+    border-bottom: 1px solid rgb(214, 214, 214);
+    padding-right: 20px;;
+}
+
+.list-descrip{
+    display: flex;
+}
+
+.list-descrip li{
+    border: 1px solid rgb(214, 214, 214);
+    list-style: none;
+    display: flex;
+    height: 7.125vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 입출금 */
+
+.tradeName{
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    height: 50px;
+    padding: 0 20px;
+    line-height: 2.5;
+}
+
+.haveMoney, .haveCoin, .change-to-won{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px; 
+    height: 32px;
+    line-height: 2.5;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.change-to-won{
+    font-size: 14px;
+    font-weight: 100;
+}
+
+
+.tradeContent{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tradeContent > input{
+    display: none;
+}
+
+.tradeContent > input + label{
+    cursor: pointer;
+    width: 140px;
+    height: 50px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    border-top: 1px solid rgb(199, 199, 199);
+    text-align: center;
+    font-size: 15px;
+    line-height: 3;
+}
+
+.box{
+    position: absolute;
+    display: none;
+}
+
+/* 충전 */
+
+.thisAccount{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+}
+
+.thisAccount .thisBank{
+    font-weight: 600;
+}
+
+.inputMoney{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    height: 60px;
+}
+
+.inputMoney input{
+    width: 250px;
+    height: 40px;
+    padding: 0 10px;
+    text-align: right;
+    border: 1px solid rgb(199, 199, 199);
+}
+
+.applyInput, .applyout{
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    border: none;
+    background-color: dodgerblue;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.applyInput:active,
+.applyout:active{
+    transform: scale(0.98);
+}
+
+/* 출금신청 */
+
+.user-out-account{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 50px;
+}
+
+.out-account-num{
+    width: 260px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid rgb(196, 192, 192);
+    color: rgb(117, 116, 116);
+    font-size: 12px;
+    line-height: 2.3;
+}
+
+.user-out-money{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.out-money-num{
+    width: 260px;
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid rgb(196, 192, 192);
+}
+
+/* 입출금내역 */
+
+.history-tab ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    height: 50px;
+}
+
+.history-tab li{
+    text-align: center;
+}
+
+.Name{
+    width: 50px;
+    color: red;
+}
+
+.withdraw-text{
+    color: blue;
+}
+
+.Money{
+    width: 120px;
+    font-weight: bold;
+}
+
+.Money span{
+    font-weight: 100;
+    font-size: 13px;
+}
+
+.state{
+    width: 100px;
+}
+
+.Date{
+    width: 100px;
+    font-size: 14px;
+}
+
+/* 문의 내역 */
+
+.QnA{
+    margin-top: 50px;
+}
+
+.QnA h3{
+    font-size: 22px;
+}
+
+.QnAlist ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.QnAlist li{
+    margin-top: 20px;
+    text-align: center;
+    height: 50px;
+    line-height: 2.7;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(241, 236, 236);
+    border-top: 1px solid;
+    border-bottom: 1px solid rgb(178, 176, 176);
+}
+
+
+.bar .num{
+    width: 100px;
+}
+
+.bar .category{
+    width: 190px;
+}
+
+.bar .title{
+    width: 410px;
+}
+
+.bar .date{
+    width: 170px;
+}
+
+.bar .state{
+    width: 110px;
+}
+
+.alert{
+    border-bottom: 1px solid rgb(178, 176, 176);
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    height: 250px;
+    line-height: 4;
+}
+
+/* 관심 종목 */
+
+.interested h3{
+    margin-top: 50px;
+    font-size: 22px;
+}
+
+.bar{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.bar li{
+    margin-top: 20px;
+    text-align: center;
+    height: 50px;
+    line-height: 2.7;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(241, 236, 236);
+    border-top: 1px solid;
+    border-bottom: 1px solid rgb(178, 176, 176);
+}
+
+.bar .star{
+    width: 100px;
+}
+
+.bar .coin{
+    width: 470px;
+}
+
+.bar .price{
+    width: 220px;
+}
+
+.bar .ratio{
+    width: 190px;
+}
+
+.interested-alert{
+    border-bottom: 1px solid rgb(178, 176, 176);
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    height: 250px;
+    line-height: 4;
+}
+.footer{
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(255, 255, 255);
+    width: auto;
+    height: 300px;
+    margin-top: 20px;
+}
+.footer-text p{
+    color: #797979;
+}
+.sns-icon a{
+    display: inline-flex;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(187, 187, 187);
+    border-radius: 50%;
+    margin-right: 12px;
+}

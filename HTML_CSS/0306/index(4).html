@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index(4).css">
+    <style>
+        p+a{
+            color: red;
+        }
+        p~a{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p></p>
+    <div>asdfasdf</div>
+    <a href="">나는 레드</a>
+
+    <div class="tab-menu">
+        <!-- checked input에 체크 속성을 줄때 -->
+        <!-- tab01 id를 가지고있는 input label for 속성에 tab01 -->
+        <!-- for 속성으로 연결된 label을 클릭하면 id로 for에 연결된 체크박스가 클릭이 된다. -->
+        <input class="tab01" type="radio" id="tab01" name="tabmenu" checked>
+        <label for="tab01">탭1</label>
+        
+        <input class="tab02" type="radio" id="tab02" name="tabmenu">
+        <label for="tab02">탭2</label>
+
+        <input class="tab03" type="radio" id="tab03" name="tabmenu">
+        <label for="tab03">탭3</label>
+        
+        <!-- 두개의 클래스를 가지고 있다. box 클래스도 가지고 있고 item1 클래스도 가지고있다. -->
+        <div class="box item1">1번 박스</div>
+        <div class="box item2">2번 박스</div>
+        <div class="box item3">3번 박스</div>
+
+        <div class="text-box">
+            <input type="text">
+        </div>
+    </div>
+</body>
+</html>

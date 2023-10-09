@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>input</title>
+</head>
+<body>
+    <h1>로그인</h1>
+    <ul>
+        <li>
+            <label for=""></label>
+            <!-- input을 사용할때 라벨붙이는 것처럼 input태그의 이름 -->
+            <input type="text" id="user_id">
+            <!-- 
+                input태그 타입
+                hidden : 사용자에게 보이지 않지만 서버로 값을 넘길 수 있다.
+                search : 검색 상자를 넣는다.
+                tel : 전화번호를 입력하는 필드를 넣는다.
+                url : url 주소를 입력할 수 있는 필드를 넣는다.
+                email : 메일주소를 입력할 수 있는 필드를 넣는다.
+                password : 비밀번호를 입력할 수 있는 필드를 넣는다.
+                datetime : 국제 표준시로 설정된 날짜와 시간을 넣는다.
+                date : 사용자 지역을 기준으로 날짜 연, 월, 일을 넣는다.
+                month : 사용자 지역을 기준으로 날짜, 연, 월
+                week : 사용자 지역 기준, 연 주
+                range : 숫자로된 수치를 조절할 수 있는 슬라이드 막대를 만든다.
+                color : 색상표를 만든다.
+                checkbox : 주어진 항목에서 2개이상 선택 가능한 체크 박스
+                radio : 1개만 선택할수있는 체크박스를 만든다.
+                file : 파일을 첨부할수 있는 버튼
+                image  : 버튼 대신 사용할 이미지를 넣는다.
+                button : 버튼을 넣는다.
+
+             -->
+        </li>
+        <li>
+            <label for="">비밀번호</label>
+            <input type="password" id="pwd">
+        </li>
+        <li>
+            <label for="">메일</label>
+            <input type="email" id="mail">
+        </li>
+        <li>
+            <label for="">전화번호</label>
+            <input type="tel" id="phone">
+        </li>
+        <li>
+            <h1>학생 수</h1>
+            <label for="">인원(10명까지)</label>
+            <input type="number" value="1" min="0" max="10" step="1">
+            <!-- value 초기 값 min 최소값 max가 최대값 / step값이 증가하는량 -->
+        </li>
+        <li>
+            <h1>난이도</h1>
+            <label for="">난이도(하,중,상)</label>
+            <input type="range" value="1" min="1" max="10">
+        </li>
+        <li>
+            <input type="submit" value="회원가입">
+            <!-- button 태그는 타입을 정해줄 수 있는데 기본 속성이 submit -->
+            <button>회원가입</button>
+        </li>
+    </ul>
+</body>
+</html>

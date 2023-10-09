@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 코드를 작성하면서 테스트 코드 작성할때
+    // TDD
+    // 테스트 단위로 프로젝트를 작업할때
+    // 단위테스트, 통합테스트
+    // 코드의 실행 시간이 어느정도인지.
+    // 코드의 실행시간을 확인해보자.
+    // time 메소드 : 코드의 실행시간을 측정 시작
+    console.time();
+    let num = 0;
+    for(let i=1; i<= 100; i++){
+        num += i;
+    }
+    console.log(num);
+
+    // 측정 시간을 종료 시키는 메소드
+    // timeEnd 메소드 : 코드 실행시간 측정 종료
+    console.timeEnd();
+</script>
+</html>

@@ -1,0 +1,139 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a .sub-title{
+    color: gray;
+}
+
+.main{
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* margin: auto 좌우 여백이 동일하게 맞춰진다. */
+    margin: auto;
+    width: 1260px;
+}
+
+.content {
+    /* 자식 태그의 내용만큼 너비를 가지게. */
+    width: max-content; /* *************** */
+    padding: 0;
+}
+
+.content li {
+    /* float 왼쪽 오른쪽으로 붙여서 정렬 시킬수있다. */
+    float: left;
+    /* ul li 태그를 사용하면서 리스트의 점이나 숫자 리스트의 형식을 지정할 수 있다. */
+    list-style: none;
+}
+
+
+/* content 클래스를 가진 태그의 자식 / li 태그의 자식 /item-img 클래스를 가진 태그만 스타일을 적용시킨다. */
+/* content클래스를 가진 태그 li 태그 안쪽으로 자식이면 스타일이 적용된다. */
+.content li div .item-img {
+    width: 290px;
+    height: 164px;
+}
+
+.content li .item-img {
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+/* 어떤 태그의 자식이든 item-img 클래스를 가지고 있는 태그에 스타일을 적용시킨다. */
+.item-img {
+    background-color: black;
+
+}
+
+.item {
+    margin-right: 20px;
+    position: relative;
+    /* border: 1px solid; */
+    width: 290px;
+    height: 277px;
+}
+
+.content li:last-child .item{
+    margin-right: 0;
+}
+
+/* 마지막 요소 선택자
+.item:last-child{
+    margin-right: 0;
+}
+
+첫째 요소 선택자
+.item:first-child{
+
+} */
+
+.sub-tag {
+    position: absolute;
+    display: none;
+    background-color: black;
+    color: white;
+    width: 180px;
+    font-size: 12px;
+    text-align: center;
+    top: 76px;
+    left: 49px;
+}
+
+/* 가상 선택자 */
+/* hover 속성 마우스가 태그 올려졌을때 */
+/* item태그에 마우스가 올려졌을때 자식 태그중 sub-tag클래스를 가지고 있는 태그가 스타일이 적용된다. */
+.item:hover .sub-tag {
+    display: block;
+    /* color: red; */
+    /* display: none; */
+}
+
+.icon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    background-image: url("https://yt3.ggpht.com/Yac0ipIj3642dRntdM2WeotidJ3Zqw9SAjBmlfZ33gDmPwIQKwvfEUAh3jgRMdCB11tNXkE0tTA=s68-c-k-c0x00ffffff-no-rj");
+    display: block;
+    width: 36px;
+    height: 36px;
+    bottom: 66px;
+
+}
+.title{
+    width: 245px;
+    font-size: 14px;
+    margin-left: 50px;
+    margin-top: 5px;
+
+    /* 줄바꿈 속성을 없애준다. 한줄로 텍스트를 만들어준다. */
+    white-space: nowrap;
+
+    /* 부모보다 자식 태그가 넘치면 지워버림 */
+    overflow: hidden;
+
+    /* 텍스트가 부모 태그의 넓이보다 길어지면 점점점 처리 */
+    text-overflow: ellipsis;
+}
+
+.sub-title{
+    font-size: 12px;
+    color: gray;
+    margin: -10px 0 0 50px;
+}
+
+/* 가상 선택자 */
+/* before 가상 요소를 추가해줄수 있다. */
+/* content 속성이 있어야 한다. 꼭! */
+.sub-title span::before{
+    content: "•";
+}
+
+/* .sub-title span::after{
+    content: "•";
+} */

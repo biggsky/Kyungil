@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>searched</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://andybyungjoopark.com/socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+
+    <!-- 게시글 보여지는 부분 -->
+    <div id="middle_body" class="middle_body">
+    </div>
+
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div id="subject"></div>
+        </div>
+    </div>
+</body>
+<script src="../js/main.js"></script>
+<script>
+    window.onload = async () => {
+        let x = location.hash;
+        let xxx = x.replace("#", "");
+        let xx = decodeURIComponent(xxx); // 한글 인코딩
+        subject.innerHTML = `#${xx}`;
+        // console.log(xx);
+
+        try {
+            const {data} = await axios.get(`https://andybyungjoopark.com/search/searched/${xx}`, {
+                withCredentials : true
+            });
+            const {userAll, posts} = data;
+
+            posts.reverse();
+
+            // for await (const el of posts){
+            posts.forEach((el) => {
+                //console.log(el);
+                // 해당 포스트를 작성한 유저의 nickname & profile_img
+                let writer = userAll.find(item => item.id == el.user_id);
+                //console.log(writer);
+
+                // 날짜 계산
+                let now = new Date();
+                let posteddate = new Date(el.createdAt);
+                let calc = (now.getTime() - posteddate.getTime()) / 1000;
+
+                let s = 1;
+                let m = s * 60;
+                let h = m * 60;
+                let d = h * 24;
+    
+                let dateText = "";
+                if(calc < s) {
+                    dateText = "방금 전";
+                }else if(calc < m) {
+                    dateText = Math.trunc(calc) + "초 전";
+                }else if(calc < h) {
+                    dateText = Math.trunc(calc/m) + "분 전";
+                }else if(calc < d) {
+                    dateText = Math.trunc(calc/h) + "시간 전";
+                }else if(calc < d * 15) {
+                    dateText = Math.trunc(calc/d) + "일 전";
+                }else {
+                    let year = posteddate.getFullYear();
+                    let month = posteddate.getMonth() + 1;
+                    let date = posteddate.getDate();
+                    dateText = `${year}.${month}.${date}`;
+                }
+
+                // text에 줄바꿈
+                let content = el.content.replace(/(?:\r\n|\r|\n)/g, "<br>");
+
+                let postContainer = document.createElement("div");
+                postContainer.classList.add("post_container");
+
+                let postTop = document.createElement("div");
+                postTop.classList.add("post_top");
+                postTop.innerHTML = `
+                <div class="profile_img" onclick="moveToUser('${writer.nickname}','${user.nickname}')"><img src="https://andybyungjoopark.com/user_img/${writer.profile_img}" alt="profile"></div>
+                <div class="profile_text">
+                    <p class="nickname" onclick="moveToUser('${writer.nickname}','${user.nickname}')">${writer.nickname}</p>
+                    <span>·</span>
+                    <p class="updated_time">${dateText}</p>
+                </div>`;
+                postContainer.appendChild(postTop);
+                
+                let postBody = document.createElement("div");
+                postBody.classList.add("post_body");
+                let ext = el.img.split('.').pop();
+                if(ext == "jpeg" || ext == "gif" || ext == "png" || ext == "jpg" || ext == "jfif" || ext == "webp") {
+                    postBody.innerHTML = `<div onclick="moveToDetail(${el.id})"><img src="https://andybyungjoopark.com/post_img/${el.img}" alt=""></div>`;
+                }else if(ext == "mp4") {
+                    postBody.innerHTML = `<div onclick="moveToDetail(${el.id})"><video class="video" src="https://andybyungjoopark.com/post_img/${el.img}" autoplay loop muted></video></div>`;
+                }
+                postContainer.appendChild(postBody);
+
+                let postBottom = document.createElement("div");
+                postBottom.classList.add("post_bottom");
+                if (content.includes('<br>')) {
+                    postBottom.innerHTML = ` 
+                    <div class="likes"><img src="../nav_icon_img/${heart_on}" alt=""><p>${el.likes} likes</p></div>
+                    <div class="content">
+                        <p class="content_text${el.id}"><span class="nickname" onclick="moveToUser('${writer.nickname}','${user.nickname}')">${writer.nickname}</span>
+                        <span>${content}</span></p>
+                        <p class="more" id="more_btn${el.id}" onclick="seeMore(${el.id})">more</p>
+                        <p class="more" onclick="moveToDetail(${el.id})">Add a comment...</p>
+                    </div>`;
+                    postContainer.appendChild(postBottom);
+                }else {
+                    postBottom.innerHTML = `
+                    <div class="likes"><img src="../nav_icon_img/${heart_on}" alt=""><p>${el.likes} likes</p></div>
+                    <div class="content">
+                        <p class="content_text${el.id}"><span class="nickname" onclick="moveToUser('${writer.nickname}','${user.nickname}')">${writer.nickname}</span>
+                        <span>${content}</span></p>
+                        <p class="more" onclick="moveToDetail(${el.id})">Add a comment...</p>
+                    </div>`;
+                    postContainer.appendChild(postBottom);
+                }
+                middle_body.appendChild(postContainer);
+            });
+
+        } catch (error) {
+            console.log(error);
+        };
+
+        // 소켓
+        try {
+            const {data} = await axios.get('https://andybyungjoopark.com/main/posts', {
+                withCredentials : true
+            });
+            const {user, userAll} = data;
+
+            const socket = io.connect('https://andybyungjoopark.com'); // 소켓 연결 시도
+            socket.emit("userIn", user.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                // console.log("접속 중인 유저 : ", userID);
+                // console.log("접속 중인 유저의 소켓 아이디 : ",socketID);
+            });
+
+            // 채팅 방 요청 알림창
+            socket.on("requestChat", (senderID, receiverID) => {
+                let sender = userAll.find(item => item.id == senderID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${sender.nickname}</span>님이</p>
+                    <p>대화를 요청하였습니다.</p>
+                    <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="approve(${senderID}, ${receiverID})">승인</div>
+                        <div id="rejBtn" onclick="reject(${senderID}, ${receiverID})">거절</div>
+                    </div>
+                </div>`;
+
+                live_chat_noti_wrap.style.display = "block";
+            });
+
+            // 대화 요청 거절 알림창
+            socket.on("reject", (senderID, receiverID) => {
+                let receiver = userAll.find(item => item.id == receiverID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${receiver.nickname}</span>님이</p>
+                    <p>대화를 요청을 거절하였습니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="closeNoti()">확인</div>
+                    </div>
+                </div>`;
+            });
+
+            // 대화 요청 수락시 페이지 넘어감
+            socket.on("approve", (senderID, receiverID) => {
+                location.href = `/livechat/room#${senderID}#${receiverID}`;
+            });
+
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
+    function moveToDetail(id) {
+        location.href = `https://andybyungjoopark.com/frontEnd/page/detail.html#${id}`;
+    };
+
+    function seeMore(id) {
+        let contentText = document.querySelector(`.content_text${id}`);
+        contentText.style.height = "auto";
+        contentText.style.overflow = "visible";
+    };
+</script>
+</html>

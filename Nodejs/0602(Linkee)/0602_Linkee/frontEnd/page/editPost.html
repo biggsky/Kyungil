@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/insert.css">
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div class="live_chat_noti_container">
+        <div class="live_chat_noti">
+            <p>OOO님이</p>
+            <p>대화를 요청하였습니다.</p>
+            <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+            <div class="btns">
+                <div class="appBtn">승인</div>
+                <div class="rejBtn">거절</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="middle_body">
+        <form>
+            <div class="form_top">
+                <h4>게시물 수정</h4>
+                <button id="editBtn" type="button">수정</button>
+            </div>
+            <div id="inputFile" class="inputFile">
+                <label class="fileUpload" for="fileUpload">파일 선택</label>
+                <img id="preview" onerror="style.display='none'">
+                <input name="img" type="file" id="fileUpload" style="display: none">
+            </div>
+            <textarea name="content" id="content" cols="50" rows="10" placeholder="문구 입력...&#13;&#10;태그를 사용하면 다른 사용자가 게시물을 검색할 수 있습니다.&#13;&#10;&#13;&#10;ex)&#13;&#10;안녕안녕&#13;&#10;#링키 #LINKee #룰루"></textarea>
+        </form>
+    </div>
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div></div>
+        </div>
+    </div>
+
+</body>
+<script>
+    window.onload = async () => {
+        let x = location.hash;
+        let xx = x.replace("#", "");
+        console.log(xx);
+
+        try {
+            const {data} = await axios.get(`http://127.0.0.1:8080/insert/editPost/${xx}`, {
+                withCredentials : true
+            });
+
+            console.log(data.img);
+            console.log(data.content);
+
+            preview.setAttribute("src", `http://127.0.0.1:8080/post_img/${data.img}`);
+            preview.style.display = "block";
+            content.innerText = data.content;
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        editBtn.onclick = () => {
+            if(!content.value) {
+                content.style.border = "1px solid red";
+            }else {
+                content.style.border = "1px solid black";
+                const form = new FormData();
+                form.append("img", fileUpload.files[0]);
+                form.append("content", content.value);
+        
+                axios.post(`http://127.0.0.1:8080/insert/editPost/${xx}`, form, {
+                    "Content-Type" : "multipart/form-data",
+                    withCredentials : true
+                }).then((e) => {
+                    console.log("전달 완료");
+                }).catch((err) => {
+                    console.log(err);
+                });
+        
+                content.value = "";
+                content.innerHTML = "";
+            }
+        }
+    }
+
+</script>
+<script src="../js/insert.js"></script>
+</html>

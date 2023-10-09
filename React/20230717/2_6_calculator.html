@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        #flex{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #div{
+            width: 400px;
+            height: 500px;
+            background-color: skyblue;
+        }
+        .block{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 80px;
+            background-color: yellow;
+        }
+        .block div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+        }
+        #div .block:first-child{
+            justify-content: flex-end;
+            padding-right: 30px;
+            width: 370px;
+            font-size: 40px;
+            background-color: slategray;
+        }
+        #two1{
+            width: 80%;
+            background-color: gray;
+        }
+        #two2{
+            width: 20%;
+            background-color: orange;
+            border: 1px solid black;
+        }
+        .number{
+            width: 33.3%;
+            height: 10px;
+            background-color: gray;
+            border: 1px solid black;
+            /* box-sizing: border-box; */
+        }
+        .zero{
+            width: 66.6%;
+            height: 10px;
+            background-color: gray;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="flex">
+        <div id="div">
+            <div class="block"></div>
+            <div class="block">
+                <div id="two1" onclick="btnClick('AC')">AC</div>
+                <div id="two2" onclick="btnClick('%')">%</div>
+            </div>
+            <div class="block">
+                <div id="two1">
+                    <div class="number" onclick="btnClick('7')" >7</div>
+                    <div class="number" onclick="btnClick('8')">8</div>
+                    <div class="number" onclick="btnClick('9')">9</div>
+                </div>
+                <div id="two2" onclick="btnClick('X')">X</div>
+            </div>
+            <div class="block">
+                <div id="two1">
+                    <div class="number" onclick="btnClick('4')">4</div>
+                    <div class="number" onclick="btnClick('5')">5</div>
+                    <div class="number" onclick="btnClick('6')">6</div>
+                </div>
+                <div id="two2" onclick="btnClick('-')">-</div>
+            </div>
+            <div class="block">
+                <div id="two1">
+                    <div class="number" onclick="btnClick('1')">1</div>
+                    <div class="number" onclick="btnClick('2')">2</div>
+                    <div class="number" onclick="btnClick('3')">3</div>
+                </div>
+                <div id="two2" onclick="btnClick('+')">+</div>
+            </div>
+            <div class="block">
+                <div id="two1">
+                    <div class="zero" onclick="btnClick('0')">0</div>
+                    <div class="number" onclick="btnClick('.')">.</div>
+                </div>
+                <div id="two2" onclick="btnClick('=')">=</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let truefalse = false;
+    function btnClick(num){
+        if(truefalse == true){
+            truefalse = false;
+            // document.querySelector("#div .block:first-child").innerHTML = "";
+            document.querySelector("#div .block:first-child").innerHTML = num;
+            return;
+        }
+        if(num == "AC"){
+            document.querySelector("#div .block:first-child").innerHTML = "";
+        }
+        else if(num == "="){
+            let a =[];
+            let res = "";
+            let value = document.querySelector("#div .block:first-child").textContent;
+            if(value.includes("X")){
+                a = value.split("X");
+                res = a[0] * a[1];
+            }else if(value.includes("%")){
+                a = value.split("%");
+                res = a[0] / a[1];
+            }else if(value.includes("-")){
+                a = value.split("-");
+                res = a[0] - a[1];
+            }else{
+                a = value.split("+");
+                res = Number(a[0]) + Number(a[1]);
+            }
+            truefalse = true;
+            document.querySelector("#div .block:first-child").innerHTML = res;
+        }
+        else{
+            document.querySelector("#div .block:first-child").innerHTML += num;
+        }
+    }
+</script>
+</html>

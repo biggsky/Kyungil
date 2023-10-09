@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit profile</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://andybyungjoopark.com/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/editProfile.css">
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div>프로필 편집</div>
+            <div class="editBtn"><img src="../nav_icon_img/icon_check.png" alt=""></div>
+        </div>
+    </div>
+
+    <!-- edit profile -->
+    <div class="middle_body">
+        <form>
+            <div class="profile_pic_box">
+                <div id="inputFile" class="inputFile">
+                    <img id="preview">
+                    <!-- onerror="style.display='none'" -->
+                    <label class="fileUpload" for="fileUpload">choose file</label>
+                    <input name="img" type="file" id="fileUpload" style="display: none">
+                </div>
+            </div>
+            <div class="edit_profile_section">
+                <div>
+                    <label for="">Name</label>
+                    <input class="nameInput" type="text" disabled>
+                </div>
+                <div>
+                    <label for="">ID</label>
+                    <input class="idInput" type="text" disabled>
+                </div>
+                <div>
+                    <label for="">Nickname</label>
+                    <input class="nicknameInput" type="text" name="nickname">
+                </div>
+                <div class="userInfoBox" style="height: 200px;">
+                    <label for="">Info</label>
+                    <textarea class="infoInput" name="profile_info" cols="30" rows="4" style="resize: none;" placeholder="4줄 이하로 작성해주세요"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    window.onload = async ()=>{
+        // 로그인 된 유저 프로필 가져오기
+        try {
+            const {data} = await axios.get('https://andybyungjoopark.com/main/getProfile', {
+                // 브라우저가 서버로 쿠키를 전달할 수 있는 옵션
+                withCredentials : true
+            });
+            // console.log(data);
+
+            // const profileImg = document.querySelector("#preview");
+            // profileImg.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${data.profile_img}" alt=""></a>`;
+            preview.src = `https://andybyungjoopark.com/user_img/${data.profile_img}`;
+
+            const nameInput = document.querySelector(".nameInput");
+            nameInput.placeholder = data.user_name;
+            const idInput = document.querySelector(".idInput");
+            idInput.placeholder = data.user_id;
+            const nicknameInput = document.querySelector(".nicknameInput");
+            nicknameInput.value = data.nickname;
+            const infoInput = document.querySelector(".infoInput");
+            if(data.profile_info !== null){
+                infoInput.value = data.profile_info;
+            };
+            
+
+            // profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${data.profile_img}" alt=""></a>`;
+
+        } catch (error) {
+            console.log(error);
+        };
+
+        // 소켓
+        try {
+            const {data} = await axios.get('https://andybyungjoopark.com/main/posts', {
+                withCredentials : true
+            });
+            const {user, userAll} = data;
+
+            const socket = io.connect('https://andybyungjoopark.com'); // 소켓 연결 시도
+            socket.emit("userIn", user.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                // console.log("접속 중인 유저 : ", userID);
+                // console.log("접속 중인 유저의 소켓 아이디 : ",socketID);
+            });
+
+            // 채팅 방 요청 알림창
+            socket.on("requestChat", (senderID, receiverID) => {
+                let sender = userAll.find(item => item.id == senderID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${sender.nickname}</span>님이</p>
+                    <p>대화를 요청하였습니다.</p>
+                    <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="approve(${senderID}, ${receiverID})">승인</div>
+                        <div id="rejBtn" onclick="reject(${senderID}, ${receiverID})">거절</div>
+                    </div>
+                </div>`;
+
+                live_chat_noti_wrap.style.display = "block";
+            });
+
+            // 대화 요청 거절 알림창
+            socket.on("reject", (senderID, receiverID) => {
+                let receiver = userAll.find(item => item.id == receiverID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${receiver.nickname}</span>님이</p>
+                    <p>대화를 요청을 거절하였습니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="closeNoti()">확인</div>
+                    </div>
+                </div>`;
+            });
+
+            // 대화 요청 수락시 페이지 넘어감
+            socket.on("approve", (senderID, receiverID) => {
+                location.href = `/livechat/room#${senderID}#${receiverID}`;
+            });
+
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
+    const editBtn = document.querySelector(".editBtn");
+    editBtn.onclick = async ()=>{
+        const {data} = await axios.get('https://andybyungjoopark.com/main/posts', {
+            withCredentials : true
+        });
+        const {user, userAll} = data;
+        // console.log(user);
+
+        const data2 = await axios.get("https://andybyungjoopark.com/mypage/nickname",{
+            withCredentials : true
+        });
+
+        const allUsers = data2.data;
+        const nicknames = [];
+
+        const nickname = document.querySelector(".nicknameInput");
+        const profileInfo = document.querySelector(".infoInput");
+
+        allUsers.forEach((el)=>{
+            // console.log(el.nickname);
+            nicknames.push(el.nickname);
+        });
+
+        if(nickname.value === "" && profileInfo.value === ""){
+            nickname.style.border = "1px solid red";
+        }else if(nicknames.includes(nickname.value) == true && nickname.value !== user.nickname){
+            nickname.style.border = "1px solid red";
+        }else{
+            const form = new FormData();
+            form.append("img", fileUpload.files[0]);
+            form.append("nickname",nickname.value);
+            form.append("profile_info",profileInfo.value);
+    
+            axios.post('https://andybyungjoopark.com/mypage/edit', form, {
+                "Content-Type" : "multipart/form-data",
+                withCredentials : true
+            }).then((e) => {
+                // console.log("전달 완료");
+                // console.log(e.data);
+            }).catch((err) => {
+                console.log(error);
+            });
+    
+            location.href = "https://andybyungjoopark.com/mypage";
+        }
+    };
+
+    
+</script>
+<script src="../js/insert.js"></script>
+</html>

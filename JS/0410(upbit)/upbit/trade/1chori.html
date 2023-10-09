@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading</title>
+    <link rel="stylesheet" href="./1chori.css">
+    <script>
+        window.Promise ||
+            document.write(
+                '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>',
+            );
+        window.Promise ||
+            document.write(
+                '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>',
+            );
+        window.Promise ||
+            document.write(
+                '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>',
+            );
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+
+<body>
+    <div class="header"></div>
+    <div class="pageWidth">
+        <div id="chart"></div>
+        <div class="coinInfo">
+            <div class="searchCoin">
+                <input type="text" class="findCoin" placeholder="코인명/심볼검색">
+                <button class="searchCoinBtn"><img src="../mypage/1093183.png"></button>
+            </div>
+            <div class="allCoinInfo">
+                <div class="MainTitle">
+                    <input class="won" type="radio" id="korMoney" checked>
+                    <label for="korMoney" id="won">원화</label>
+                    <input class="dollar" type="radio" id="usdollar">
+                    <label for="usdollar" id="dollar">USDT</label>
+                    <input class="have" type="radio" id="having">
+                    <label for="having" id="have">보유</label>
+                    <input class="bookmark" type="radio" id="bookmarking">
+                    <label for="bookmarking" id="bookmark">관심</label>
+                </div>
+            </div>
+            <div class="subTitle">
+                <ul>
+                    <li class="starTitle"></li>
+                    <li class="languageTitle">한글명</li>
+                    <li class="currentPriceTitle">현재가</li>
+                    <li class="ratioTitle">전초대비</li>
+                </ul>
+            </div>
+            <div class="coinSection">
+                <div class="won-tab"></div>
+                <div class="dollar-tab"></div>
+                <div class="have-tab">
+                    <p class="noCoin">현재 보유중인 코인이 없습니다.</p>
+                </div>
+                <div class="bookmark-tab">
+                    <p class="noBookmark">등록된 관심코인이 없습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <footer></footer>
+</body>
+<script>
+    window.onload = function () {
+        location.href = "1chori.html#1";
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 100);
+    };
+</script>
+<script src="../allData.js"></script>
+<script src="./util.js"></script>
+<script src="./1chori.js"></script>
+
+</html>

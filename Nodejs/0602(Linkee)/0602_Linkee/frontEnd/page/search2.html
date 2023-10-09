@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>search</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/nav.css" />
+    <link rel="stylesheet" href="../css/search.css" />
+  </head>
+  <body>
+    <!-- 실시간 알림창 -->
+    <div class="live_chat_noti_container">
+      <div class="live_chat_noti">
+        <p>OOO님이</p>
+        <p>대화를 요청하였습니다.</p>
+        <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+        <div class="btns">
+          <div class="appBtn">승인</div>
+          <div class="rejBtn">거절</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="middle_body">
+      <div class="search_container">
+        <form>
+          <div class="no_searched">NO SEARCHED :(</div>
+          <input
+            type="text"
+            id="keyword_input"
+            class="keyword_input"
+            placeholder="Search"
+          />
+          <button type="button" id="search_btn" class="search_btn"></button>
+        </form>
+      </div>
+      <div class="search_container2">
+        <div id="autocomplete_wrap" class="autocomplete_wrap">
+            <div id="autoN" class="autoN">
+            </div>
+
+            <div id="autoP">
+            </div>
+        </div>
+        <div id="allPosts" class="allPosts"></div>
+      </div>
+    </div>
+
+    <!-- noti / dm -->
+    <div class="top_nav_container">
+      <div class="top_nav">
+        <div class="logo">LINKee</div>
+          <div class="noti"><a href="./noti.html"><img src="../nav_icon_img/icon_noti.png" alt=""></a></div>
+        <div class="live_chat">
+          <img src="../nav_icon_img/icon_dm.png" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <!-- home / search / insert / mypage -->
+    <div class="bottom_nav_container">
+      <div class="bottom_nav">
+        <div class="icon">
+          <a href="./main.html"
+            ><img src="../nav_icon_img/icon_home.webp" alt=""
+          /></a>
+        </div>
+        <div class="icon">
+          <a href="./search.html"
+            ><img src="../nav_icon_img/icon_search.png" alt=""
+          /></a>
+        </div>
+        <div class="icon">
+          <a href="./insert.html"
+            ><img src="../nav_icon_img/icon_plus.png" alt=""
+          /></a>
+        </div>
+        <div id="profile_img" class="profile_img"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // 로그인 된 유저 프로필 가져오기
+    async function getProfile() {
+      try {
+        const { data } = await axios.get(
+          "http://127.0.0.1:8080/main/getProfile",
+          {
+            // 브라우저가 서버로 쿠키를 전달할 수 있는 옵션
+            withCredentials: true,
+          }
+        );
+
+        console.log(data);
+
+        if (data.profile_img == null) {
+          profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/default_profile.jpeg" alt=""></a>`;
+        } else {
+          profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${data.profile_img}" alt=""></a>`;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getProfile();
+
+    // 모든 게시글 가져오기
+    async function getAllPost() {
+      try {
+        const { data } = await axios.get("http://127.0.0.1:8080/search", {
+          withCredentials: true,
+        });
+        const { users, posts } = data;
+        posts.reverse();
+
+        posts.forEach((el) => {
+          if (el.img) {
+            allPosts.innerHTML += `<div><a href="./detail.html#${el.id}"><img src="http://127.0.0.1:8080/post_img/${el.img}" alt=""> </a></div>`;
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllPost();
+
+    // 검색 자동완성
+    async function searchThings() {
+      try {
+        const { data } = await axios.get("http://127.0.0.1:8080/search", {
+          withCredentials: true,
+        });
+        const { users, posts } = data;
+        console.log(users);
+
+        // users.nickname 담는 배열
+        let userName = [];
+        for (let i = 0; i < users.length; i++) {
+          let temp = users[i].nickname;
+          userName.push(temp);
+        }
+        console.log(userName);
+        // posts.content 담는 배열
+        let postContent = [];
+        for (let i = 0; i < posts.length; i++) {
+          let temp = posts[i].content;
+          postContent.push(temp);
+        }
+        console.log(postContent);
+        // 그 중 태그만 담는 배열
+        let postTag = [];
+        let regex = /#([\uAC00-\uD7AFa-zA-Z0-9]+)/g;
+
+        postContent.forEach((element) => {
+            if(typeof element === 'string') {
+                let match;
+                regex.lastIndex = 0;
+                while ((match = regex.exec(element)) !== null) {
+                    postTag.push(match[1]);
+                }
+            }
+        });
+        console.log(postTag);
+
+        keyword_input.addEventListener("keyup", function () {
+            autocomplete_wrap.style.display = "block";
+            allPosts.style.display = "none";
+
+            // enter 누르면 검색됨
+            if (window.event.keyCode === 13) {
+                console.log("enter 눌림");
+                window.event.preventDefault();
+                search_btn.click();
+            }
+
+            autoN.innerHTML = "";
+            autoP.innerHTML = "";
+
+            // 유저 이름 자동 완성
+            let autocompleteN = userName.filter(function (e) {
+                return e.startsWith(keyword_input.value);
+            });
+
+            autocompleteN.forEach(function (suggested) {
+                let suggestedUser = users.find(user => user.nickname === suggested);
+                let div = document.createElement("div");
+                div.innerHTML = `
+                <div class="profile_img">
+                    <img src="http://127.0.0.1:8080/user_img/${suggestedUser.profile_img}" alt=""/>
+                </div>
+                <div class="nickname">${suggested}</div>`;
+                    
+                autoN.appendChild(div);
+                    
+                // 자동완성 탭 누르면 상세페이지로 바로 이동하는 함수 만들기
+            });
+
+            // 태그 자동 완성
+            let autocompleteP = postTag.filter(function (e) {
+                return e.startsWith(keyword_input.value);
+            });
+
+            autocompleteP.forEach(function (suggested) {
+                autoP.innerHTML += `
+                <div>
+                    <p>#${suggested}</p>
+                </div>`;
+            });
+
+
+            // 인풋 창 비워지면 다시 제자리
+            if (keyword_input.value.length === 0 || autocompleteN.length === 0 && autocompleteP.length === 0) {
+                autocomplete_wrap.style.display = "none";
+                allPosts.style.display = "flex";
+            }
+        });
+
+
+        // 돋보기 버튼 클릭했을 때 or 엔터 키 눌렀을 때
+        search_btn.onclick = () => {
+            
+        }
+
+
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    searchThings();
+  </script>
+</html>

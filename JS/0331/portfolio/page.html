@@ -1,0 +1,93 @@
+<!-- https://bitkunst.co.kr/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="page.css">
+</head>
+
+<body>
+  <div class="header">
+    <a href=""></a>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li id="lia"><a href="#about">About</a></li>
+      <li id="lie"><a href="#education">Education</a></li>
+      <li id="lip"><a href="#projects">Projects</a></li>
+      <li id="lic"><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+
+  <div class="main">
+    <div class="content-01">
+      <div class="overlay"></div>
+      <div class="text-wrap">
+        <p>HELLO, MY NAME IS</p>
+        <h1>장재원 (bitKunst)</h1>
+        <div class="loader">
+          <!-- <h2>I'm a <span>Blockchain Developer</span> </h2> -->
+          <h2>I'm a Blockchain Developer </h2>
+        </div>
+      </div>
+      <div class="mouse">
+        <a href=""></a>
+        <div class="arrow"></div>
+      </div>
+    </div>
+    <div id="about"></div>
+    <div id="education"></div>
+    <div id="projects"></div>
+    <div id="contact"></div>
+
+  </div>
+</body>
+<script>
+  console.log(document.querySelector('.text-wrap h2').getBoundingClientRect().top + window.pageYOffset);
+  // .getBoundingClientRect(): 선택한 요소의 위치와 크기 정보를 가져옵니다.
+  // .top: 요소의 상단 경계선이 뷰포트 상단에서 얼마나 떨어져 있는지 값을 반환합니다.
+  // + window.pageYOffset: 현재 뷰포트에서 스크롤된 거리를 나타내는 window.pageYOffset 값을 더합니다.
+
+
+  let posY = document.querySelector('.text-wrap h2').getBoundingClientRect().top + window.pageYOffset;
+  window.onscroll = function () {
+    // 스크롤 했을때
+    // console.log('스크롤됨');
+    // console.log(window.scrollY);
+    // if(posY < window.scrollY){
+    if (200 < window.scrollY) {
+      document.querySelector('.header').classList.add("isActive");
+    } else {
+      document.querySelector('.header').classList.remove("isActive");
+    }
+
+    if (window.scrollY > 1100 && window.scrollY < 2000) {
+      document.querySelector('#lia').classList.add("isActive");
+    }
+    else {
+      document.querySelector('#lia').classList.remove("isActive");
+    }
+  }
+  /*
+
+  let _box = document.querySelectorAll("li");
+  _box.forEach((aa) => {
+    aa.onmouseenter = function () {
+      aa.style.textDecoration = "underline";
+    };
+    aa.onmouseleave = function () {
+      aa.style.textDecoration = "none";
+    }
+
+
+  });
+  */
+
+</script>
+
+</html>

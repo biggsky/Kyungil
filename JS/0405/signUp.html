@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 가입</title>
+</head>
+
+<body>
+    <label for="">이메일</label>
+    <input type="text" class="user_id">
+    <label for="">비밀번호</label>
+    <input type="text" class="user_pw">
+    <button class="sign_up">회원가입</button>
+    <p class="text"></p>
+
+</body>
+<script>
+    let signBtn = document.querySelector('.sign_up');
+
+    // 구글 - 아이디 정규식 - https://rateye.tistory.com/468
+
+    function isEmail(asValue) {
+        var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        // test메소드로 검사해서 정규식 형식이 맞으면 true 아니면 false 반환
+        return regExp.test(asValue);
+    }
+
+    function isPassword(asValue) {
+        var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+
+        return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
+    }
+
+
+    signBtn.onclick = function () {
+        // console.log("클릭");
+        let userId = document.querySelector('.user_id').value;
+        let userPw = document.querySelector('.user_pw').value;
+        // console.log("Id : " + userId + " pw : " + userPw);
+        // console.log(userId, "     ", userPw);
+        console.log("이메일 : ",isEmail(userId));
+        console.log("비밀번호 : ",isPassword(userPw));
+        if(!isEmail(userId) || !isPassword(userPw)){
+            document.querySelector('.text').innerHTML = "아이디 비밀번호 확인하세요~";
+        }else{
+            document.querySelector('.text').innerHTML = "여기는 이제 nodejs할거 서버에 값으로 요청 응답";
+        }
+    }
+</script>
+
+</html>

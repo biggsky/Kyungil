@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- React, ReactDOM 라이브러리 -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- React, ReactDOM 라이브러리 -->
+
+    <!-- Babel을 가져와서 JSX문법을 사용 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Babel을 가져와서 JSX문법을 사용 -->
+
+    <!-- 자바스크립트 코드를 변환 해주는 착한 도구 babel
+        자바스크립트를 컴파일 해준다.
+        자바스크립트 문법은 꾸준히 진화를 했는데
+        자바스크립트 문법이 진화하면, ES6 -> ES5 변환
+
+        babel을 통해서 문법을 쉽게 고칠수있다.
+        babel은 JSX구문을 브라우저에서 읽을 수 있는 자바스크립트로도 변환해준다.
+    -->
+</head>
+<body>
+    <div id="root">
+
+    </div>
+</body>
+<script type="text/babel">
+    class LoginBtn extends React.Component{
+        constructor(props){
+            console.log(props);
+            // 부모 생성자 함수 호출
+            super(props);
+            // 컴포넌트의 상태
+            this.state = {
+                isLogin : false, 
+            }
+        }
+        render(){
+            return(
+                // {} 중괄호는 EJS <% %> 자바스크립트 구문을 사용하겠다는 의미
+                <button onClick={()=>{
+                    // 현재 상태의 반대값으로 준것. !this.state.isLogin
+                    this.setState({isLogin : !this.state.isLogin});
+                }}>
+                {this.state.isLogin ? "Logout" : "Login"}
+                </button>
+            )
+        }
+    }
+    // 루트 요소를 가상 DOM으로 생성
+    // createRoot 메서드 렌더링을 위한 루트 객체를 생성
+    // 루트를 root아이디를 가진 태그로 설정
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    // JSX문으로 LoginBtn 컴포넌트를 root에 렌더링한다.
+    root.render(<LoginBtn id="2">안뇽</LoginBtn>);
+</script>
+</html>

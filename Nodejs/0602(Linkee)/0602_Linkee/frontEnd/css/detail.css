@@ -1,0 +1,161 @@
+.middle_body {
+    margin: 60px 0 90px 0;
+}
+
+.post_bottom .content p {
+    margin: 0 5px 0 0;
+    height: auto;
+}
+
+/* 게시글 상세 부분 */
+.post_container .likes {
+    cursor: pointer;
+}
+.post_container .editBtn, .post_container .delBtn {
+    height: 30px; width: 50px;
+    border: none;
+    border-radius: 2px;
+    font-weight: 500;
+    position: absolute; right: 0;
+    top: 50%; transform: translateY(-50%);
+    font-size: 14px;
+    color:rgb(0, 160, 160);
+    cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+}
+.post_container .editBtn {
+    right: 60px;
+}
+.post_container .editBtn:hover, .post_container .delBtn:hover {
+    background-color: rgb(0, 160, 160);
+    color: white;
+}
+
+
+/* 댓글 부분 */
+.reply_container {
+    width: 100%; height: auto;
+    overflow: scroll;
+    margin: 10px 0 0 0;
+}
+.reply_container .comments_wrap {
+    display: flex; flex-direction: row;
+    margin: 0 0 10px 0;
+}
+.reply_container .comments_wrap .profile_img,
+.reply_container .comments_wrap .likes_btn {
+    width: 40px; height: auto;
+    cursor: pointer;
+}
+.comments_wrap .profile_img img {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 27px; height: 27px;
+    display: flex; justify-content: center; align-items: center;
+}
+.comments_wrap .likes_btn img {
+    width: 27px; height: 27px;
+
+}
+
+/* 일단 추가해놈 - seonghyun */
+.s_comments_wrap .s_likes_btn img {
+    width: 27px; height: 27px;
+    margin-right: -51px;
+}
+.s_comments_wrap {
+    width: 40px; height: auto;
+    cursor: pointer;
+}
+
+.s_comments_wrap .s_likes_btn{
+    float: right;
+    width: 40px; height: auto;
+}
+.s_comments_wrap .s_likes_btn .s_like_btn, .s_comments_wrap .s_likes_btn .s_like_btn_count{
+    float: right;
+}
+.s_comments_wrap .s_likes_btn .s_like_btn_count{
+    margin-right: -41.5px;
+    margin-top: -11px;
+}
+.likes_btn{
+    position: relative;
+}
+.likes_btn .like_btn_count{
+    position: absolute;
+    left: 8px;
+}
+
+/* 일단 추가해놈 - seonghyun */
+
+
+/* 가운데 (닉네임/content/답글토글) */
+.comments_wrap div {
+    width: calc(100% - 60px);
+}
+.comments_wrap div .bigCommentText {
+    font-size: 14px;
+    margin: 3px 0 3px 0;
+}
+
+/* 답글토글 */
+details {
+    width: 100%; height: auto;
+}
+details summary {
+    font-size: 14px;
+    margin: 3px 0 3px 0;
+    cursor: pointer;
+}
+details .input_wrap input {
+    width: 100%; height: 24px;
+    box-sizing: border-box;
+    position: absolute;
+}
+
+
+/* bigComment input */
+.input_wrap {
+    width: 100%; height: 30px;
+    display: flex; justify-content: center;
+    position: fixed; bottom: 60px;
+    background-color: white;
+}
+.input_wrap .comment_input {
+    width: 470px; height: 30px;
+    box-sizing: border-box;
+    padding: 0 40px 0 5px;
+}
+.input_wrap .commentBtn {
+    position: fixed; left: calc(50% + 190px); 
+    width: 40px; height: 30px;
+    box-sizing: border-box;
+    color: rgb(0, 160, 160);
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* smallComment input */
+.input_wrap2 {
+    width: 100%; height: 24px;
+    display: flex; justify-content: center;
+    background-color: white;
+    position: relative;
+}
+.input_wrap2 .comment_input2 {
+    width: 100%; height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 0 40px 0 5px;
+}
+.input_wrap2 .commentBtn2 {
+    width: 40px; height: 24px;
+    box-sizing: border-box;
+    color: rgb(0, 160, 160);
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute; right: 4px;
+}

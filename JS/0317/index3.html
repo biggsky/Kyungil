@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./index3.css" /> -->
+    <style>
+      .button-div {
+        border: 1px solid black;
+        width: 100px;
+        height: 50px;
+        background-color: antiquewhite;
+        border-radius: 12px;
+        box-shadow: 10px 1px 20px black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: progress;
+      }
+      .button-div:hover {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="">이름</label>
+    <input type="text" />
+    <label for="">나이</label>
+    <input type="text" />
+    <label for="">내용</label>
+    <input type="text" />
+
+    <ul id="tables">
+      <li></li>
+    </ul>
+    <div class="button-div" onclick="divBtn()">버튼</div>
+  </body>
+
+  <script>
+    // 생성자 함수를 만들고
+    let objArr = [];
+
+    function create(name, age, content) {
+      this.name = name;
+      this.age = age;
+      this.content = content;
+    }
+
+    // 객체를 만들수 있다.
+    function divBtn() {
+      // 버튼 누르면 실행시킬 기능
+      console.log("나 눌렸어?");
+      addArr();
+      // 화면을 업데이트 하기 위해 만든 함수
+      render();
+    }
+
+    function addArr() {
+      /*
+        new 키워드로 빈객체를 만들고
+        함수에서 this로 그 객체를 참조해서
+        name 키에는 값을 매개변수로 "이름"
+        age 키에는 값을 매개변수로 10
+        content 키에는 값을 매개변수로 "나 컨텐츠"
+        매개변수로 전달해서 키값을 추가해준다 빈 객체에
+        obj 라는 변수에 만들어진 객체를 넣어준다.
+        */
+
+      // input 태그명으로 querySelectorAll 메소드 매개변수로 전달해서
+      // input 태그들을 배열로 가져와서 inputs 변수에 담아놓고.
+      let inputs = document.querySelectorAll("input");
+      console.log(inputs);
+      // input 태그는 value라는 키값이 있다.
+      // input에 입력한 값이 value키에 값으로 담긴다.
+      console.log(inputs[0].value);
+      console.log(inputs[1].value);
+      console.log(inputs[2].value);
+
+
+
+    //   let obj = new create("이름", 10, "나 컨텐츠");
+      let obj = new create(inputs[0].value, inputs[1].value , inputs[2].value);
+      objArr.push(obj); //배열안에 객체 넣었음
+      console.log("objArr : ",objArr);
+      /*
+        객체와 배열은 레퍼런스 타입이기때문에 값이 아니라
+        주소를 들고있다.
+        원시타입
+        저렇게 보이는 현상은 일반 변수는 값을 가르키는 주소
+        물어보고 찾아보고 공부 하셔야합니다.★★★★★
+        주소를 들고있는 개념...
+        주소를 console에 찍기 때문에 주소를 바라보면 마지막으로
+        변한 값을 확인 할 수 있다.
+        값을 가르키는 친구 주소
+        변수명
+        */
+    }
+    // 무언가를 그려주는 함수
+    // render이름 내맘데로 정한거
+    function render() {
+      // 렌더링 하기전에 문자열 초기화
+      let text = "";
+      // += 원래 있는 값에 추가를 시켜준다. (값을 덧붙인다)
+      // += 5
+      objArr.forEach(function (i) {
+        // console.log(i);
+        // console.log(i.name);
+        text += `<li> 이름 : ${i.name} 나이 : ${i.age} 내용 : ${i.content} </li>\n`;
+      });
+      console.log(text);
+      // 여기서 사용하고 끝낼거임 text 지역변수
+      document.querySelector("#tables").innerHTML = text;
+    }
+  </script>
+</html>

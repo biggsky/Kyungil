@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- React, ReactDOM 라이브러리 -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- React, ReactDOM 라이브러리 -->
+
+    <!-- Babel을 가져와서 JSX문법을 사용 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Babel을 가져와서 JSX문법을 사용 -->
+
+    <!-- 자바스크립트 코드를 변환 해주는 착한 도구 babel
+        자바스크립트를 컴파일 해준다.
+        자바스크립트 문법은 꾸준히 진화를 했는데
+        자바스크립트 문법이 진화하면, ES6 -> ES5 변환
+
+        babel을 통해서 문법을 쉽게 고칠수있다.
+        babel은 JSX구문을 브라우저에서 읽을 수 있는 자바스크립트로도 변환해준다.
+    -->
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script type="text/babel">
+    class Clock extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                Time : new Date().toLocaleTimeString()
+            }
+        }
+
+        // update(){
+        //     setState({})
+        //     // 아직 변경전 상태가 찍힘
+        //     console.log(this.state);
+        // }
+
+        /*
+        react 생명 주기
+        생명주기
+        화면이 그려지는 시기와 state값이 변했을때 동작해야하는 작업이 있을경우
+        이런 부분을 제어 할 수 있게 리액트에서 만들어준 lifecycle 함수이다.
+        */
+
+        componentDidMount(){
+            // 여기 내용이 컴포넌트가 생성되면 호출됨. 딱 최초에 한번
+            setInterval(()=>{
+                this.setState({Time : new Date().toLocaleTimeString()});
+            }, 1000);
+            console.log("최초에 실행됨");
+        }
+
+        componentDidUpdate(){
+            console.log("state 업데이트됨~");
+        }
+
+        render(){
+            return(
+                <>
+                    <h1>안뇽 내 컴퓨터 시간</h1>
+                    <h2>time : {this.state.Time}</h2>
+                    // {} 자바스크립트로 표현할거야.
+                </>
+            )
+        }
+    }
+    
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<Clock />);
+</script>
+</html>

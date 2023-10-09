@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table</title>
+</head>
+<body>
+    <!-- 표를 작성하는데 제일 부모 태그 -->
+    <!-- 
+        ul 태그로 예를 들어
+        <ul> li 태그를 감싸고 있는 ul태그가 li태그의 부모이다.
+            <li></li> li태그는 ul태그의 자식이다.
+     -->
+     <!-- 테이블에 border-collapse 속성을 추가하면 떨어져있던 선이 겹쳐진다. -->
+    <table style="width: 100%; border-collapse: collapse;">
+        <!-- caption 태그로 테이블의 이름을 작성해준다. -->
+        <caption>
+            테이블 이름
+        </caption>
+        <!-- column의 줄임말, 열, 세로줄 -->
+        <col style="width: 50px;">
+        <col style="width: 100px;">
+        <col style="width: 200px;">
+        <col style="width: 200px;">
+        <col style="width: 200px;">
+        <tr>
+            <!-- 테이블 제일 위의 이름 테이블 해더 -->
+            <!-- position 속성을 넣기전까진 자식태그는 부모태그를 벗어날수 없음 -->
+            <!-- border 테두리를 바꿔줄 수 있는 속성 / 첫번째 선의 굵기 / 두번째 선의 타입 /
+            테두리의 색 -->
+            <th style="border: 1px solid black;">번호</th>
+            <th style="border: 1px solid black;">이름</th>
+            <th style="border: 1px solid black;">나이</th>
+            <th style="border: 1px solid black;">성별</th>
+            <th style="border: 1px solid black;">국적</th>
+            <!-- alt + ctrl + 아래방향키 ★★★★★★-->
+        </tr>
+        <tr>
+            <th style="border: 1px solid black;">1</th>
+            <td style="border: 1px solid black;">조성현</td>
+            <td rowspan="4" style="border: 1px solid black;">29</td>
+            <td style="border: 1px solid black;">남자</td>
+            <td style="border: 1px solid black; text-align: center;">지구</td>
+        </tr>
+        <tr>
+            <th style=" border: 1px solid black;">2</th>
+            <td style=" border: 1px solid black;">조성현</td>
+            <!-- <td style=" border: 1px solid black;">29</td> -->
+            <td style=" border: 1px solid black;">남자</td>
+            <td rowspan="3" style=" border: 1px solid black; background-color: yellow;">지구</td>
+        </tr>
+        <tr>
+            <th style="border: 1px solid black;">3</th>
+            <td style="border: 1px solid black;">조성현</td>
+            <!-- <td style="border: 1px solid black;">29</td> -->
+            <td style="border: 1px solid black;">남자</td>
+            <!-- <td rowspan="2" style="border: 1px solid black;">지구</td> -->
+        </tr>
+        <tr>
+            <th style="border: 1px solid black;">4</th>
+            <td style="border: 1px solid black;">조성현</td>
+            <!-- <td style="border: 1px solid black;">29</td> -->
+            <td style="border: 1px solid black;">남자</td>
+            <!-- <td style="border: 1px solid black;"></td> -->
+        </tr>
+    </table>
+</body>
+</html>

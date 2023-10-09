@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 200px;
+            height: 200px;
+            border: 1px solid;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+        #item{
+            width: 100%;
+            height: 100%;
+            background-color: beige;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <!-- 드래그를 허용 시켜주는 어트리뷰트 속성 true false로 설정 -->
+            <div id="item" class="item" draggable="true"></div>
+        </div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</body>
+<script>
+    // null 값을 개발자가 사용하는 특수값
+    // 값을 비워놨다고 알려줌
+    let _target = null;
+
+    // ondragstart : 드래그가 시작될때
+    document.ondragstart = function(e){
+        // e.target이 item 클래스가 있는 태그였으면
+        if(e.target.classList.contains("item")){
+            console.log("e.target : ", e.target);
+            // 전역공간에 담아놓고 드래그할 태그를
+            _target = e.target;
+
+            // e.target.style 태그의 스타일 값을 추가할수있다.
+            // e.target.style 안에 적용시킬 스타일의 키값에 스타일 값을 추가해주면된다.
+            console.log(e.target);
+            // css에서 작성하던 이름과는 좀 달라요 
+            // 카멜 케이스 : 중간 글자들은 대문자로 시작하지만 첫 글자가 소문자인 경우에는 낙타와 모양이 비슷하다하여 카멜 케이스라고 한다.
+            // background-color -> backgroundColor
+            // - 하이픈 뒤 한자만 대문자로 구분 해주면 된다.
+            e.target.style.backgroundColor = "blue";
+        }
+    }
+
+    // ondragend : 드래그 끝났을때 
+    document.ondragend = function(e){
+        // 나 놔 비워줘 드래그 끝났으니까 초기화
+        _target = null;
+        // e.target이 item 클래스가 있는 태그였으면
+        if(e.target.classList.contains("item")){
+            // 처음에 입혀줬던 색으로 다시 변경
+            e.target.style.backgroundColor = "yellow";
+        }
+    }
+
+    // // // ondragenter : 드래그 하고 태그의 위에 올려졌을때
+
+    // document.ondragenter = function(e){
+    //     // e.target이 box 클래스를 가지고 있고 _target이 비어있지 않을때
+    //     // &&니까 두 조건이 둘다 true여야지 조건 실행
+    //     if(e.target.classList.contains('box') && _target !== null){
+    //         e.target.style.backgroundColor = "purple";
+    //     }
+    // }
+
+    // // // // ondrageleave : 드래그하다가 태그 위에서 빠져나갔을때
+    document.ondragleave = function(e){
+        if(e.target.classList.contains('box') && _target !== null){
+            e.target.style.backgroundColor = "transparent";
+            // 원하는 위치 태그에 내용으로 태그를 이동시켜줄수 있다.
+            e.target.append(_target);
+        }
+    }
+    // // ondragover : 드롭하고 대상이 드롭 가능한지 여부를 설정해준다.
+    // 드래그해서 비어있는칸에 갔다놓으면 + 버튼 떠!
+    document.ondragover = function(e){
+        if(e.target.classList.contains("box") && _target !== null){
+            // preventDefault : 기본 동작을 없애준다. 브라우저에서 기본적으로 동작하는 기능을 제거해준다.
+            e.preventDefault();
+            // form 태그 쓰다가 새로고침되는 현상을 본친구가있는데
+            // 새로고침되는 현상같은 기본 동작을 제거해주는 역할
+        }
+    }
+
+    // ondrop : 드래그를 하다가 마우스 버튼을 때면 드롭
+    document.ondrop = function(e){
+        if(e.target.classList.contains("box") && _target !== null){
+            e.target.style.background = "transparent";
+            e.target.append(_target);
+        }
+    }
+</script>
+</html>

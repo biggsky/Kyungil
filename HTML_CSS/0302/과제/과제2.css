@@ -1,0 +1,44 @@
+#d {
+    margin: auto;
+    display: flex;
+    width: 80%;
+    height: 160px;
+    /* background-color: blue; */
+    border-bottom: 1px solid black;
+}
+
+.e {
+    display: inline-block;
+    height: 150px;
+    /* background-color: yellow; */
+    width: 30%;
+}
+
+.e img {
+    width: 90%;
+    height: 90%;
+}
+
+.f {
+    display: inline-block;
+    height: 150px;
+    width: 70%;
+    /* background-color: beige; */
+}
+
+.f2 {
+    /* display: flex; */
+}
+.f3{
+    float: left;
+    display: inline;
+    text-align: left;
+}
+.f4{
+    float: right;
+    display: inline;
+    text-align: right;
+}
+.f p{
+    text-align: right;
+}

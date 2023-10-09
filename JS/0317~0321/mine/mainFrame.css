@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'spider';
+    src: url('./font/CombackHomeRegular-jEMd9.ttf');
+}
+
+body {
+    font-family: 'spider';
+    font-size: 30px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('./img/spidermanBackground.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.main-container {
+    border: 1px solid white;
+    width: 750px;
+    height: 800px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    overflow: hidden;
+    /* 추가해주세용 */
+}

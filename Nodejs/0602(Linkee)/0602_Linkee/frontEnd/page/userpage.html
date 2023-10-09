@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>userpage</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/mypage.css">
+</head>
+<body>
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div id="nickname"></div>
+        </div>
+    </div>
+
+    <div class="middle_body">
+        <div class="post_container">
+            <div class="post_top">
+                <div class="profile_section">
+                    <img class="mypage_profile_img" src="" alt="">
+                </div>
+                <div class="mypage_profile_text">
+                    <div class="my_post_num">
+                        <span></span> <br/> <span>posts</span>
+                    </div>
+                    <div class="my_follower_num">
+                        <span></span> <br/> <span>followers</span>
+                    </div>
+                    <div class="my_following_num">
+                        <span></span> <br/> <span>following</span>
+                    </div>
+                </div>
+                <div class="profile_content">
+                    <p class="mypage_nickname">Nickname</p>
+                    <p class="mypage_info"></p>
+                </div>
+                <div class="button_box">
+                    <form action="" id="btn_form">
+                    </form>
+                    <form action="">
+                        <button class="messageBtn">메시지</button>
+                    </form>
+                </div>
+                <!-- <div class="button_box"><a href="./editProfile.html">edit profile</a></div> -->
+                <!-- <a style="text-decoration: none; color: black;" href="/mypage/edit"><div class="button_box">edit profile</div></a> -->
+            </div>
+            <div class="mypage_search_container2">
+                <div class="allPosts">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="../js/main.js"></script>
+<script>
+    window.onload = async () => {
+        let x = location.hash;
+        let xx = x.replace("#", "");
+
+        nickname.innerHTML = xx;
+
+        try {
+            const {data} = await axios.get(`http://127.0.0.1:8080/search/user/${xx}`, {
+                withCredentials : true
+            });
+
+            const {loginUser, user, posts} = data;
+            posts.reverse();
+            console.log("로그인 유저: ", loginUser);
+            console.log("검색 된 유저: ", user);
+            console.log(posts);
+
+            // 유저 정보 들어가는 부분
+            const mypageProfileImg = document.querySelector(".mypage_profile_img");
+            mypageProfileImg.src = `http://127.0.0.1:8080/user_img/${user.profile_img}`;
+            const mypageNick = document.querySelector(".mypage_nickname");
+            mypageNick.innerHTML = user.nickname;
+            const mypageDescription = document.querySelector(".mypage_info");
+            mypageDescription.innerHTML = user.profile_info;
+
+            // 게시물 수
+            const myPostNum = document.querySelector(".my_post_num");
+            myPostNum.innerHTML = `<span>${posts.length}</span> <br/> <span>게시물</span>`;
+            
+            // 팔로워
+            let followerArr = JSON.parse(user.follower);
+            const myFollowers = document.querySelector(".my_follower_num");
+            if(followerArr == 0) {
+                myFollowers.innerHTML = `<span>0</span> <br/> <span>팔로워</span>`;
+            }else {
+                myFollowers.innerHTML = `<span>${followerArr.length}</span> <br/> <span>팔로워</span>`;
+            }
+
+            // 팔로잉
+            let followingArr = JSON.parse(user.following);
+            const myFollowings = document.querySelector(".my_following_num");
+            if(followingArr == 0) {
+                myFollowings.innerHTML = `<span>0</span> <br/> <span>팔로잉</span>`;
+            }else {
+                myFollowings.innerHTML = `<span>${followingArr.length}</span> <br/> <span>팔로잉</span>`;
+            }
+
+            // 팔로우 버튼
+            // 로그인 한 유저가 검색한 유저를 팔로우 하고 있는지 유무
+            let isfollowArr = JSON.parse(loginUser.following);
+            console.log(isfollowArr);
+            if(!isfollowArr.includes(user.id)) {
+                btn_form.innerHTML = '<button class="followBtn">팔로우</button>';
+            }else {
+                btn_form.innerHTML = '<button class="followBtnAlready">팔로잉</button>';
+            }
+
+            const allPosts = document.querySelector(".allPosts");
+            posts.forEach((el,index)=>{
+                if(el.img === ""){
+                    const post = document.createElement("div");
+                    post.classList.add("only_text");
+                    let content = el.content.replace(/(?:\r\n|\r|\n)/g, "<br>");
+                    post.innerHTML = content;
+                    allPosts.append(post);
+                }else{
+                    const post = document.createElement("div");
+                    post.innerHTML = `<img src="http://127.0.0.1:8080/post_img/${el.img}" alt="">`;
+                    allPosts.append(post);
+                };
+            });
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>
+</html>

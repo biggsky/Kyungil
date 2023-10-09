@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mypage</title>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/mypage.css">
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+
+    <!-- noti / dm -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo">LINKee</div>
+            <div class="noti"><a href="./noti.html"><img src="../nav_icon_img/icon_noti.png" alt=""></a></div>
+            <div id="red_dot"></div>
+            <div class="live_chat"><img src="../nav_icon_img/icon_dm.png" alt=""></div>
+        </div>
+    </div>
+
+    <div class="middle_body">
+        <div class="post_container">
+            <div class="post_top">
+                <div class="profile_section">
+                    <img class="mypage_profile_img" src="" alt="">
+                </div>
+                <div class="mypage_profile_text">
+                    <div class="my_post_num">
+                        
+                    </div>
+                    <div class="my_follower_num">
+                        <span></span> <br/> <span>followers</span>
+                    </div>
+                    <div class="my_following_num">
+                        <span></span> <br/> <span>following</span>
+                    </div>
+                </div>
+                <div class="profile_content">
+                    <p class="mypage_nickname">Nickname</p>
+                    <p class="mypage_info"></p>
+                </div>
+                <!-- <div class="button_box">
+                    <form action="">
+                        <button class="followBtn">Follow</button>
+                    </form>
+                    <form action="">
+                        <button class="messageBtn">Message</button>
+                    </form>
+                </div> -->
+                <!-- <div class="button_box"><a href="./editProfile.html">edit profile</a></div> -->
+                <div class="button_box">
+                    <a class="edit_profile_btn" href="./editProfile.html">프로필 수정</a>
+                </div>
+            </div>
+            <div class="mypage_search_container2">
+                <div class="allPosts">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- home / search / insert / mypage -->
+    <div class="bottom_nav_container">
+        <div class="bottom_nav">
+            <div class="icon"><a href="./main.html"><img src="../nav_icon_img/icon_home.webp" alt=""></a></div>
+            <div class="icon"><a href="./search.html"><img src="../nav_icon_img/icon_search.png" alt=""></a></div>
+            <div class="icon"><a href="./insert.html"><img src="../nav_icon_img/icon_plus.png" alt=""></a></div>
+            <div id="profile_img" class="profile_img"></div>
+        </div>
+    </div>
+
+
+</body>
+<script src="../js/notiSocket.js"></script>
+<script>
+    window.onload = async () => {
+        // 로그인 한 유저의 프로필 이미지
+        try {
+            const {data} = await axios.get('http://127.0.0.1:8080/main/getProfile', {
+                withCredentials : true
+            });
+            console.log(data);
+            // 소켓------------------------------- sh
+            // 모든 페이지에 다 들어갈 부분!!!
+            const socket = io.connect('localhost:8080'); // 소켓 연결 시도
+            socket.emit("userIn", data.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                console.log("접속 중인 유저 : ", userID);
+                console.log("접속 중인 유저의 소켓 아이디 : ", socketID);
+            });
+
+            // 소켓 받아오기
+            socket.on("detail_page_like_click_noti_send", () =>{
+                document.querySelector("#red_dot").style.display = "block";
+            });
+            // 소켓------------------------------- sh
+
+            if(data.profile_img == null) {
+                profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/default_profile.jpeg" alt=""></a>`;
+            }else {
+                profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${data.profile_img}" alt=""></a>`;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        // 로그인 한 유저의 게시글 가져오기
+        try {
+            const response = await axios.get("http://127.0.0.1:8080/mypage/mypost",{
+                withCredentials : true
+            });
+            console.log(response.data.data);
+            console.log(response.data.user);
+            
+
+            if(response.data.user.profile_img == null) {
+                // profile_img.innerHTML = `<a href="/mypage/${response.data.user.user_id}"><img src="https://andybyungjoopark.com/user_img/default_profile.jpeg" alt=""></a>`;
+                profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/default_profile.jpeg" alt=""></a>`;
+            }else {
+                // profile_img.innerHTML = `<a href="/mypage/${response.data.user.user_id}"><img src="https://andybyungjoopark.com/user_img/${response.data.user.profile_img}" alt=""></a>`;
+                profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${response.data.user.profile_img}" alt=""></a>`;
+            };
+
+            // console.log(response.data.user.user_id);
+            const myPosts = response.data.data.reverse();
+            const allPosts = document.querySelector(".allPosts");
+            myPosts.forEach((el,index)=>{
+                // console.log(el);
+                if(el.img === ""){
+                    const post = document.createElement("div");
+                    post.classList.add("only_text");
+                    post.innerHTML = el.content;
+                    console.log(post);
+                    allPosts.append(post);
+                }else{
+                    const post = document.createElement("div");
+                    // post.innerHTML = `<img src="https://andybyungjoopark.com/post_img/${el.img}" alt="">`;
+                    post.innerHTML = `<img src="http://127.0.0.1:8080/post_img/${el.img}" alt="">`;
+                    console.log(post);
+                    allPosts.append(post);
+                };
+            });
+
+            const mypageProfileImg = document.querySelector(".mypage_profile_img");
+            // mypageProfileImg.src = `https://andybyungjoopark.com/user_img/${response.data.user.profile_img}`;
+            mypageProfileImg.src = `http://127.0.0.1:8080/user_img/${response.data.user.profile_img}`;
+
+            const mypageNick = document.querySelector(".mypage_nickname");
+            mypageNick.innerHTML = response.data.user.nickname;
+
+            const mypageDescription = document.querySelector(".mypage_info");
+            mypageDescription.innerHTML = response.data.user.profile_info;
+
+            const userID = response.data.user.user_id;
+            // 게시물 수
+            const myPostNum = document.querySelector(".my_post_num");
+            myPostNum.innerHTML = `<span>${myPosts.length}</span> <br/> <span>게시물</span>`;
+            
+            // 팔로워
+            let followerArr = JSON.parse(response.data.user.follower);
+            const myFollowers = document.querySelector(".my_follower_num");
+            if(followerArr == 0) {
+                myFollowers.innerHTML = `<span>0</span> <br/> <span>팔로워</span>`;
+            }else {
+                myFollowers.innerHTML = `<span>${followerArr.length}</span> <br/> <span>팔로워</span>`;
+            }
+
+            // 팔로잉
+            let followingArr = JSON.parse(response.data.user.following);
+            const myFollowings = document.querySelector(".my_following_num");
+            if(followingArr == 0) {
+                myFollowings.innerHTML = `<span>0</span> <br/> <span>팔로잉</span>`;
+            }else {
+                myFollowings.innerHTML = `<span>${followingArr.length}</span> <br/> <span>팔로잉</span>`;
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        // 소켓
+        try {
+            const {data} = await axios.get('http://127.0.0.1:8080/main', {
+                withCredentials : true
+            });
+            const {user, userAll} = data;
+
+            const socket = io.connect('localhost:8080'); // 소켓 연결 시도
+            socket.emit("userIn", user.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                console.log("접속 중인 유저 : ", userID);
+            });
+
+            // 채팅 방 요청 알림창
+            socket.on("requestChat", (senderID, receiverID) => {
+                let sender = userAll.find(item => item.id == senderID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${sender.nickname}</span>님이</p>
+                    <p>대화를 요청하였습니다.</p>
+                    <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="approve(${senderID}, ${receiverID})">승인</div>
+                        <div id="rejBtn" onclick="reject(${senderID}, ${receiverID})">거절</div>
+                    </div>
+                </div>`;
+
+                live_chat_noti_wrap.style.display = "block";
+            });
+
+            // 대화 요청 거절 알림창
+            socket.on("reject", (senderID, receiverID) => {
+                let receiver = userAll.find(item => item.id == receiverID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${receiver.nickname}</span>님이</p>
+                    <p>대화를 요청을 거절하였습니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="closeNoti()">확인</div>
+                    </div>
+                </div>`;
+            });
+
+            // 대화 요청 수락시 페이지 넘어감
+            socket.on("approve", (senderID, receiverID) => {
+                location.href = `./livechatRoom.html#${senderID}#${receiverID}`;
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>
+</html>

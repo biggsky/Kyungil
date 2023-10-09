@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spiderman</title>
+    <link rel="stylesheet" href="./mainFrame.css" />
+    <link rel="stylesheet" href="./shop.css">
+    <link rel="stylesheet" href="./inventory.css">
+  </head>
+  <body>
+    <audio src="./resource/sound/shootToThrill.mp3" autoplay loop controls id="myAudio"></audio>
+    <!-- 게임의 모든일들이 일어나면 게임 프레임입니다! 여길 벗어나셔서 코딩을 하시면 안됩니다!ㅎㅎ -->
+    <div class="main-container">
+      <div class="zerohoney-combat-background-image"></div>
+      <div class="zerohoney-ingame-contianer">
+        <!-- 체력바 -->
+        <div class="zerohoney-hpbar-container">
+          <div class="zerohoney-hpbar">
+            <!-- 체력바의 채워진 상태 -->
+            <div
+              class="zerohoney-in-hpbar-left"
+              id="zerohoney-in-hpbar-left-id"
+            ></div>
+          </div>
+          <div class="zerohoney-hpbar">
+            <div
+              class="zerohoney-in-hpbar-right"
+              id="zerohoney-in-hpbar-right-id"
+            ></div>
+          </div>
+        </div>
+        <!-- 공격,스킬 선택 -->
+        <div class="zerohoney-select-container">
+          <div class="zerohoney-attack" id="zerohoney-attack-id">attack</div>
+          <div class="dmg-log-container">
+            <div class="dmg-log-villan"></div>
+            <div class="dmg-log-hero"></div>
+          </div>
+          <div class="zerohoney-skill" id="zerohoney-skill-id">skill</div>
+        </div>
+        <!--메인 전투 스테이지 -->
+        <div class="zerohoney-main-stage">
+          <div class="zerohoney-main-stage-first-row">
+            <div id="zerohoney-main-stage-first-row-first">
+              <img
+                class="zerohoney-hero-image"
+                id="zerohoney-hero-image-id"
+                src="./resource/image/spiderman_normal.png"
+                alt=""
+              />
+            </div>
+            <div id="zerohoney-main-stage-first-row-second"></div>
+            <div id="zerohoney-main-stage-first-row-third"></div>
+            <div id="zerohoney-main-stage-first-row-forth"></div>
+          </div>
+          <div class="zerohoney-main-stage-second-row">
+            <div id="zerohoney-main-stage-second-row-first"></div>
+            <div id="zerohoney-main-stage-second-row-second"></div>
+            <div id="zerohoney-main-stage-second-row-third"></div>
+            <div id="zerohoney-main-stage-second-row-forth"></div>
+          </div>
+          <div class="zerohoney-main-stage-third-row">
+            <div id="zerohoney-main-stage-third-row-first"></div>
+            <div id="zerohoney-main-stage-third-row-second"></div>
+            <div id="zerohoney-main-stage-third-row-third"></div>
+            <div id="zerohoney-main-stage-third-row-forth"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup_background">
+      <div class="wanna_buy">
+        You wanna buy?
+        <div class="answer">
+          <div class="yes" onclick="onclickYes();">Yep</div>
+          <div class="no" onclick="buy();">Nope</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container2">
+      <!-- 상점 상단 바 -->
+      <div class="shop_bar">
+        <div class="back_to_main" id="back-to-game">
+          <img src="red-arrow-2718071_1920.png" />
+        </div>
+        <div class="game_money"><img src="./etherium.png" /> 100</div>
+        <!--함수 적용할 것-->
+        <div class="go_inventory">Inventory</div>
+      </div>
+      <div class="tab">
+        <input
+          class="weapon_tab"
+          type="radio"
+          id="weapon"
+          name="tabmenu"
+          checked
+        />
+        <label class="weapon_btn" for="weapon">Weapon</label>
+        <input class="armor_tab" type="radio" id="armor" name="tabmenu" />
+        <label class="armor_btn" for="armor">Armor</label>
+        <input class="life_tab" type="radio" id="life" name="tabmenu" />
+        <label class="life_btn" for="life">Life</label>
+        <!-- 상점 아이템 리스트 -->
+        <div class="box weapon_item">
+          <div class="shop_item">
+            <ul class="weapon_normal">
+              <li class="item_name">Normal</li>
+              <li class="item_img"><img src="./mjolnir.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="weapon_norm" onclick="buy();">
+                <img src="./etherium.png" />600
+              </li>
+            </ul>
+            <ul class="weapon_rare">
+              <li class="item_name">Rare</li>
+              <li class="item_img"><img src="./img/mjolnir2.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="weapon_rar" onclick="buy();">
+                <img src="./etherium.png" />500
+              </li>
+            </ul>
+            <ul class="weapon_legend">
+              <li class="item_name">Legend</li>
+              <li class="item_img"><img src="./img/mjolnir3.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="weapon_lege" onclick="buy();">
+                <img src="./etherium.png" />200
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="box armor_item">
+          <div class="shop_item">
+            <ul class="armor_normal">
+              <li class="item_name">Normal</li>
+              <li class="item_img"><img src="./img/shield1.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="armor_norm" onclick="buy();">
+                <img src="./etherium.png" />777
+              </li>
+            </ul>
+            <ul class="armor_rare">
+              <li class="item_name">Rare</li>
+              <li class="item_img"><img src="./img/shield2.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="armor_rar" onclick="buy();">
+                <img src="./etherium.png" />666
+              </li>
+            </ul>
+            <ul class="armor_legend">
+              <li class="item_name">Legend</li>
+              <li class="item_img"><img src="./img/shield3.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="armor_lege" onclick="buy();">
+                <img src="./etherium.png" />555
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="box life_item">
+          <div class="shop_item">
+            <ul class="life_normal">
+              <li class="item_name">Normal</li>
+              <li class="item_img"><img src="./img/sapphire1.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="life_norm" onclick="buy();">
+                <img src="./etherium.png" />444
+              </li>
+            </ul>
+            <ul class="life_rare">
+              <li class="item_name">Rare</li>
+              <li class="item_img"><img src="./img/sapphire2.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="life_rar" onclick="buy();">
+                <img src="./etherium.png" />321
+              </li>
+            </ul>
+            <ul class="life_legend">
+              <li class="item_name">Legend</li>
+              <li class="item_img"><img src="./img/sapphire3.png" /></li>
+              <li class="item_info"></li>
+              <li class="item_price" id="life_lege" onclick="buy();">
+                <img src="./etherium.png" />123
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-container3">
+      <div class="tab_content">
+      <input type="radio" name="tab-meun" id="tab01">
+      <label for="tab01">INVENTORY</label>
+      <div class="conbox con1">
+      <div class="display">
+          <div class="display2">
+              <div class="sub-content">ATK</div>
+              <div class="font" id='atkresult'>0</div>
+              <div class="sub-content">DEF</div>
+              <div class="font" id='defresult'>0</div>
+              <div class="sub-content">HP</div>
+              <div class="font" id='hpfresult'>0</div>
+              <div class="sub-content" id='close'>닫기</div>
+              <div class="equip-item">
+                <div class="equip-item-1" id="equip-1">
+                  
+                </div>
+                <div class="equip-item-2" id="equip-2"></div>
+              </div>
+          </div>
+          <div>
+          <div class="item atk-item" id="weapon_norm"><input id="atkInput1" type='image' src="./blockStudio_csh/img/gauntlet1.png" 
+              onclick='atkcount1("plus")'value='+'/></div>
+          <div class="item atk-item" id="weapon_rar"><input id="atkInput2" type='image' src="./blockStudio_csh/img/gauntlet2.png" 
+              onclick='atkcount2("plus")'value='+'/></div>
+          <div class="item atk-item" id="weapon_lege"><input id="atkInput3" type='image' src="./blockStudio_csh/img/gauntlet3.png" 
+              onclick='atkcount3("plus")'value='+'/></div>
+          <div class="item atk-item" id=""><input id="atkInput4" type='image' src="./blockStudio_csh/img/gauntlet4.png" 
+              onclick='atkcount4("plus")'value='+'/></div>
+         </div>
+         <div>
+          <div class="item def-item" id="armor_norm">
+              <input id="defInput1" type='image' src="./blockStudio_csh/img/shield1.png" 
+              onclick='defcount1("plus")'value='+'/>
+          </div>
+          <div class="item def-item" id="armor_rar">
+              <input id="defInput2" type='image' src="./blockStudio_csh/img/shield2.png" 
+              onclick='defcount2("plus")'value='+'/>
+          </div>
+          <div class="item def-item" id="armor_lege">
+              <input id="defInput3" type='image' src="./blockStudio_csh/img/shield3.png" 
+              onclick='defcount3("plus")'value='+'/>
+          </div>
+          <div class="item def-item" id="">
+              <input id="defInput4" type='image' src="./blockStudio_csh/img/shield4.png" 
+              onclick='defcount4("plus")'value='+'/>
+          </div>
+         </div>
+         <div>
+          <div class="item hp-item" id="life_norm">
+               <input id="hpInput1" type='image' src="./blockStudio_csh/img/sapphire1.png" 
+              onclick='hpcount1("plus")'value='+'/>
+          </div>
+          <div class="item hp-item" id="life_rar">
+              <input id="hpInput2" type='image' src="./blockStudio_csh/img/sapphire2.png" 
+              onclick='hpcount2("plus")'value='+'/>
+          </div>
+          <div class="item hp-item" id="life_lege">
+              <input id="hpInput3" type='image' src="./blockStudio_csh/img/sapphire3.png" 
+              onclick='hpcount3("plus")'value='+'/>
+          </div>
+          <div class="item hp-item" id="">
+              <input id="hpInput4" type='image' src="./blockStudio_csh/img/sapphire4.png" 
+              onclick='hpcount4("plus")'value='+'/>
+          </div>
+         </div>
+         <div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+         </div>
+       </div>
+
+      </div>
+  </div>
+</div>
+  </body>
+  <script src="./character.js"></script>
+  <script src="./gameUtil.js"></script>
+  <script src="./mainFrame.js"></script>
+</html>

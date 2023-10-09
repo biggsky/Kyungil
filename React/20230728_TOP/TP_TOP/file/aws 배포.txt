@@ -1,0 +1,82 @@
+위도랑 경도 치면 해당하는 위치의 맵을 찍어주는 api.
+
+react-infinity-query
+예를 들어, 무한 스크롤을 구현하고 싶을 때, react-infinity-query를 사용하면 스크롤이 일어날 때마다 추가 데이터를 가져오는 로직을 간단하게 설정할 수 있습니다.
+------------------------
+back / models / index.js 
+1. 처음에 실행할때 주석했다가 다시 주석해제하고 실행하기
+
+배포 or 로컬에서 실행할때
+util.js 수정
+back/routers/ path.join 수정
+
+back / .env-------------------------------------
+DB_USERNAME=
+DB_PASSWORD=
+DB_NAME=top
+# 스키마 이름 (Create Schema)
+DB_HOST=127.0.0.1
+SESSION_KEY=MYSESSIONKEY
+ACCESS_TOKEN_KEY = MYACCESSTOKEN
+
+OPENAI_API_KEY=
+ACCESSTOKENKEY = accesstokenkey
+-------------------------------------------------
+front / .env ------------------------------------
+REACT_APP_GOOGLEMAP_API_KEY = 
+REACT_APP_PIXABAY_API_KEY=38824069-11d3570024b340a21ed9f1f29
+-------------------------------
+
+origin: ["http://localhost:3000"]
+
+배포할때 권한허용 해주는 코드
+sudo chown ‘사용자 이름’:’사용자 그룹 ’
+
+whoami
+
+sudo chown ubuntu:ubuntu /home/ubuntu/test/front
+ls -l /home/ubuntu/test
+
+sudo chown -R ubuntu:ubuntu /home/ubuntu/test/front
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+const planImgPath = "/imgs/userplanimg";
+const profileImgPath = "/imgs/profiles";
+
+
+
+
+http://localhost:3000/boardedit/2
+
+BoardDetailPc.jsx
+
+const boardEditClick = () => {
+    navigate(`/boardedit/${id}`);
+};
+
+
+------------------
+
+
+back - app.js
+
+app.use(
+  cors({
+    origin: ["http://hyunss.com"],
+    // origin: ["http://localhost"],
+    // origin: ["*"],
+    credentials: true,
+  })
+);
+
+const server = app.listen(8000, () => {
+  console.log("server on");
+});
+
+
+front - SignupMidPc.js
+
+const duplicateIdResult = await axios.post("http://hyunss.com:8000/user/duplicateId", {

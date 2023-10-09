@@ -1,0 +1,153 @@
+   /* 연수 */
+   .main{
+    width: 100%;
+}
+.header{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    background-color:rgb(244, 245, 248);
+    position: fixed;
+    z-index: 2;
+    top :0
+
+}
+.header ul{
+    display: flex;
+    list-style: none;
+    width: 700px;
+    
+}
+
+
+.footer{
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(255, 255, 255);
+  width: auto;
+  height: 300px;
+  margin-top: 20px;
+}
+.footer-text p{
+  color: #797979;
+}
+.sns-icon a{
+  display: inline-flex;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(187, 187, 187);
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+  /* 연수 */
+
+  #c_admin {
+    width: 100%;
+    height: 1000px;
+    /* background-color: violet; */
+    position: relative;
+  }
+  #c_center {
+    position: absolute;
+    width: 860px;
+    height: 1000px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* background-color: beige; */
+  }
+  #c_center1 {
+    width: 100%;
+    height: 100px;
+    /* background-color: skyblue; */
+  }
+  #c_center2 {
+    width: 100%;
+    height: 700px;
+    /* background-color: rgb(219, 255, 120); */
+  }
+  #c_page {
+    text-align: center;
+    width: 100%;
+    height: 200px;
+    /* background-color: skyblue; */
+  }
+
+  #c_center1t,
+  #c_center2t {
+    font-weight: bold;
+  }
+
+  #c_listh {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    height: 100px;
+    /* background-color: skyblue; */
+    border: 1px solid lightgray;
+  }
+  #c_listh1,
+  #c_listh2,
+  #c_listh3,
+  #c_listh4 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 33%;
+    height: 100px;
+  }
+  #c_l0,
+  #c_l1 {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(255, 255, 195);
+    border: 1px solid lightblue;
+  }
+  #c_list0,
+  #c_list1,
+  #c_list2,
+  #c_list3,
+  #c_list4 {
+    display: flex;
+  }
+  .c_left,
+  .c_lrcenter,
+  .c_right {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 34%;
+    height: 110px;
+    border: 1px solid lightgray;
+  }
+  .c_right button {
+    height: 30px;
+  }
+  #c_page {
+    display: inline-block;
+    position: relative;
+  }
+  #c_pagein {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #c_page a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin: 0 4px;
+  }
+  #c_page a.active {
+    background-color: rgb(252, 124, 254);
+    color: white;
+  }
+  #c_page a:hover:not(.active) {
+    background-color: lightgray;
+  }

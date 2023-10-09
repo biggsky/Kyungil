@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 시간을 나타내게 해보자
+    // 로컬 시간을 나타내게
+    const Clock = () => {
+        const div = document.createElement("div");
+        const h1 = document.createElement("h1");
+        const h2 = document.createElement("h2");
+
+        const txt = "시간임";
+        let time = `time : ${new Date().toLocaleTimeString()}`;
+        h1.innerHTML = txt;
+        h2.innerHTML = time;
+
+        div.append(h1, h2);
+        // console.log("div:::", div.innerHTML);
+        document.querySelector("#root").innerHTML = div.innerHTML;
+        // div.innerHTML : div 요소의 내용
+        // ex) <h1>시간임</h1><h2>time : 오후 3:37:01</h2>
+    }
+    setInterval(Clock, 1000);
+</script>
+</html>

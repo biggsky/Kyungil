@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function solution(num){
+        let num2 = num.split(" ");
+        let num3 = num2.sort((a,b)=>(b-a));
+        console.log(num3);
+        let count = 0;
+        let finalCount =0;
+        for(let i=1; i<num3.length; i++){
+            if(count == 3){
+                console.log(finalCount);
+                return;
+            }
+            if(num3[i-1] != num3[i]){
+                count++;
+                finalCount++;
+            }else{
+                finalCount++;
+            }
+        }
+    }
+    solution("97 86 75 66 55 97 85 97 97 95");
+</script>
+</html>

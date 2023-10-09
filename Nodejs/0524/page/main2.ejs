@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>버디버디</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div>버디버디</div>
+    <div>모두의 채팅</div>
+    <input type="text" id="userName">
+    <input type="text" id="message">
+    <button id="btn">메시지 보내기</button>
+    <ul id="content"></ul>
+</body>
+<script>
+    window.onload = () =>{
+        // 클라이언트 소켓 연결 시도.
+        const socket = io.connect();
+        socket.on("message", (data)=>{
+            // 누군가 채팅을 보냈다는 얘기
+            // content에 채팅 태그를 만들어서 넣어주자
+            let el = `
+            <li>
+                <h3>${data.name}</h3>
+                <p>${data.message}</p>
+                <p>${data.date}</p>
+            </li>
+            `;
+            content.innerHTML += el;
+        });
+        btn.onclick = () =>{
+            socket.emit("message", {
+                name : userName.value,
+                message : message.value,
+                date : new Date().toString(),
+            });
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: lightgray;
+        }
+        #div *{
+            background-color: white;
+        }
+        #div{
+            background-color: white;
+            width: 400px;
+            height: 400px;
+            box-shadow: 0px 0px 2px 2px gray;
+        }
+        #div1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            font-size: 50px;
+        }
+        #div2, #div3, #div4 {
+            text-align: center;
+        }
+        input{
+            width: 80%;
+            height: 30px;
+            border: 1px solid lightgray;
+        }
+        #div4 button{
+            width: 83%;
+            height: 30px;
+            background-color: limegreen;
+            color: white;
+            border: 0px;
+            border-radius: 5px;
+        }
+        #div2 b{
+            background-color: yellow;
+        }
+        p{
+            margin-left: 40px;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="div">
+        <div id="div1">
+            <b>Login</b>
+        </div>
+        <p>너의이름</p>
+        <div id="div2">
+            <input type="text" placeholder="요기에 입력">
+        </div>
+        <p>비밀번호</p>
+        <div id="div3">
+            <input type="text" placeholder="요기에 입력">
+        </div>
+        <br>
+        <div id="div4">
+            <button>로그인 버튼</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>livechat</title>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/livechat.css">
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+
+    <!-- 게시글 보여지는 부분 -->
+    <div id="middle_body" class="middle_body">
+        <!-- <div id="admin">
+            <div class="user_wrap">
+                <div class="profile_img"><img src="http://127.0.0.1:8080/user_img/default_profile.jpeg" alt=""></div>
+                <div class="nickname">LINKee 관리자</div>
+                <div class="inquiry_btn">문의 요청하기</div>
+            </div>
+        </div> -->
+        <div id="loginUser"></div>
+        <div id="logoutUser"></div>
+    </div>
+
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div>라이브 채팅</div>
+        </div>
+    </div>
+</body>
+<script src="../js/notiSocket.js"></script>
+<script>
+    window.onload = async () => {
+        try {
+            const {data} = await axios.get('http://127.0.0.1:8080/chat/getFriends', {
+                withCredentials : true
+            });
+            const {user, userAll} = data;
+
+            // 로그인 한 유저와 맞팔인 유저 찾기
+            let friendArr = [];
+            let following = JSON.parse(user.following);
+            let follower = JSON.parse(user.follower);
+
+            for (let i = 0; i < following.length; i++) {
+                for (let j = 0; j < follower.length; j++) {
+                    if(following[i] == follower[j]) {
+                        friendArr.push(following[i]);
+                    } 
+                }
+            }
+            console.log("맞팔 : ", friendArr);
+
+
+            ////////////////////////////////////////////
+            const socket = io.connect('localhost:8080');
+            socket.emit("userIn", user.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                console.log("접속 중인 유저 : ", userID);
+                if(friendArr.length == 0) {
+                    middle_body.innerHTML = '<div class="no_noti">현재 대화 가능한 상대가 없습니다.<br></div>';
+                }else {
+                    loginUser.innerHTML = "";
+                    logoutUser.innerHTML = "";
+                    friendArr.forEach((el) => {
+                        let friend = userAll.find(item => item.id == el);
+
+                        if(userID.includes(el)) {
+                            console.log(el);
+                            if(user.id!=el) { // 로그인 한 본인 제외
+                                console.log("접속 중인 친구: ", el);
+                                loginUser.innerHTML += `
+                                <div class="user_wrap">
+                                    <div class="profile_img"><img src="http://127.0.0.1:8080/user_img/${friend.profile_img}" alt=""></div>
+                                    <div class="nickname">${friend.nickname}</div>
+                                    <div class="chat_btn" onclick="requestChat(${user.id}, ${friend.id})">대화 요청하기</div>
+                                </div>`;
+                            }
+
+                        }else {
+                            console.log("로그아웃 된 친구: ", el);
+                            logoutUser.innerHTML += `
+                            <div class="user_wrap">
+                                <div class="profile_img_x"><img src="http://127.0.0.1:8080/user_img/${friend.profile_img}" alt=""></div>
+                                <div class="nickname_x">${friend.nickname}</div>
+                                <div class="chat_btn_x">대화 요청하기</div>
+                            </div>`;
+                        }
+                    });
+                }
+            })
+
+            // 채팅 방 요청 알림창
+            socket.on("requestChat", (senderID, receiverID) => {
+                let sender = userAll.find(item => item.id == senderID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${sender.nickname}</span>님이</p>
+                    <p>대화를 요청하였습니다.</p>
+                    <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="approve(${senderID}, ${receiverID})">승인</div>
+                        <div id="rejBtn" onclick="reject(${senderID}, ${receiverID})">거절</div>
+                    </div>
+                </div>`;
+
+                live_chat_noti_wrap.style.display = "block";
+            });
+
+            // 대화 요청 거절 알림창
+            socket.on("reject", (senderID, receiverID) => {
+                let receiver = userAll.find(item => item.id == receiverID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${receiver.nickname}</span>님이</p>
+                    <p>대화를 요청을 거절하였습니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="closeNoti()">확인</div>
+                    </div>
+                </div>`;
+
+                live_chat_noti_wrap.style.display = "block";
+            });
+
+            // 대화 요청 수락시 페이지 넘어감
+            socket.on("approve", (senderID, receiverID) => {
+                location.href = `./livechatRoom.html#${senderID}#${receiverID}`;
+            });
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+</script>
+</html>

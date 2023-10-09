@@ -1,0 +1,158 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.main{
+  width: 100%;
+}
+.header{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  background-color:rgb(244, 245, 248);
+  position: fixed;
+  z-index: 2;
+  top :0
+
+}
+.header ul{
+  display: flex;
+  list-style: none;
+  width: 1100px;
+  
+}
+.header li{
+ margin: 15px;
+ font-size: 15px;
+ color: rgb(0, 0, 0);
+}
+.header li:hover{
+  font-weight: 600;
+}
+.sub-header{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.sub-header a{
+  width: 90px;
+}
+.sub-header a:hover{
+  font-weight: 600;
+}
+.sub-banner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  background-color: rgb(73, 85, 121);
+  color: rgba(255, 255, 255, 0.59);
+  font-size: 30px;
+}
+.con-img{
+position: relative;
+}
+.con-img-box{
+  position: absolute;
+  right: 10%;
+  width: 300px;
+  background-color: white;
+  border: #797979 1px solid;
+  display: none;
+}
+.con:hover .con-img-box{
+  width: 300px;
+  height: 150px;
+  background-color: white;
+  display: block;
+ 
+}
+.sign-up-container {
+  width: 600px;
+  height: 700px;
+  border: 3px solid gray;
+  margin: auto;
+  position: relative;
+  margin-top: 100px;
+}
+
+.sign-up-container img {
+  width: 200px;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%);
+}
+.sign-up-input-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+}
+.sign-up-input-container label {
+  margin: 20px;
+}
+.sign-up-input-container input {
+  width: 258px;
+  height: 36px;
+  background-color: #fafafa;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(128, 128, 128, 0.5);
+  padding-left: 5px;
+  outline: none;
+}
+.sign-up-container .sign-up-button {
+  width: 270px;
+  height: 36px;
+  background-color: #77a7ff;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translate(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.validateEmail,
+.validatePassword,
+.validatePasswordAgain {
+  position: absolute;
+}
+
+.validateEmail  {
+  color: red;
+
+  top: 24%;
+}
+.validatePassword {
+  color: red;
+
+  top: 45%;
+}
+.validatePasswordAgain{
+  color:red;
+  bottom: 11%;
+}
+.duplicate-btn {
+  width: 65px;
+  height: 40px;
+  /* border: 1px solid; */
+  position: absolute;
+  top: 12.5%;
+  right: 0;
+  background: #77a7ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

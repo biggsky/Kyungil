@@ -1,0 +1,16 @@
+테마 설정 json
+
+
+질문
+let abc = {
+        gugu: function(aa){
+            let c= aa.length;
+            switch (c) {
+                case 1:
+                    aa(1);
+                    break;
+            }
+        }
+    }
+1. abc가 객체 / gugu는 메소드(객체 안에 있는 함수)이면서 키값
+aa는 콜백함수, 매개변수

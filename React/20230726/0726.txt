@@ -1,0 +1,9 @@
+react swiper
+
+db  안하고 프론트만 만들기
+
+컴포넌트를 어떻게 쪼개는지를 볼려고 하는것.
+
+설치 모듈
+npm i styled-components 
+npm i swiper

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shop</title>
+    <link rel="stylesheet" href="./shop.css">
+</head>
+<body>
+    <!-- 아이템 구매 클릭 시 발생하는 이벤트 -->
+    <div class="popup_background">
+        <div class="wanna_buy"> You wanna buy?
+            <div class="answer">
+                <div class="yes" onclick="onclickYes();">Yep</div>
+                <div class="no" onclick="buy();">Nope</div>
+            </div>
+        </div>
+    </div>
+        <div class="main-container">
+            <!-- 상점 상단 바 -->
+            <div class="shop_bar">
+                <div class="back_to_main" id="back-to-game"><img src="red-arrow-2718071_1920.png"></div>
+                <div class="game_money"><img src="./etherium.png"> 100</div> <!--함수 적용할 것-->
+                <div class="go_inventory">Inventory</div>
+            </div>
+            <div class="tab">
+                <input class="weapon_tab" type="radio" id="weapon" name="tabmenu" checked>
+                <label class="weapon_btn" for="weapon">Weapon</label>
+                <input class="armor_tab" type="radio" id="armor" name="tabmenu">
+                <label class="armor_btn" for="armor">Armor</label>
+                <input class="life_tab" type="radio" id="life" name="tabmenu">
+                <label class="life_btn" for="life">Life</label>
+                <!-- 상점 아이템 리스트 -->
+                <div class="box weapon_item">
+                    <div class="shop_item">
+                        <ul class="weapon_normal">   
+                            <li class="item_name">Normal</li>
+                            <li class="item_img"><img src="./mjolnir.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="weapon_norm" onclick="buy();"><img src="./etherium.png">600</li>
+                        </ul>
+                        <ul class="weapon_rare">  
+                            <li class="item_name">Rare</li>
+                            <li class="item_img"><img src="./img/mjolnir2.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="weapon_rar" onclick="buy();"><img src="./etherium.png">500</li>
+                        </ul>
+                        <ul class="weapon_legend">   
+                            <li class="item_name">Legend</li>
+                            <li class="item_img"><img src="./img/mjolnir3.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="weapon_lege" onclick="buy();"><img src="./etherium.png">200</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box armor_item">
+                    <div class="shop_item">
+                        <ul class="armor_normal">   
+                            <li class="item_name">Normal</li>
+                            <li class="item_img"><img src="./img/shield1.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="armor_norm" onclick="buy();"><img src="./etherium.png">777</li>
+                        </ul>
+                        <ul class="armor_rare">  
+                            <li class="item_name">Rare</li>
+                            <li class="item_img"><img src="./img/shield2.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="armor_rar" onclick="buy();"><img src="./etherium.png">666</li>
+                        </ul>
+                        <ul class="armor_legend">   
+                            <li class="item_name">Legend</li>
+                            <li class="item_img"><img src="./img/shield3.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="armor_lege" onclick="buy();"><img src="./etherium.png">555</li>
+                        </ul>
+                    </div>
+                </div> 
+                 <div class="box life_item">
+                    <div class="shop_item">
+                        <ul class="life_normal">   
+                            <li class="item_name">Normal</li>
+                            <li class="item_img"><img src="./img/sapphire1.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="life_norm" onclick="buy();"><img src="./etherium.png">444</li>
+                        </ul>
+                        <ul class="life_rare">  
+                            <li class="item_name">Rare</li>
+                            <li class="item_img"><img src="./img/sapphire2.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="life_rar" onclick="buy();"><img src="./etherium.png">321</li>
+                        </ul>
+                        <ul class="life_legend">   
+                            <li class="item_name">Legend</li>
+                            <li class="item_img"><img src="./img/sapphire3.png"></li>
+                            <li class="item_info"></li>
+                            <li class="item_price" id="life_lege" onclick="buy();"><img src="./etherium.png">123</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    
+</body>
+<script src="./shop.js"></script>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./signUp.css" />
+  </head>
+  <body>
+    <div class="header">
+      <ul>
+        <a href="../main/main.html"
+          ><img
+            width="80px"
+            style="transform: translateY(-15px)"
+            src="../main/img/그림03-removebg-preview (1).png"
+            alt=""
+        /></a>
+        <a href="#deal" style="text-decoration: none; color: black">
+          <li>거래소</li>
+        </a>
+        <a href="#withdraw" style="text-decoration: none; color: black">
+          <li>입출금</li>
+        </a>
+      </ul>
+      <div class="sub-header">
+        <div class="con">
+          <img
+            class="con-img"
+            style="margin-right: 30px"
+            src="../main/img/스크린샷 2023-04-10 172027.png"
+            alt=""
+          />
+          <div class="con-img-box">
+            <div style="color: #797979; font-size: 15px">
+              블록스토리 앱 다운로드
+            </div>
+            <div style="display: flex">
+              <img
+                width="80px"
+                style="margin: 15px"
+                src="../main/img/qrcode_55799122_02ddb728b5daa8f62c53f3ca78e1f7fe.png"
+                alt=""
+              />
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  margin-left: 20pxx;
+                "
+              >
+                <a href="https://play.google.com/store/apps"
+                  ><img
+                    width="150px"
+                    height="50px"
+                    src="../main/img/스크린샷 2023-04-11 134121.png"
+                    alt=""
+                /></a>
+                <a href="https://www.apple.com/kr/app-store/"
+                  ><img
+                    width="150px"
+                    height="50px"
+                    src="../main/img/스크린샷 2023-04-11 134146.png"
+                    alt=""
+                /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sign-up-container">
+      <img src="../masterpiece.jpeg" alt="" />
+      <div class="sign-up-input-container">
+        <label for="email"></label>
+        <input type="text" id="email" placeholder="이메일을 입력해 주세요" />
+        <div id="myModal1" class="validateEmail">
+          <p style="display: none">이메일 형식으로 작성해 주세요</p>
+          <p style="display: none">이미 존재하는 이메일 입니다</p>
+          <p style="display: none">사용 가능한 이메일 입니다!</p>
+        </div>
+        <div class="duplicate-btn">중복확인</div>
+        <label for="password"></label>
+        <input
+          type="password"
+          id="password"
+          placeholder="비밀번호를 입력해 주세요"
+        />
+        <div id="myModal2" style="display: none" class="validatePassword">
+          <p>소문자,대문자,특수문자를 섞어 8글자 이상 입력해주세요</p>
+        </div>
+        <label for="passwordAgain"></label>
+        <input
+          type="password"
+          id="passwordAgain"
+          placeholder="비밀번호를 다시 입력해 주세요"
+        />
+        <div id="myModal3" style="display: none" class="validatePasswordAgain">
+          <p>비밀번호가 다릅니다.</p>
+        </div>
+        <label for="nickName"></label>
+        <input type="text" id="nickName" placeholder="닉네임을 입력해 주세요" />
+      </div>
+      <div class="sign-up-button" onclick="validateInput()">회원가입</div>
+      <!-- Modal -->
+    </div>
+    <script src="../allData.js"></script>
+    <script src="./signUp.js"></script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+	<div id="one">One</div>
+	<div id="two">Two</div>
+	<script>
+		// DOM 메모리
+		/* const one = document.getElementById("one");
+		const two = document.getElementById("two");
+		one.addEventListener("click", function onc(){
+			two.remove();
+			console.log(two);
+			one.removeEventListener("click", onc);
+		}); */
+
+
+		// 소수 구하기
+		/* function isPrime(n){
+			if(n == 2 || n == 3){
+				return true;
+			}
+			else if(n%2 == 0 || n%3 == 0){
+				return false;
+			}else{
+				return true;
+			}
+
+		}
+		console.log(isPrime(31)); //true
+		console.log(isPrime(10)); //false */
+
+
+		// 소인수 분해
+		/* function primeFactor(n){
+			let arr = [];
+			let start = 2;
+
+			while(n>= 2){
+				if(n%start == 0){
+					arr.push(start);
+					n = n/start;
+					start =2;
+				}else{
+					start++;
+				}
+			}
+			// let a = Array.from(new Set(arr));
+			let res =[];
+			let num=0;
+			for(let i=0; i<arr.length; i++){
+				if(arr[i-1] == arr[i] ){
+					num--;
+					res[num] = arr[i];
+					num++;
+				}
+				else{
+					res[num] = arr[i];
+					num++;
+				}
+			}
+			return res.join(",");
+		}
+		console.log(primeFactor(10)); */
+
+
+		// 십진수를 이진수로 변환하기
+		// function base10ToString(n){
+		// 	let arr =[];
+		// 	let num = 0;
+
+		// 	while(n >1){
+		// 		arr[num] = parseInt(n%2);
+		// 		n = n/2;
+		// 		num++;
+		// 	}
+		// 	let arr2 = arr.reverse();
+		// 	let arr3 = arr2.join("");
+		// 	return arr3;
+		// }
+		// console.log(base10ToString(100));
+
+
+		// 배열 출력하기
+		function swap(strArr, idx1, idx2){
+			let swap = [strArr[0], idx2, idx1];
+			return swap;
+		}
+		function permute(strArr, begin, end){
+			let arr =[];
+			for(let i=0; i<3; i++){
+				// 1,2,3
+				// 2,1,3
+				// 3,2,1
+				if(i ==0 ){
+					arr = [strArr[i], '2','3'];
+				}else if(i == 1){
+					arr = [strArr[i], '1','3'];
+				}else{
+					arr = [strArr[i], '2','1'];
+				}
+				console.log(arr);
+				console.log(swap(arr, arr[1], arr[2] ));
+			}
+		}
+		function permuteArray(strArr){
+			permute(strArr, strArr[0], strArr[2]);
+		}
+		permuteArray(["1", "2", "3"]);
+
+		// 거꾸로 읽어도 같은 문자열 인가?
+		/* function isPalindromeRecursive(word){
+			// console.log(word.length);
+			return isPalindromeRecursiveHelper(word, word[0], word[word.length-1]);
+		}
+
+		function isPalindromeRecursiveHelper(word, beginsPos, endPos){
+			let reverse = "";
+			for(let i=word.length-1; i>=0; i--){
+				reverse += word[i];
+			}
+			// console.log(word);
+			// console.log(reverse);
+
+			if(word == reverse){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		console.log(isPalindromeRecursive("appleelppa"));
+		console.log(isPalindromeRecursive("appleelppaa")); */
+
+
+		// 공통항목 찾기
+		/* function commonElements(kArray){
+			let res = [];
+			let num = 0;
+			for(let i=0; i<kArray[0].length; i++){
+				let value1 = false, value2 = false;
+				for(let j=0; j<kArray[1].length; j++){
+					if(kArray[0][i] == kArray[1][j]){
+						value1 = true;
+					}
+				}
+				for(let k=0; k<kArray[2].length; k++){
+					if(kArray[0][i] == kArray[2][k]){
+						value2 = true;
+					}
+				}
+				if(value1 == true && value2 == true){
+					res[num] = kArray[0][i];
+					num++;
+				}
+			}
+			return res;
+		}
+		console.log(commonElements( [[1,2,3], [1,2,3,4], [1,2]] ) ); */
+	</script>
+</body>
+</html>

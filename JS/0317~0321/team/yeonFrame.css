@@ -1,0 +1,149 @@
+@font-face {
+  font-family: "spider";
+  src: url("./blockStudio_csh/font/CombackHomeRegular-jEMd9.ttf");
+}
+
+/* 꼰대 훈수:css순서는 html과 동일하게 위에서 아래로 하는게 좋아. 
+예를들어 html에서는 log-title이 맨 밑에 있으니까 css에서도 맨 밑에 작성하는거지 */
+h1 {
+  font-family: "spider";
+  display: flex;
+  font-size: 50px;
+  justify-content: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("./blockStudio_csh/img/spidermanBackground.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  font-family: "spider";
+}
+.yeon-main-container {
+  border: 1px solid white;
+  width: 400px;
+  height: 550px;
+  background-color: rgba(255, 255, 255, 0.601);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+}
+.yeon-id {
+  border: 0;
+  display: flex;
+  justify-content: center;
+  flex: 1 0 0px;
+  font: inherit;
+  font-size: 100%;
+  height: 36px;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+  vertical-align: baseline;
+  margin-top: 10px;
+}
+.yeon-id-content {
+  height: 36px;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+.yeon-password {
+  border: 0;
+  display: flex;
+  justify-content: center;
+  flex: 1 0 0px;
+  font: inherit;
+  font-size: 100%;
+  height: 36px;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+  vertical-align: baseline;
+  margin-top: 10px;
+}
+.yeon-password-content {
+  height: 36px;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+.log-title {
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  height: 36px;
+  width: 200px;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.yeon-lg-inbtn {
+  cursor: pointer;
+  background-color: rgb(142, 167, 233);
+  box-shadow: 5px 5px  rgb(58, 68, 96);
+  height: 36px;
+  width: 200px;
+  font-family: "spider";
+  font-size: 600;
+  font-size: 30px;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+
+}
+.yeon-mid {
+  position: absolute;
+  font-weight: normal;
+  align-items: center;
+}
+.yeon-mid2 {
+  display: flex;
+  font-size: 14px;
+  line-height: 14px;
+}
+.mid-display {
+  display: flex;
+  position: absolute;
+}
+.yeon-click {
+  border-radius: 3px;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  left: 50%;
+}
+
+/* div가 하나이기 때문에 굳이display:flex를 할 필요 없어 이미 left로 중심을 맞췄기 때문에! */
+.yeon-info {
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  vertical-align: baseline;
+  width: 200px;
+  font-size: 20px;
+  left: 50%;
+}
+
+input[type="checkbox" i] {
+  background-color: white;
+  cursor: default;
+  appearance: auto;
+  box-sizing: border-box;
+  padding: initial;
+  border: initial;
+}

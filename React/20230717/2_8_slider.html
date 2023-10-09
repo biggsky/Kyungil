@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1{
+            width: 200px;
+            height: 200px;
+            /* background-color: aqua; */
+            overflow: hidden;
+        }
+        #div2{
+            width: 620px;
+            height: 200px;
+            /* background-color: yellow; */
+            position: relative;
+            left: 0px;
+            transition: 1s;
+        }
+        .three{
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background-color: seashell;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <div id="div2">
+            <div class="three"><img src="./img1.jpg" alt=""></div>
+            <div class="three"><img src="./img2.jpg" alt=""></div>
+            <div class="three"><img src="./img3.jpg" alt=""></div>
+        </div>
+    </div>
+    <button onclick="bef()">이전</button>
+    <button onclick="aft()">다음</button>
+</body>
+<script>
+    let index = 1;
+    let abc;
+
+    function start1(){
+        abc = setInterval(() => {
+            aft();
+        }, 3000);
+    }
+    start1();
+
+    function stop1(){
+        clearInterval(abc);
+    }
+    
+
+    function bef(){
+        stop1();
+        if(index == 3){
+            document.querySelector("#div2").style.left = "-202px";
+            index = 2;
+        }
+        else if(index == 2){
+            document.querySelector("#div2").style.left = "0px";
+            index = 1;
+        }else{
+            document.querySelector("#div2").style.left = "-410px";
+            index = 3;
+        }
+        start1();
+    }
+
+    function aft(){
+        stop1();
+        if(index ==1){
+            document.querySelector("#div2").style.left = "-202px";
+            index = 2;
+        }
+        else if(index == 2){
+            document.querySelector("#div2").style.left = "-410px";
+            index = 3;
+        }
+        else{
+            document.querySelector("#div2").style.left = "0px";
+            index = 1;
+        }
+        start1();
+    }
+</script>
+</html>

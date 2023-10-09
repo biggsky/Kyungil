@@ -1,0 +1,140 @@
+body {
+    margin: 0; padding: 0;
+}
+
+#forFreshman {
+    width: 470px; height: calc(100vh - 120px);
+    z-index: 100;
+    margin: 60px 0 60px 0;
+    position : relative; left: 50%;
+    transform: translateX(-50%);
+    padding: 50px;
+    box-sizing: border-box;
+    text-align: center;
+}
+#forFreshman h3 {
+    text-align: center;
+}
+#forFreshman .firstInfo {
+    position: absolute; left: 50%;
+    transform: translateX(-50%);
+    width: 275px; height: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+#forFreshman .firstInfo img {
+    width: 27px; height: 27px;
+    margin: 5px;
+}
+.mypageimg {
+    border-radius: 50%;
+}
+#forFreshman .firstInfo p {
+    width: 220px;
+    margin: 5px;
+    display: flex; align-items: center;
+}
+
+.middle_body {
+    width: 470px; height: auto;
+}
+.middle_body .post_container {
+    width: 100%; height: auto;
+    border-bottom: 1px solid silver;
+    padding: 20px 0 20px 0;
+}
+
+.post_container .post_top { /* 상단 유저 프로필, 이름 */
+    width: 100%; height: 60px;
+    position: relative;
+}
+.post_top .profile_img {
+    width: 60px; height: 60px;
+    position: absolute; left: 0;
+    display: flex; justify-content: center; align-items: center;
+}
+.post_top .profile_img img{
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.post_top .profile_text {
+    width: calc(100%-60px); height: 60px;
+    position: absolute;
+    left: 60px;
+    display: flex; flex-direction: row;
+    justify-content: center; align-items: center;
+}
+.profile_text .nickname {
+    font-weight: 900;
+    font-size: 16px;
+    cursor: pointer
+}
+.profile_text span {
+    margin: 0 5px 0 5px;
+    color: rgb(170, 170, 170);
+}
+.profile_text .updated_time {
+    color: rgb(170, 170, 170);
+}
+
+.post_container .post_body { /* 이미지, 비디오 */
+    width: 100%; height: auto;
+    overflow: hidden;
+}
+.post_body img, .post_body video {
+    width: 100%;
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+
+.post_container .post_bottom {
+    width: 100%; height: auto;
+}
+.post_bottom .likes {
+    width: 100%; height: 25px;
+    position: relative;
+}
+.post_bottom .likes img {
+    width: 25px; height: 25px;
+    position: absolute; top: 0; left: 0;
+}
+.post_bottom .likes p {
+    width: auto; height: auto;
+    position: absolute; top: 50%; left: 35px;
+    transform: translateY(-50%);
+    margin: 0; padding: 0;
+}
+.post_bottom .content {
+    width: 100%; height: auto;
+    padding-top: 10px;
+}
+.post_bottom .content p {
+    margin: 0 5px 0 0;
+    height: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.post_bottom .content .nickname {
+    font-weight: 900;
+    font-size: 16px;
+}
+.post_bottom .content .more {
+    font-weight: 900;
+    font-size: 16px;
+    color: rgb(170, 170, 170);
+    cursor: pointer;
+    margin: 3px 0 3px 0;
+}
+
+#red_dot{
+    display: none;
+    z-index: 0;
+    margin-right: -330px;
+    margin-bottom: -12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: red;
+}

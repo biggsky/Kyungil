@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Basic Line Chart</title>
+    <!-- <link href="../../assets/styles.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="../css/admin.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>',
+        );
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>',
+        );
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>',
+        );
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+      // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+      // Based on https://gist.github.com/blixt/f17b47c62508be59987b
+      var _seed = 42;
+      Math.random = function () {
+        _seed = (_seed * 16807) % 2147483647;
+        return (_seed - 1) / 2147483646;
+      };
+    </script>
+    <!-- --------------------------------------------------------------- -->
+    
+  </head>
+
+  <body>
+    <h1>Admin Page</h1>
+    <br /><br />
+    <div id="center">
+      <div id="left">
+        <div class="subject">Waiting for authorization</div>
+        <div id="await"></div>
+      </div>
+      <div id="right">
+        <div class="subject">Authorized</div>
+        <div id="accept"></div>
+      </div>
+    </div>
+
+    <!-- 차트 -->
+    <div id="chart1"></div>
+    <br />
+    <div id="chart2"></div>
+    <!-- 차트 -->
+
+    <script>
+      // 회원가입 승인 거절
+      window.onload = async () => {
+        const { data } = await axios.get("https://andybyungjoopark.com/admin/admin1");
+        const data2 = await axios.get("https://andybyungjoopark.com/admin/admin2");
+        let data22 = data2.data;
+
+        for (let i = 0; i < data.length; i++) {
+          document.querySelector("#await").innerHTML += `<p id="p${i}"><span class="nickname">${data[i].user_id}</span> <button class="authBtn" onclick="accept(${i}, '${data[i].user_id}')">Auth</button> <button class="denyBtn" onclick="deny(${i}, ${data[i].user_id})">deny</button></p>`;
+        }
+        for (let i = 0; i < data22.length; i++) {
+          document.querySelector("#accept").innerHTML += `<p id="p99${i}"<span class="nickname">${data22[i].user_id}</span> <button class="unAuthBtn" onclick="unAuth(99${i} ,'${data22[i].user_id}')" class="neon">unAuth</button></p>`;
+        }
+
+
+
+
+
+        // 차트 부분
+
+        let today = new Date();
+        let day = today.getDate();
+        let arr = [];
+        let random = day - 7;
+
+        let dayCnt = await axios.get(`https://andybyungjoopark.com/admin/dayCnt`);
+        let postCnt = await axios.get("https://andybyungjoopark.com/admin/postCnt");
+
+        for (let i = 0; i <= 7; i++) {
+          arr[i] = random;
+          random++;
+        }
+        // 데일리 유저 접속수 차트
+        var options = {
+          series: [
+            {
+              name: "Desktops",
+              data: [58, 69, 76, 153, 72, 6, 7, dayCnt.data],
+            },
+          ],
+          chart: {
+            height: 350,
+            type: "line",
+            zoom: {
+              enabled: false,
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "straight",
+          },
+          title: {
+            // text: "Product Trends by Month",
+            text: "Daily visitor count",
+            align: "left",
+          },
+          grid: {
+            row: {
+              colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
+              opacity: 0.5,
+            },
+          },
+          xaxis: {
+            // categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep",],
+            categories: arr,
+          },
+        };
+
+        // 데일리 게시글 수
+        var options1 = {
+          series: [
+            {
+              name: "Desktops",
+              data: [0, 0, 0, 0, 0, 0, 6, postCnt.data],
+            },
+          ],
+          chart: {
+            height: 350,
+            type: "line",
+            zoom: {
+              enabled: false,
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "straight",
+          },
+          title: {
+            text: "Daily post count",
+            align: "left",
+          },
+          grid: {
+            row: {
+              // colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+              colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
+              opacity: 0.5,
+            },
+          },
+          xaxis: {
+            // categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep",],
+            categories: arr,
+          },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart1"), options);
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options1);
+        chart.render();
+        chart2.render();
+      };
+
+      async function accept(a, id) {
+        await axios.get(`https://andybyungjoopark.com/admin/levelchange/${id}`);
+        // document.querySelector("#p" + a).style.display = "none";
+        document.querySelector("#p" + a).remove();
+        // document.querySelector("#accept").innerHTML += `<p>${id}</p>`;
+        document.querySelector("#accept").innerHTML += `<p id="p${a}">${id} <button class="unAuthBtn" onclick="unAuth(${a} ,'${id}')" class="neon">UnAuth</button></p>`;
+
+      }
+      async function deny(a, id) {
+        await axios.get(`https://andybyungjoopark.com/admin/deny/${id}`);
+        document.querySelector("#p" + a).style.display = "none";
+      }
+      async function unAuth(id, a){
+        await axios.get(`https://andybyungjoopark.com/admin/unAuth/${a}`);
+        // console.log(id);
+        // document.querySelector("#p"+id).style.display = "none";
+        document.querySelector("#p" + id).remove();
+        document.querySelector("#await").innerHTML += `<p id="p${id}"><span>${a}</span> <button class="authBtn" onclick="accept(${id}, '${a}')">Auth</button> <button class="denyBtn" onclick="deny(${id}, '${a}')">deny</button></p>`;      
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .box-content{
+            position: absolute;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-color: bisque;
+            transition: 1s;
+        }
+
+        .is-active{
+            left: 0;
+            opacity: 1;
+        }
+
+        .big-box{
+            width: 100%;
+            height: 120vh;
+            background-color: rgb(149, 198, 198);
+        }
+    </style>
+</head>
+<body>
+    <div class="big-box"></div>
+    <div class="box">
+        <div class="box-content"></div>
+    </div>
+    <div class="box">
+        <div class="box-content"></div>
+    </div>
+    <div class="box">
+        <div class="box-content"></div>
+    </div>
+    <div class="box">
+        <div class="box-content"></div>
+    </div>
+</body>
+<script>
+    let _boxContents = document.querySelectorAll('.box-content');
+    // console.log(_boxContents);
+
+    // getBoundingClientRect() : 태그의 사각면을 구할수있다.
+    // 반환된 객체의 값이 top left bottom right
+    // top 
+    console.log(_boxContents[0].getBoundingClientRect().top + window.pageYOffset);
+    console.log(_boxContents[1].getBoundingClientRect().top + window.pageYOffset);
+    console.log(_boxContents[2].getBoundingClientRect().top + window.pageYOffset);
+    console.log(_boxContents[3].getBoundingClientRect().top + window.pageYOffset);
+
+    let posY = [];
+    function init(){
+        // 초기 세팅
+        _boxContents.forEach(function(i){
+            // top의 값들을 모두 배열에 담아주고
+            // 페이지를 새로고침했을때나 접속했을때 스크롤이 진행되어있는 값
+            // window.pageYOffset
+            // 페이지 접속했을때 
+            posY.push(i.getBoundingClientRect().top + window.pageYOffset);
+        })
+    }
+    init();
+    //console.log(window.pageYOffset);
+    window.onscroll = function(){
+        // 브라우저 Y 스크롤 값
+        // 진행된 스크롤 값 window.scrollY
+        //console.log(window.scrollY);
+        // 페이지를 스크롤값을 브라우저의 제일 밑단을 기준으로 바꾸려면?
+        // 브라우저의 높이를 더해주면 제일 밑단을 기준으로 변경할수 있다.
+        // 브라우저의 높이는 window.innerHeight
+        //console.log(window.scrollY + window.innerHeight);
+        // 브라우저의 bottom을 기준으로 스크롤 값을 구할수있다.
+        let _scroll = window.scrollY + window.innerHeight;
+        _boxContents.forEach(function(i,index){
+            if(_scroll > posY[index]){
+                // if문 사용할때 중괄호가 없는경우
+                // 바로 밑의 코드의 여부만 적용시킬수있다
+                if(!i.classList.contains("is-active"))
+                i.classList.add("is-active");
+            }else{
+                i.classList.remove("is-active");
+            }
+        })
+    }
+
+    window.onresize = function(){
+        console.log(window.innerHeight);
+    }
+</script>
+</html>

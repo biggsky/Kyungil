@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<style>
+    #isLoading {
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #isLoading img {
+        width: 300px;
+    }
+
+    #isLoading.disable {
+        display: none;
+    }
+
+    body {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="isLoading">
+        <img src="./img/groot.gif" alt="">
+    </div>
+
+    <h1>게시글 상세보기 페이지</h1>
+    <input type="text" id="title" disabled><br><br>
+    <textarea id="content" cols="30" rows="10" disabled></textarea>
+    <div id="edit"></div>
+    <div id="del"></div>
+</body>
+<script>
+    let x = location.hash;
+    let xx = x.replace("#", "");
+    setTimeout(async () => {
+        isLoading.classList.add("disable");
+        const value = await axios.get("http://127.0.0.1:8000/boardview/" + xx, {
+            withCredentials: true
+        });
+        // console.log("value : ", value);
+        // console.log("data1 : ", value.data.data1);
+        // console.log("data", value.data.ses);
+
+        if (value == "다시 로그인 해주세요") {
+            window.location.href = "./login.html";
+        } else {
+            title.value = value.data.data1.title;
+            content.innerHTML = value.data.data1.content;
+        }
+
+        if (value.data.ses == value.data.data1.user_id) {
+            edit.innerHTML = `<button id="edit1" onclick= bedit(${xx})>수정</button>`;
+            del.innerHTML = `<button onclick='bclick(${xx})'>삭제</button>`;
+        }
+    }, 100);
+    async function bclick(abc) {
+        try {
+            const data1 = await axios.get(`http://127.0.0.1:8000/del/${abc}`, {
+                withCredentials: true
+            });
+            if(data1.data == 1){
+                window.location.href = "./main.html";
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function bedit(abc){
+        title.removeAttribute("disabled");
+        content.removeAttribute("disabled");
+        document.querySelector("#edit1").style.display = "none";
+        edit.innerHTML = `<button onclick="bedit2(${abc})">수정하기</button>`;
+    }
+
+    async function bedit2(abc){
+        let a = title.value;
+        let b = content.value;
+        // const value = await axios.get("http://127.0.0.1:8000/edit",{params:{a,b}});
+        const value = await axios.get(`http://127.0.0.1:8000/edit/${abc}`,{params:{a,b}, withCredentials:true});
+        let aa = value.data;
+        // console.log(aa);
+        location.reload();
+    }
+</script>
+
+</html>

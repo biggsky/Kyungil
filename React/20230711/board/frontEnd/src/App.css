@@ -1,0 +1,36 @@
+*{
+  text-align: center;
+}
+#main_body{
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+  background: url("img/road.jpg");
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+#center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 400px;
+  height: 400px;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  background-color: white;
+}
+
+#center input{
+  /* border-radius: 10px; */
+  height: 30px;
+}
+
+#center button{
+  /* border-radius: 10px; */
+  width: 170px;
+  height: 30px;
+}

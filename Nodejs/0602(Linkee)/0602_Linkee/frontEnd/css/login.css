@@ -1,0 +1,114 @@
+body {
+    height: 100vh;
+    margin: 0; padding: 0;
+    position: relative;
+}
+
+.container0 {
+    width: 350px; height: auto;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* container1 : input 정보 적는 박스 */
+.container0 .container1 {
+    width: 100%; height: auto;
+    border: 1px solid silver;
+    padding: 40px;
+    display: flex; flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+.container0 .container1 .logo {
+    height: 80px;
+    text-align: center;
+    font-size: 50px;
+    display: flex; justify-content: center; align-items: center;
+}
+.container0 .container1 h2 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    color: rgb(60, 60, 60);
+    margin: 10px 0 30px 0;
+}
+.container1 form {
+    width: 100%;
+    height: auto;
+}
+.container1 form label {
+    display: flex;
+    flex: 1 0 0px;
+    font: inherit; font-size: 12px;
+    height: 66px;
+    margin: 0; padding: 0;
+    min-width: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+.container1 form label .labelText {
+    height: 36px;
+    line-height: 36px;
+    left: 8px;
+    margin: 0; padding: 0 0 0 2px;
+    position: absolute; right: 0;
+    color: rgb(60, 60, 60);
+}
+.container1 form label input {
+    width: 100%; height: 36px;
+    padding: 18px 0 0 8px;
+    border: 1px solid silver;
+}
+.container1 form p {
+    font-size: 12px;
+    color: rgb(60, 60, 60);
+}
+.container1 form p span {
+    color: teal;
+}
+.container1 form .incorrect {
+    color: red;
+    display: none;
+}
+.container1 form .incorrect.is-active { /* 로그인 틀릴시 나타나는 문구 */
+    display: block;
+}
+.container1 form p span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.container1 form button {
+    width: 100%; height: 30px;
+    background-color: rgb(0, 160, 160);
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.container1 form button:hover {
+    background-color: teal;
+}
+
+
+/* container2 : 로그인 <-> 회원가입 박스 */
+.container0 .container2 {
+    width: 100%; height: 30px;
+    border: 1px solid silver;
+    padding: 30px;
+    display: flex; justify-content: center; align-items: center;
+    margin: 15px 0 0 0;
+    box-sizing: border-box;
+}
+.container0 .container2 p {
+    text-align: center;
+    margin: 0; padding: 0;
+}
+a {
+    text-decoration: none;
+    color : rgb(0, 160, 160);
+}
+a:hover {
+    text-decoration: underline;
+}

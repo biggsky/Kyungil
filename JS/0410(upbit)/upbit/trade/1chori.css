@@ -1,0 +1,362 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.pageWidth{
+    width: 1400px;
+    height: 1580px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    position: absolute;
+    z-index: 0;
+}
+
+#chart{
+    width: 70%;
+    height: 500px;
+    position: absolute;
+    background-color: white;
+    margin-top: 86px;
+}
+
+.coinInfo{
+    width: 400px;
+    height: 1000px;
+    position: sticky;
+    float: right;
+    top: 90px;
+    background-color: white;
+}
+
+/* ---------------코인/심볼 검색------------------------- */
+
+.searchCoin{
+    position: relative;
+    height: 50px;
+}
+
+.searchCoin .findCoin{
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    border: none;
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.searchCoin img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+
+/* -------------------------탭 리스트(원화/USDT/보유/관심)------------------------------ */
+
+.MainTitle{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.MainTitle > input{
+    display: none;
+}
+
+.MainTitle label{
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    line-height: 3;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* -----------------------서브 리스트(한글명/현재가/전초대비)------------------------------ */
+
+.subTitle ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(244, 245, 248);
+    border-bottom: 1px solid rgb(199, 199, 199);
+    font-size: 13px;
+    height: 30px;
+    line-height: 2;
+    text-align: center;
+}
+
+.subTitle li{
+    cursor: pointer;
+    color: rgb(86, 86, 86);
+}
+
+.subTitle li:hover{
+    text-decoration: underline;
+}
+
+.starTitle, .star{
+    width: 10%;
+}
+.languageTitle, .language{
+    width: 30%;
+}
+.currentPriceTitle, .currentPrice{
+    width: 35%;
+}
+.ratioTitle, .ratio{
+    width: 25%;
+}
+
+
+/* --------------------------코인 리스트--------------------------------- */
+
+.noCoin,
+.noBookmark{
+    height: 1000px;
+    text-align: center;
+    line-height: 20;
+    color: rgb(129, 126, 126);
+}
+
+
+.wonCoinList, .dollarCoinList{
+    border-bottom: 1px solid rgb(199, 199, 199);
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 14px;
+}
+
+.ratio{
+    line-height: 2.5;
+}
+
+.star{
+    line-height: 3.5;
+} 
+
+.star img{
+    width: 20px;
+    height: 15px;
+    color: gray;
+    cursor: pointer;
+}
+
+.language{
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.currentPrice{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nameGroup{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameGroup p{
+    font-weight: bold;
+    text-align: left;
+}
+
+.priceGroup p{
+    font-weight: bold;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.nameGroup span,
+.priceGroup span{
+    text-align: left;
+    font-size: 12px;
+    color: rgb(87, 87, 87);
+}
+
+.priceGroup span{
+    text-align: right;
+}
+
+
+/* ---------------코인/심볼 검색------------------------- */
+
+.searchCoin{
+    position: relative;
+    height: 50px;
+}
+
+.searchCoin .findCoin{
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    border: none;
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.searchCoin img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+
+/* -------------------------탭 리스트(원화/USDT/보유/관심)------------------------------ */
+
+.MainTitle{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.MainTitle > input{
+    display: none;
+}
+
+.MainTitle label{
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    line-height: 3;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* -----------------------서브 리스트(한글명/현재가/전초대비)------------------------------ */
+
+.subTitle ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(244, 245, 248);
+    border-bottom: 1px solid rgb(199, 199, 199);
+    font-size: 13px;
+    height: 30px;
+    line-height: 2;
+    text-align: center;
+}
+
+.subTitle li{
+    cursor: pointer;
+    color: rgb(86, 86, 86);
+}
+
+.subTitle li:hover{
+    text-decoration: underline;
+}
+
+.starTitle, .star{
+    width: 10%;
+}
+.languageTitle, .language{
+    width: 30%;
+}
+.currentPriceTitle, .currentPrice{
+    width: 35%;
+}
+.ratioTitle, .ratio{
+    width: 25%;
+}
+
+
+/* --------------------------코인 리스트--------------------------------- */
+
+.noCoin,
+.noBookmark{
+    height: 1000px;
+    text-align: center;
+    line-height: 20;
+    color: rgb(129, 126, 126);
+}
+
+
+.coinList{
+    border-bottom: 1px solid rgb(199, 199, 199);
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 14px;
+}
+
+.ratio{
+    line-height: 2.5;
+}
+
+.star{
+    line-height: 3.5;
+} 
+
+.star img{
+    width: 20px;
+    height: 15px;
+    color: gray;
+    cursor: pointer;
+}
+
+.language{
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.currentPrice{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nameGroup{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameGroup p{
+    font-weight: bold;
+    text-align: left;
+}
+
+.priceGroup p{
+    font-weight: bold;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.nameGroup span,
+.priceGroup span{
+    text-align: left;
+    font-size: 12px;
+    color: rgb(87, 87, 87);
+}
+
+.priceGroup span{
+    text-align: right;
+}
+
+footer{
+    width: 100%;
+    height: 308px;
+    background-color: rgb(244, 245, 248);
+}

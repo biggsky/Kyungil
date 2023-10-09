@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>spiderman</title>
+  <link rel="stylesheet" href="./mainFrame.css" />
+  <style>
+    #c_bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #c_top {
+      position: relative;
+      background-color: #e5e0ff;
+      width: 100%;
+      height: 70px;
+    }
+
+    #c_top #cl {
+      position: absolute;
+      width: 50%;
+      height: 50px;
+      background-color: lightgray;
+    }
+
+    #c_top #cr {
+      position: absolute;
+      right: 0;
+      width: 50%;
+      height: 50px;
+      background-color: lightgray;
+    }
+
+    #c_top p {
+      font-size: 50px;
+    }
+
+    #c_middle {
+      position: relative;
+      width: 100%;
+      font-weight: bold;
+      background-color: #e5e0ff;
+    }
+
+    #button {
+      text-align: center;
+      height: 78px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid black;
+      position: relative;
+      height: 200px;
+    }
+
+    td img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 90%;
+      overflow: hidden;
+    }
+
+    #cl #lbar {
+      height: 100%;
+      background-color: red;
+    }
+
+    #cr #rbar {
+      height: 100%;
+      background-color: blueviolet;
+    }
+
+    #attack {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <audio src="../team/resource/sound/sunFlower.mp3" autoplay loop controls id="myAudio"></audio>
+  <!-- 게임의 모든일들이 일어나면 게임 프레임입니다! 여길 벗어나셔서 코딩을 하시면 안됩니다!ㅎㅎ -->
+  <div class="main-container">
+    <div id="c_top">
+      <div id="cl">
+        <div id="lbar"></div>
+      </div>
+      <div id="cr">
+        <div id="rbar"></div>
+      </div>
+    </div>
+    <div id="button">
+      <div>
+        money : <span id="money"></span> &nbsp;&nbsp; exp:
+        <span id="exp"></span>
+      </div>
+      <button id="start">게임 시작</button>
+      <button id="attack" onclick="attack()">attack</button>
+    </div>
+    <div id="c_middle">
+      <table>
+        <tr>
+          <td id="1" onclick="btn(1)"></td>
+          <td id="2" onclick="btn(2)"></td>
+          <td id="7" onclick="btn(7)"></td>
+          <td id="8" onclick="btn(8)"></td>
+        </tr>
+        <tr>
+          <td id="3" onclick="btn(3)"></td>
+          <td id="4" onclick="btn(4)"></td>
+          <td id="9" onclick="btn(9)"></td>
+          <td id="10" onclick="btn(10)"></td>
+        </tr>
+        <tr>
+          <td id="5" onclick="btn(5)"></td>
+          <td id="6" onclick="btn(6)"></td>
+          <td id="11" onclick="btn(11)"></td>
+          <td id="12" onclick="btn(12)"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script>
+  function Character(n, h, p, a) {
+    this.name = n;
+    this.hp = h;
+    this.position = p;
+    this.attack = a;
+    this.stage = 0;
+
+
+    this.money = 0;
+    this.exp = 0;
+    this.ranattack = function () {
+      this.attack *= 2;
+    };
+    this.inventory = function () {
+      this.inventory = "아이템";
+    };
+  }
+
+  const peter = new Character("peter", 100, 1, 30);
+  // 피터 공격력 30
+  const villain1 = new Character("peter2", 100, 8, 10);
+  // 멀티버스 피터
+  const villain2 = new Character("thanos", 100, 8, 50);
+  // 타노스 공격력 50
+  document.querySelector("#money").innerHTML = peter.money;
+  document.querySelector("#exp").innerHTML = peter.exp;
+
+  document.querySelector("#start").onclick = function () {
+    document.querySelector("#start").style.display = "none";
+
+    peter.stage = 1;
+    stage(1);
+
+  }
+
+  function stage(stage) {
+    // alert(JSON.stringify(stage.name));
+    for (let i = 1; i <= 2; i++) {
+      if ("villain" + stage == ("villain" + i)) {
+
+        let lbar = document.getElementById("lbar");
+        let rbar = document.getElementById("rbar");
+        lbar.style.width = "100%";
+        rbar.style.width = "100%";
+        peter.hp = 100;
+
+        // alert(eval("villain" + i).position);
+
+        document.getElementById(peter.position).innerHTML = `<img src ="img/_1.png">`;
+        document.getElementById(eval("villain" + i).position).innerHTML = `<img src ="img/${i}_1.png">`;
+        break;
+      }
+    }
+
+
+  }
+
+
+  const adjMatrix = [
+    [0, 1, 1, 1, 0, 0],              // val 1
+    [1, 0, 1, 1, 0, 0],              // val 2
+    [1, 1, 0, 1, 1, 1],
+    [1, 1, 1, 0, 1, 1],
+    [0, 0, 1, 1, 0, 1],
+    [0, 0, 1, 1, 1, 0],
+  ];
+
+
+
+  function btn(val) {
+    const adjNum = {
+      1: [2, 3, 4],
+      2: [7, 9, 4],
+      3: [1, 2, 4],
+      4: [7, 9, 11],
+      5: [3, 4, 6],
+      6: [4, 9, 11]
+    };
+
+    if (peter.stage == 0) {
+      // alert("게임시작 버튼을 누르세요!");
+    } else {
+      if (val == peter.position) {
+        // alert("이동하세요!");
+      } else {
+        if (adjMatrix[peter.position - 1][val - 1] == 0) {
+          alert("너무 멀다..");
+        } else if (val > 6) {
+
+        }
+        else {
+          document.getElementById(peter.position).innerHTML = ``;
+          document.getElementById(val).innerHTML = `<img src ="img/_1.png">`;
+          peter.position = val;
+          btn2();
+        }
+
+      }
+      for (let i = 0; i < 3; i++) {
+        if (eval("villain" + peter.stage).position == adjNum[val][i]) {
+          // 7~12           == 
+          // alert("공격가능!!!");
+          document.querySelector("#attack").style.display = "inline-block";
+          break;
+        }
+        else {
+          document.querySelector("#attack").style.display = "none";
+        }
+      }
+
+    }
+
+
+  }
+
+  function btn2() {
+    let tplace = [7, 8, 9, 10, 11, 12];
+    while (true) {
+      let rIndex = Math.floor(Math.random() * tplace.length);
+      if (adjMatrix[eval("villain" + peter.stage).position - 7][tplace[rIndex] - 7] == 0) {
+        continue;
+      } else {
+        console.log(tplace[rIndex]);
+        document.getElementById(eval("villain" + peter.stage).position).innerHTML = ``;
+        document.getElementById(tplace[rIndex]).innerHTML = `<img src ="img/${peter.stage}_1.png">`;
+        eval("villain" + peter.stage).position = tplace[rIndex];
+        break;
+      }
+      break;
+    }
+
+
+
+  }
+
+
+
+  document.querySelector("#lbar").style.width = peter.hp + "%";
+  document.querySelector("#rbar").style.width = villain1.hp + "%";
+
+  function attack() {
+    document.getElementById(peter.position).innerHTML = `<img src ="img/_2.png">`;
+    document.getElementById(eval("villain" + peter.stage).position).innerHTML = `<img src ="img/${peter.stage}_3.png">`;
+
+    // 각각의 체력
+    let ph = peter.hp;
+    let vh = eval("villain" + peter.stage).hp;
+
+    // 공격력
+    let pa = peter.attack;
+    // let ta = villain+(peter.stage).attack;
+    let ta = eval("villain" + peter.stage).attack;
+
+    let lbar = document.getElementById("lbar");
+    let rbar = document.getElementById("rbar");
+    lbar.style.transition = "1s";
+    rbar.style.transition = "1s";
+
+    if (ph >= 0) {
+      let rn = Math.floor(Math.random() * 2 + 1);
+
+      if (rn == 1) { // 50% 확률로 진입
+        eval("villain" + peter.stage).hp -= pa * 2;
+        rbar.style.width = eval("villain" + peter.stage).hp + "%";
+      } else {
+        eval("villain" + peter.stage).hp -= pa;
+        rbar.style.width = eval("villain" + peter.stage).hp + "%";
+      }
+
+    }
+
+    if (eval("villain" + peter.stage).hp < 0) {
+      eval("villain" + peter.stage).hp = 0;
+      rbar.style.width = eval("villain" + peter.stage).hp;
+      setTimeout(() => {
+        alert("게임 승리");
+        if (peter.stage == 2) {
+          document.querySelector("#c_middle").style.display = "none";
+          document.querySelector("#attack").style.display = "none";
+          return;
+        }
+        peter.money += 1000;
+        peter.exp += 100;
+        document.querySelector("#money").innerHTML = peter.money;
+        document.querySelector("#exp").innerHTML = peter.exp;
+
+        document.getElementById(peter.position).innerHTML = ``;
+        document.getElementById(eval("villain" + peter.stage).position).innerHTML = ``;
+        document.querySelector("#attack").style.display = "none";
+        peter.position = 1;
+        peter.stage = 2;
+        stage(2);
+        return;
+      }, 1000);
+
+    } else { // 악당의 체력이 남아있으면 악당 공격차례
+      setTimeout(() => {
+        document.getElementById(peter.position).innerHTML = `<img src ="img/_3.png">`;
+        document.getElementById(eval("villain" + peter.stage).position).innerHTML = `<img src ="img/${peter.stage}_2.png">`;
+        setTimeout(() => {
+          document.getElementById(peter.position).innerHTML = `<img src ="img/_1.png">`;
+          document.getElementById(eval("villain" + peter.stage).position).innerHTML = `<img src ="img/${peter.stage}_1.png">`;
+          if (peter.hp <= 0) {
+            alert("게임 패배");
+            document.querySelector("#c_middle").style.display = "none";
+            document.querySelector("#attack").style.display = "none";
+          }
+        }, 1000);
+        peter.hp -= ta;
+        lbar.style.width = peter.hp + "%";
+        // console.log(peter.hp);
+      }, 1000);
+    }
+
+
+  }
+
+
+
+
+
+</script>
+
+</html>

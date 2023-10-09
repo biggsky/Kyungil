@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    let val;
+    let ran;
+
+    let res;
+
+    let count = 20;
+    let money = 20000;
+
+    let min = 2000;
+
+    let nm;
+    let val2;
+    let lose = 0;
+    let number1;
+
+    while (true) {
+        let batting = parseInt(prompt("배팅할 금액을 입력하세요"));
+        if (batting < 2000 || batting > 20000 || isNaN(batting)) {
+            alert("2000원이상, 20000원 이하, 숫자를 입력하세요!");
+            location.reload();
+        } else {
+        nm = money - batting;
+        while (count > 0 && nm > 0) {
+            let a = 1;
+            if (true) {
+                val = prompt(`소지금 :  ${nm} | 남은 횟수 : ${count} \n\n 가위,바위,보를 내세요`);
+                number1 = 1;
+
+                ran = parseInt(Math.random() * 3 + 1);
+
+                switch (ran) {
+                    case 1:
+                        res = "가위";
+                        break;
+                    case 2:
+                        res = "바위";
+                        break;
+                    case 3:
+                        res = "보";
+                        break;
+                }
+
+                if (res == val) {
+                    alert("가위바위보 비겼습니다.\n 당신의 수 : " + val + " 컴퓨터 :" + res);
+                } else {
+                    let a = 1;
+                    while (a < 2) {
+                        if ((res == "가위" && val == "보") || (res == "바위" && val == "가위") || (res == "보" && val == "바위") || lose == 1) { // 졌을때
+                            lose = 0;
+                            alert("가위바위보 졌습니다.\n 당신의 수 : " + val + "/ 컴퓨터 :" + res);
+
+                            val2 = prompt(`묵찌빠를 입력하세요 :`);
+
+                            ran2 = parseInt(Math.random() * 3 + 1);
+                            switch (ran2) {
+                                case 1:
+                                    res2 = "묵";
+                                    break;
+                                case 2:
+                                    res2 = "찌";
+                                    break;
+                                case 3:
+                                    res2 = "빠";
+                                    break;
+                            }
+
+                            switch (val2) {
+                                case "묵":
+                                    if (res2 == "찌") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 이겼으니까 다시.");
+                                        lose = 0;
+                                        a = 1;
+                                        res = 0;
+                                        val = 0;
+                                        break;
+                                    } else if (res2 == "묵") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 묵찌빠 졌습니다.");
+                                        count--;
+                                        nm = nm - batting;
+                                        a++;
+                                        break;
+                                    } else {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 졌으니까 다시.");
+                                        lose = 1;
+                                        a = 1;
+                                        break;
+                                    }
+                                case "찌":
+                                    if (res2 == "빠") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 이겼으니까 다시.");
+                                        lose = 0;
+                                        a = 1;
+                                        res = 0;
+                                        val = 0;
+                                        break;
+                                    } else if (res2 == "찌") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 묵찌빠 졌습니다.");
+                                        count--;
+                                        nm = nm - batting;
+                                        a++;
+                                        break;
+                                    } else {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 졌으니까 다시.");
+                                        lose = 1;
+                                        a = 1;
+                                        break;
+                                    }
+                                case "빠":
+                                    if (res2 == "묵") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 이겼으니까 다시.");
+                                        lose = 0;
+                                        a = 1;
+                                        res = 0;
+                                        val = 0;
+                                        break;
+                                    } else if (res2 == "빠") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 묵찌빠 졌습니다.");
+                                        count--;
+                                        nm = nm - batting;
+                                        a++;
+                                        break;
+                                    } else {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 졌으니까 다시.");
+                                        lose = 1;
+                                        a = 1;
+                                        break;
+                                    }
+                            }
+
+                        }
+                        else {  // 이겼을때
+                            alert("가위바위보 이겼습니다.\n 당신의 수 : " + val + " / 컴퓨터 :" + res);
+
+                            val2 = prompt(`묵찌빠를 입력하세요 :`);
+
+                            ran2 = parseInt(Math.random() * 3 + 1);
+                            switch (ran2) {
+                                case 1:
+                                    res2 = "묵";
+                                    break;
+                                case 2:
+                                    res2 = "찌";
+                                    break;
+                                case 3:
+                                    res2 = "빠";
+                                    break;
+                            }
+
+                            switch (val2) {
+                                case "묵":
+                                    if (res2 == "찌") {
+                                        alert("당신의 수 : /" + val2 + " 컴퓨터 :" + res2 + "\n 이겼으니까 다시.");
+                                        lose = 0;
+                                        a = 1;
+                                        res = 0;
+                                        val = 0;
+                                        break;
+                                    } else if (res2 == "묵") {
+                                        alert("당신의 수 : /" + val2 + " 컴퓨터 :" + res2 + "\n 묵찌빠 이겼습니다.");
+                                        count--;
+                                        nm = nm + (batting * 2);
+                                        a++;
+                                        break;
+                                    } else {
+                                        alert("당신의 수 : /" + val2 + " 컴퓨터 :" + res2 + "\n 졌으니까 다시.");
+                                        lose = 1;
+                                        a = 1;
+                                        break;
+                                    }
+                                case "찌":
+                                    if (res2 == "빠") {
+                                        alert("당신의 수 : /" + val2 + " 컴퓨터 :" + res2 + "\n 이겼으니까 다시.");
+                                        lose = 0;
+                                        a = 1;
+                                        res = 0;
+                                        val = 0;
+                                        break;
+                                    } else if (res2 == "찌") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 묵찌빠 이겼습니다.");
+                                        count--;
+                                        nm = nm + (batting * 2);
+                                        a++;
+                                        break;
+                                    } else {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 졌으니까 다시.");
+                                        lose = 1;
+                                        a = 1;
+                                        break;
+                                    }
+                                case "빠":
+                                    if (res2 == "묵") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 이겼으니까 다시.");
+                                        lose = 0;
+                                        a = 1;
+                                        res = 0;
+                                        val = 0;
+                                        break;
+                                    } else if (res2 == "빠") {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 묵찌빠 이겼습니다.");
+                                        count--;
+                                        nm = nm + (batting * 2);
+                                        a++;
+                                        break;
+                                    } else {
+                                        alert("당신의 수 : " + val2 + " 컴퓨터 :" + res2 + "\n 졌으니까 다시.");
+                                        lose = 1;
+                                        a = 1;
+                                        break;
+                                    }
+                            }
+
+
+                        }
+
+
+                    }
+
+                }
+            }
+
+        }
+        // break;
+        }
+    }
+
+
+
+</script>
+
+</html>

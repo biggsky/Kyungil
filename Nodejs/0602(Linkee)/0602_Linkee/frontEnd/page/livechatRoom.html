@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>room</title>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/livechatRoom.css">
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+
+    <!-- 대화 방에 들어와 있는 유저 정보 -->
+    <div class="profile_img_wrap">
+        <div class="user1_profile_img"></div>
+        <div class="user2_profile_img"></div>
+    </div>
+
+    <!-- 대화 보여지는 부분 -->
+    <div id="middle_body" class="middle_body">
+    </div>
+
+    <!-- 메시지 입력 창 -->
+    <div class="input_wrap">
+        <input id="chat_input" class="chat_input" name="chat" type="text" placeholder="메시지 보내기...">
+        <div class="chat_btn">전송</div>
+    </div>
+
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div id="back_btn" class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="pageBack()"></div>
+            <div id="user2Nickname"></div>
+        </div>
+    </div>
+</body>
+<script src="../js/notiSocket.js"></script>
+<script>
+    window.onload = async () => {
+        let x = location.hash;
+        let xx = x.match(/\d+/g);
+        let user1ID = xx[0];
+        let user2ID = xx[1];
+
+        try {
+            const {data} = await axios.get('http://127.0.0.1:8080/chat/getFriends', {
+                withCredentials : true
+            });
+
+            const {user, userAll} = data;
+
+            let user1; // 나
+            let user2; // 상대방
+            if(user1ID == user.id) {
+                user1 = userAll.find(item => item.id == user1ID);
+                user2 = userAll.find(item => item.id == user2ID);
+            }else if(user2ID == user.id) {
+                user1 = userAll.find(item => item.id == user2ID);
+                user2 = userAll.find(item => item.id == user1ID);
+            }
+            console.log(user1);
+            console.log(user2);
+
+            user2Nickname.innerHTML = user2.nickname;
+
+            let user1ProfileImg = document.querySelector(".user1_profile_img");
+            user1ProfileImg.innerHTML = `<p>${user1.nickname}</p><img src="http://127.0.0.1:8080/user_img/${user1.profile_img}" alt="">`;
+
+            let user2ProfileImg = document.querySelector(".user2_profile_img");
+            user2ProfileImg.innerHTML = `<img src="http://127.0.0.1:8080/user_img/${user2.profile_img}" alt=""><p>${user2.nickname}</p>`;
+
+
+            ////////////////////////////////////////////
+            const socket = io.connect('localhost:8080'); // 소켓 연결 시도
+            socket.emit("userIn", user.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                console.log("접속 중인 유저 : ", userID);
+            });
+
+            // 채팅 방 요청 알림창
+            socket.on("requestChat", (senderID, receiverID) => {
+                let sender = userAll.find(item => item.id == senderID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${sender.nickname}</span>님이</p>
+                    <p>대화를 요청하였습니다.</p>
+                    <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="approve(${senderID}, ${receiverID})">승인</div>
+                        <div id="rejBtn" onclick="reject(${senderID}, ${receiverID})">거절</div>
+                    </div>
+                </div>`;
+
+                live_chat_noti_wrap.style.display = "block";
+            });
+
+            let chatBtn = document.querySelector(".chat_btn");
+
+            document.addEventListener("keydown", function(e) {
+                if (e.keyCode === 13) {
+                    e.preventDefault();
+                    chatBtn.click();
+                }
+            })
+            chatBtn.onclick = () => {
+                let chatInput = chat_input.value;
+                if(chatInput) {                    
+                    socket.emit("chat", user1.id, user2.id, chatInput);
+                    chat_input.value = "";
+                }
+            }
+
+            socket.on("chat", (senderID, receiverID, chatInput) => {
+                if(user1.id == senderID || user2.id == receiverID) {
+                    middle_body.innerHTML += `
+                    <div class="user1_chat_wrap">
+                        <p>${chatInput}</p>
+                    </div>
+                    `;
+                }else if(user1.id == receiverID || user2.id == senderID) {
+                    middle_body.innerHTML += `
+                    <div class="user2_chat_wrap">
+                        <p>${chatInput}</p>
+                    </div>
+                    `;
+                }
+                chat_input.value = "";
+
+                middle_body.scrollTop = middle_body.scrollHeight;
+            });
+
+            back_btn.onclick = () => {
+                if(confirm("확인을 누르시면 현재 대화 방은 사라지고 이전 대화 내용은 확인할 수 없습니다. 방을 나가시겠습니까?") == true) {
+                    socket.emit("leaveRoom", user1.id, user2.id);
+                    history.back();
+                }else {
+                    return;
+                }
+            }
+
+            socket.on("leaveRoom", (leavedUser) => {
+                console.log("떠난사람 ", leavedUser)
+                middle_body.innerHTML += `
+                <div class="leaved">
+                    <p>${user2.nickname}님이 방을 나가셨습니다.</p>
+                </div>
+                `;
+
+                user2ProfileImg.innerHTML = `<img src="http://127.0.0.1:8080/user_img/${user2.profile_img}" alt="" style="filter: grayscale(1);"><p style="color: rgb(170, 170, 170)">${user2.nickname}</p>`;
+            });
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+</script>
+</html>

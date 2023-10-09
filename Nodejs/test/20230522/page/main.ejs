@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>마이 페이지</h1>
+    <h1>유저 : <%= data.name %></h1>
+    <a href="/border/view/<%= data.id %>">등록글 보러 가기</a>
+    <form action="/border/create_border" method="post">
+        <label for="">글 내용</label>
+         <input type="text" name="user_post">
+         <button>글 등록하기</button>
+    </form>
+</body>
+</html>

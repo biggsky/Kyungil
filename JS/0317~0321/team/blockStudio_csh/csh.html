@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ic img {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ic">
+        <img src="img/mjolnir1.png" alt="">
+    </div>
+    <div class="ic">
+        <img src="img/shield1.png" alt="">
+    </div>
+    <div class="ic">
+        <img src="img/sapphire1.png" alt="">
+    </div>
+    <div class="ic">
+        <img src="img/gauntlet1.png" alt="">
+    </div>
+
+</body>
+<script>
+    let aa = 1;
+    let img = "";
+
+    function grade(input1, input2) {
+        this.gr = input1;
+        this.da = input2;
+    }
+
+    let gra = new grade("파라미터", "damage");
+
+    gra.gr = ""; // 여기에 레어, 유니크, 전설 입력하시면 돼용~~~~~ 화이팅!! 함께 하지못해 죄송함다!!
+
+    if (gra.gr == "레어") {
+        aa = 2;
+    } else if (gra.gr == "유니크") {
+        aa = 3;
+    } else if (gra.gr == "전설") {
+        aa = 4;
+    }
+    aaa = document.querySelectorAll('.ic');
+    aaa[0].innerHTML = `<img src ="img/mjolnir${aa}.png">`;
+    aaa[1].innerHTML = `<img src ="img/shield${aa}.png">`;
+    aaa[2].innerHTML = `<img src ="img/sapphire${aa}.png">`;
+    aaa[3].innerHTML = `<img src ="img/gauntlet${aa}.png">`;
+</script>
+
+</html>

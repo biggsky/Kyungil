@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>notification</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/noti.css">
+</head>
+<body>
+    <!-- 알림 보여지는 부분 -->
+    <div id="middle_body" class="middle_body">
+    </div>
+
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div>알림</div>
+            <div class="empty_btn">알림 비우기</div>
+        </div>
+    </div>
+
+</body>
+<script>
+    async function getNoti() {
+        try {
+            const {data} = await axios.get('http://127.0.0.1:8080/noti', {
+                withCredentials : true
+            });
+            
+            if(data == "0") {
+                middle_body.innerHTML = '<div class="no_noti">새로운 알림이 없습니다.</div>';
+            }else {
+                const {noti, user, users, posts} = data;
+                // let noti = [
+                //     {id:1, receivedID:1, senderID:2, smallCommentNoti:25, createdAt:"2023-06-07 02:49:34"},
+                //     {id:2, receivedID:1, senderID:2, followNoti:"1", createdAt:"2023-06-09 16:00:00"}
+                // ];
+                noti.reverse();
+                console.log(noti);
+
+                noti.forEach((el) => {
+                    console.log(el);
+
+                    // 알림 보낸 사람
+                    let sender = ""; // 닉네임(users.nickname)
+                    let senderID = ""; // 번호(users.id)
+                    let senderImg = ""; // 프로필(users.profile_img
+                    users.forEach((el2) => {
+                        if(el2.id == el.senderID) {
+                            sender = el2.nickname;
+                            senderID = el2.id;
+                            senderImg = el2.profile_img;
+                        }
+                    });
+
+                    // 날짜 계산
+                    let now = new Date();
+                    let notidate = new Date(el.createdAt);
+                    let calc = (now.getTime() - notidate.getTime()) / 1000;
+
+                    let s = 1;
+                    let m = s * 60;
+                    let h = m * 60;
+                    let d = h * 24;
+    
+                    let dateText = "";
+                    if(calc < s) {
+                        dateText = "방금 전";
+                    }else if(calc < m) {
+                        dateText = Math.trunc(calc) + "초 전";
+                    }else if(calc < h) {
+                        dateText = Math.trunc(calc/m) + "분 전";
+                    }else if(calc < d) {
+                        dateText = Math.trunc(calc/h) + "시간 전";
+                    }else if(calc < d * 15) {
+                        dateText = Math.trunc(calc/d) + "일 전";
+                    }else {
+                        let year = notidate.getFullYear();
+                        let month = notidate.getMonth() + 1;
+                        let date = notidate.getDate();
+                        dateText = `${year}.${month}.${date}`;
+                    }
+
+                    // 알림 div 만들기
+                    let wrapDiv = document.createElement("div");
+                    wrapDiv.classList.add("noti_wrap");
+                    let profileDiv = document.createElement("div");
+                    profileDiv.classList.add("profile_img");
+                    profileDiv.innerHTML = `<img src="http://127.0.0.1:8080/user_img/${senderImg}" alt="">`;
+
+                    let textDiv = document.createElement("div");
+                    textDiv.classList.add("noti_text");
+
+                    let rightDiv = document.createElement("div");
+                    rightDiv.classList.add("right");
+
+                    // 팔로우(상대방 -> 나)
+                    if(el.followNoti == "1") {
+                        textDiv.innerHTML = `<span class="nickname">${sender}</span>님이 회원님을 팔로우하기 시작했습니다. <span class="date">${dateText}</span>`;
+                        
+                        let followBtn = document.createElement("div");
+
+                        let followingArr = JSON.parse(user.following);
+                        // 내가 상대방을 이미 팔로우 하고 있는 경우
+                        if(followingArr.includes(senderID)) {
+                            followBtn.classList.add("follow_btn_already");
+                            followBtn.innerHTML = '팔로잉';
+                        }
+                        // 내가 상대방을 아직 팔로우 하고 있지 않은 경우
+                        else {
+                            followBtn.classList.add("follow_btn");
+                            followBtn.innerHTML = '팔로우';
+                        }
+                        rightDiv.appendChild(followBtn);
+
+                    }else {
+                        let postImgDiv = document.createElement("div");
+                        postImgDiv.classList.add("post_img");
+
+                        if(el.bigCommentNoti) {
+                            posts.forEach((el3) => {
+                                if(el3.id == el.bigCommentNoti) {
+                                    let postImg = el3.img;
+                                    postImgDiv.innerHTML = `<img src="http://127.0.0.1:8080/post_img/${postImg}" alt="">`;
+                                }
+                            });
+                            textDiv.innerHTML = `<span class="nickname">${sender}</span>님이 회원님의 게시물에 댓글을 남겼습니다. <span class="date">${dateText}</span>`;
+                        }else if(el.smallCommentNoti) {
+                            posts.forEach((el3) => {
+                                if(el3.id == el.smallCommentNoti) {
+                                    let postImg = el3.img;
+                                    postImgDiv.innerHTML = `<img src="http://127.0.0.1:8080/post_img/${postImg}" alt="">`;
+                                }
+                            });
+                            textDiv.innerHTML = `<span class="nickname">${sender}</span>님이 회원님의 게시물에 대댓글을 남겼습니다. <span class="date">${dateText}</span>`;
+                        }else if(el.likePostNoti) {
+                            posts.forEach((el3) => {
+                                if(el3.id == el.likePostNoti) {
+                                    let postImg = el3.img;
+                                    postImgDiv.innerHTML = `<img src="http://127.0.0.1:8080/post_img/${postImg}" alt="">`;
+                                }
+                            });
+                            textDiv.innerHTML = `<span class="nickname">${sender}</span>님이 회원님의 게시물을 좋아합니다. <span class="date">${dateText}</span>`;
+                        }else if(el.likeBigNoti) {
+                            posts.forEach((el3) => {
+                                if(el3.id == el.likeBigNoti) {
+                                    let postImg = el3.img;
+                                    postImgDiv.innerHTML = `<img src="http://127.0.0.1:8080/post_img/${postImg}" alt="">`;
+                                }
+                            });
+                            textDiv.innerHTML = `<span class="nickname">${sender}</span>님이 회원님의 댓글을 좋아합니다. <span class="date">${dateText}</span>`;
+                        }else if(el.likeSmallNoti) {
+                            posts.forEach((el3) => {
+                                if(el3.id == el.likeSmallNoti) {
+                                    let postImg = el3.img;
+                                    postImgDiv.innerHTML = `<img src="http://127.0.0.1:8080/post_img/${postImg}" alt="">`;
+                                }
+                            });
+                            textDiv.innerHTML = `<span class="nickname">${sender}</span>님이 회원님의 대댓글을 좋아합니다. <span class="date">${dateText}</span>`;
+                        }
+                        rightDiv.appendChild(postImgDiv);
+                    }
+                    wrapDiv.appendChild(profileDiv);
+                    wrapDiv.appendChild(textDiv);
+                    wrapDiv.appendChild(rightDiv);
+
+                    middle_body.appendChild(wrapDiv);
+
+
+                    // 알림을 클릭했을 때 페이지 넘어가는 함수
+                    wrapDiv.onclick = () => {
+                        if(el.followNoti) {
+                            location.href = `./userpage.html#${senderID}`;
+                        }else {
+                            let postID = ""
+                            if(el.bigCommentNoti) postID = el.bigCommentNoti;
+                            if(el.smallCommentNoti) postID = el.smallCommentNoti;
+                            if(el.likePostNoti) postID = el.likePostNoti;
+                            if(el.likeBigNoti) postID = el.likeBigNoti;
+                            if(el.likeSmallNoti) postID = el.likeSmallNoti;
+
+                            location.href = `./detail.html#${postID}`;
+                        }
+                    }
+                    
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getNoti();
+
+    let emptyBtn = document.querySelector(".empty_btn");
+    emptyBtn.onclick = async () => {
+        if(confirm("확인을 누르시면 모든 알림이 삭제됩니다.") == true) {
+            const {data} = await axios.get('http://127.0.0.1:8080/noti/delBtn', {
+                withCredentials : true
+            });
+
+            if(data == "1") {
+                middle_body.innerHTML = '<div class="no_noti">새로운 알림이 없습니다.</div>';
+            }
+        }
+    }
+</script>
+</html>

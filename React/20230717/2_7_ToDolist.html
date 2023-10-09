@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #div{
+            text-align: center;
+            width: 500px;
+            height: 500px;
+            background-color: #A7EDE7;
+            overflow: scroll;
+        }
+        .div2{
+            display: flex;
+            width: 100%;
+        }
+        #left{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 70px;
+            /* background-color: white; */
+        }
+        #center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 350px;
+            height: 70px;
+            /* background-color: #45CFDD; */
+        }
+        #right{
+            width: 100px;
+            height: 70px;
+        }
+        #right button{
+            width: 100%;
+            height: 100%;
+        }
+        #save{
+            float: right;
+            margin-right: 50px;
+            width: 50px;
+            height: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div">
+        <p>todo리스트</p>
+        <input type="text" name="todolist">
+        <button id="todoclick" onclick="todolistClick()">작성</button>
+        <br>
+        <button id="save" onclick="saveClick()">저장</button>
+        <br><br>
+        <div id="div1"></div>
+    </div>
+</body>
+<script>
+    let locals = localStorage.getItem("arr");
+    let ta = [];
+    let num = 0;
+    // console.log(locals);
+    let arr = [];
+
+    if(locals != null){
+        let a = locals.split(",")
+        // console.log(a);
+        let num11=0;
+        for(let i=0; i<a.length; i+=2){
+            // ta[i][0] = 0;
+            // ta[i][1] = 1;
+            ta[num11] = [a[i], a[i+1]];
+            num11++;
+        }
+    }
+
+    
+    console.log(ta);
+    if(ta.length != 0){
+        arr = ta;
+        for(let i=0; i<ta.length; i++){
+            document.querySelector("#div1").innerHTML += `
+            <div class="div2">
+                <div id="left">
+                    <input type="checkbox"${ta[i][1] == 0 ? "" : 'checked' }>
+                </div>
+                <div id="center">
+                    ${ta[i][0]}
+                </div>
+                <div id="right">
+                    <button onclick="deleteClick(${num})">삭제</button>
+                </div>
+            </div>
+            <hr>
+            `
+            num++;
+        }
+    }
+
+    
+    
+
+    function saveClick(){
+
+        localStorage.setItem("arr", arr);
+        console.log(arr);
+    }
+
+    function todolistClick(){
+        let input_value = document.querySelector("input[name='todolist']").value;
+        arr.push([input_value, 0]);
+        document.querySelector("#div1").innerHTML += `
+        <div class="div2">
+            <div id="left">
+                <input type="checkbox">
+            </div>
+            <div id="center">
+                ${input_value}
+            </div>
+            <div id="right">
+                <button onclick="deleteClick(${num})">삭제</button>
+            </div>
+        </div>
+        <hr>
+        `
+        console.log(arr);
+        num++;
+    }
+
+    function deleteClick(index){
+        arr.splice(index,1);
+        console.log(arr);
+        document.querySelector("#div1").innerHTML = "";
+        for(let i=0; i<arr.length; i++){
+            document.querySelector("#div1").innerHTML += `
+            <div class="div2">
+                <div id="left">
+                    <input type="checkbox">
+                </div>
+                <div id="center">
+                    ${arr[i][0]}
+                </div>
+                <div id="right">
+                    <button onclick="deleteClick(${i})">삭제</button>
+                </div>
+            </div>
+            <hr>
+            `
+        }
+    }
+
+    document.querySelectorAll("input[type='checkbox']").forEach(function (checkbox, index){
+        checkbox.addEventListener("click", function(){
+            if(ta[index][1] != 1){
+                ta[index][1] = 1;
+            }else{
+                ta[index][1] = 0;
+            }
+            console.log(ta);
+        });
+    });
+
+</script>
+</html>

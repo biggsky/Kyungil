@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css" />
+    <!-- 추가함 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- 추가함 -->
+  </head>
+  <body>
+    <div class="container0">
+      <div class="container1">
+        <div class="logo">LINKee</div>
+        <h2>Link your life.</h2>
+        <!-- <form action="http://127.0.0.1:8080/login" method="post"> -->
+        <form>
+          <label for="">
+            <span class="labelText">ID</span>
+            <input
+              type="text"
+              name="user_id"
+              aria-label="ID"
+              aria-required="true" />
+          </label>
+          <label for="">
+            <span class="labelText">Password</span>
+            <input
+              type="password"
+              name="user_pw"
+              aria-label="ID"
+              aria-required="true" />
+          </label>
+          <p class="incorrect">
+            Sorry, your password was incorrect. Please double-check your
+            password.
+          </p>
+          <button>Login</button>
+        </form>
+      </div>
+      <div class="container2">
+        <p>Don't have an account? <a href="./signup.html">Sign up</a></p>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.querySelector("button").addEventListener("click", async function (event) {
+        event.preventDefault();
+        if (document.querySelector("input[name='user_id']").value == "") {
+          document.querySelector("input[name='user_id']").focus();
+          return;
+        } else if (document.querySelector("input[name='user_pw']").value == "") {
+          document.querySelector("input[name='user_pw']").focus();
+          return;
+        }
+        let abc = document.querySelector("input[name='user_id']").value;
+        const { data } = await axios.get(`http://127.0.0.1:8080/login/loginalert/${abc}`,
+          {
+            // withCredentials: true
+            // 브라우저가 쿠키를 서버로 전달 할 수 있는 옵션
+          },
+        );
+        if (data == 0) {
+            document.querySelector("input[name='user_id']").style.borderColor ="red";
+        }else{
+            document.querySelector("input[name='user_id']").style.borderColor ="blue";
+        }
+
+        let abc2 = document.querySelector("input[name='user_pw']").value;
+        const data1 = await axios.get("http://127.0.0.1:8080/login/passwordalert",{
+          withCredentials: true,
+            params: {
+              user_id: abc,
+              user_pw: abc2,
+            },
+          });
+        if(data1.data == 0){
+            document.querySelector("input[name='user_pw']").style.borderColor = "red";
+        }
+        else if(data1.data == 2){
+          document.querySelector("input[name='user_id']").style.borderColor ="yellow";
+          document.querySelector("input[name='user_pw']").style.borderColor = "yellow";
+        }
+        else if(data1.data == 9){
+          window.location.href= "http://127.0.0.1:5500/frontEnd/page/admin.html";
+        }
+        else{
+            window.location.href= "http://127.0.0.1:5500/frontEnd/page/main.html";
+        }
+      });
+  </script>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .lotto-box, .lotto-box2{
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+        .lotto-box div, .lotto-box2 div{
+            border: 8px solid;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div>Lotto</div>
+    <h1>로또 박스</h1>
+    <div class="lotto-box">
+    </div>
+    <button class="lotto-btn">로또 추첨</button>
+    <div class="lotto-box2">
+    </div>
+</body>
+<script>
+    let lottoBtn = document.querySelector('.lotto-btn');
+    let lottoNum = [];
+    let lottoResult = [];
+    function init(){
+        // 1 ~ 45까지
+        for (let i = 1; i <= 45; i++) {
+            lottoNum.push(i);
+            // div 태그 하나 만들고
+            let _div = document.createElement('div');
+            // 클래스 이름 숫자로 넣고
+            _div.className = "item" + i;
+            // 만든 div 태그의 내용 숫자 추가
+            _div.innerHTML = i;
+
+            // 만들어진 div태그 lotto-box클래스를 가진 태그의 내용으로 추가
+            document.querySelector(".lotto-box").append(_div);
+        }
+    }
+    init();
+    // lottoBtn tag를 클릭하면
+    lottoBtn.addEventListener("click", function(){
+        // 클릭하면 구문 실행
+        // 6개 뽑아야하고 중복 안되게
+        while(lottoResult.length <6){
+            // 1~45랜덤값 구하고
+            let num = Math.floor(Math.random() * 45) + 1;
+            // parseInt 안써도됨;
+            // 배열안에 값이 없으면 -1
+            if(lottoResult.indexOf(num) === -1){
+                console.log("여기니");
+                // 중복이 되지 않는 값이니까 배열에 추가
+                lottoResult.push(num);
+                // 배열에는 값을 추가했고 html에 띄워놓은 구슬들
+                let lottoItem = document.querySelector(".item" + num);
+                // 예) item1, item24 
+                document.querySelector(".lotto-box2").append(lottoItem);
+            }
+        }
+        // 구조분해할당 배열은 순서대로
+        // 변수의 명이 어떻든 상관없이 순서대로 할당 받는다.
+        let [text1, text2, text3, text4, text5, text6] = lottoResult;
+        console.log(text1, text2, text3, text4, text5, text6, " 당첨번호");
+
+    })
+</script>
+</html>

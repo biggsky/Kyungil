@@ -1,0 +1,11 @@
+블록 익스플로어
+- https://etherscan.io/
+- https://docs.etherscan.io/api-endpoints/logs
+
+토큰 스왑
+https://klayswap.com/exchange/pool/detail/0xd83f1b074d81869eff2c46c530d7308ffec18036 https://uniswap.org/
+https://app.camelot.exchange/
+
+
+부동산 조각 투자
+https://sou.place/?NaPm=ct%3Dln12x1p4%7Cci%3D0Cwc003RvLbzhBcBIuWH%7Ctr%3Dsa%7Chk%3D0e3859c3583b6a2204677a492b3dda5836d7f451

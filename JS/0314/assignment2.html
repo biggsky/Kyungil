@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let val;
+    let val2;
+    let res1;
+    let count = 5;
+    let count2 = 1;
+    let money = 20000;
+    let min = 2000;
+    let batting;
+
+    function ran1() {
+        let ran1 = parseInt(Math.random() * 3 + 1);
+        switch (ran1) {
+            case 1:
+                return "가위";
+
+            case 2:
+                return "바위";
+
+            case 3:
+                return "보";
+
+        }
+    }
+
+    function ran2() {
+        let ran2 = parseInt(Math.random() * 3 + 1);
+        switch (ran2) {
+            case 1:
+                return "묵";
+            case 2:
+                return "찌";
+            case 3:
+                return "빠";
+        }
+    }
+
+    let wl2;
+    function lose() {
+        while (true) {
+            wl2 = ran2();
+            val2 = prompt(`묵, 찌, 빠를 내세요(가위바위보 진곳)`);
+            if (val2 == wl2) {
+                alert("당신의 수 : " + val2 + " // 컴퓨터의 수 : " + wl2 + " \n 묵찌빠 졌습니다.");
+                count--;
+                money = money - batting;
+                // return count;
+                // return money;
+                break;
+            } else if ((val2 == "묵" && wl2 == "찌") || (val2 == "찌" && wl2 == "빠") || (val2 == "빠" && wl2 == "묵")) {
+                alert("당신의 수 : " + val2 + " // 컴퓨터의 수 : " + wl2 + " \n 묵찌빠 이겼어 (가위바위보 이긴곳으로 가야함) ");
+                win();
+                break;
+            } else if ((val2 == "묵" && wl2 == "빠") || (val2 == "찌" && wl2 == "묵") || (val2 == "빠" && wl2 == "찌")) {
+                alert("당신의 수 : " + val2 + " // 컴퓨터의 수 : " + wl2 + " \n 묵찌빠 졌으니까 다시");
+                continue;
+            } else {
+                alert("묵, 찌, 빠를 입력하세요!");
+                continue;
+            }
+            break;
+        }
+    }
+
+    function win() {
+        while (true) {
+            wl2 = ran2();
+            val2 = prompt(`묵, 찌, 빠를 내세요(가위바위보 이긴곳)`);
+            if (val2 == wl2) {
+                alert("당신의 수 : " + val2 + " // 컴퓨터의 수 : " + wl2 + " \n 묵찌빠 이겼습니다.");
+                count--;
+                money = money + (batting * 2);
+                // return count;
+                // return money;
+                break;
+            } else if ((val2 == "묵" && wl2 == "빠") || (val2 == "찌" && wl2 == "묵") || (val2 == "빠" && wl2 == "찌")) {
+                alert("당신의 수 : " + val2 + " // 컴퓨터의 수 : " + wl2 + " \n 묵찌빠 졌어 (가위바위보 진곳으로 가야함) ");
+                lose();
+                break;
+            } else if ((val2 == "묵" && wl2 == "찌") || (val2 == "찌" && wl2 == "빠") || (val2 == "빠" && wl2 == "묵")) {
+                alert("당신의 수 : " + val2 + " // 컴퓨터의 수 : " + wl2 + " \n 묵찌빠 이겼으니까 다시");
+                continue;
+            } else {
+                alert("묵, 찌, 빠를 입력하세요!");
+                continue;
+            }
+            break;
+        }
+    }
+
+    while (count > 0 && money > 0) {
+        batting = prompt(`소지금 : ${money} | 남은 횟수 : ${count} \n 배팅할 금액을 입력하세요`);
+        count2 = 1;
+        if (batting < 2000 || batting > money || isNaN(batting)) {
+            alert("2000원이상, " + money + "원 이하 금액을 배팅하세요!");
+            continue;
+        } else {
+            money = money - batting;
+        }
+        while (count2 != 0) {
+            val = prompt(`소지금 : ${money} | 남은 횟수 : ${count} \n 가위, 바위, 보를 내세요.`);
+            res1 = ran1();
+
+            if (res1 == val) {
+                alert(`나의 수 : ${val} | 컴퓨터의 수 : ${res1} \n비겼습니다. `);
+                continue;
+            } else if ((res1 == "가위" && val == "보") || (res1 == "보" && val == "바위") || (res1 == "바위" && val == "가위")) {
+                alert(`나의 수 : ${val} | 컴퓨터의 수 : ${res1} \n졌습니다. `);
+                lose();
+                break;
+            } else if ((res1 == "가위" && val == "바위") || (res1 == "보" && val == "가위") || (res1 == "바위" && val == "보")) {
+                alert(`나의 수 : ${val} | 컴퓨터의 수 : ${res1} \n이겼습니다. `);
+                win();
+                break;
+            } else {
+                alert("가위, 바위, 보를 입력하세요!");
+                continue;
+            }
+
+            count2 = 0;
+        }
+    }
+</script>
+
+</html>
+
+<!--
+
+1. 가위바위보 게임을 20판 시작하기전에 돈걸고입력해서 거는데 2000원 이상으로 걸수있게 잘못걸면 다시입력 -> 배팅금액 20000원 들고 시작
+2. 지든 이기든 가위바위보 하고 묵찌빠 이기면 배팅한 금액의 * 2로 판돈 줍니다.
+지면 마이너스 배팅한 금액의 * 2
+종료조건 20판 다 끝나면  or 돈다잃었을때.
+소지금이랑 몇판했는지 알려주세용~
+
+-->

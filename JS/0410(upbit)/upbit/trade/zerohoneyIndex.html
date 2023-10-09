@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./zerohoneyIndex.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="left-container">
+        <div class="chart"></div>
+        <div class="board-trade-conatainer">
+          <div class="board"></div>
+          <div class="sell-buy">
+            <ul>
+              <li class="tab-item">매수</li>
+              <li class="tab-item">매도</li>
+              <li class="tab-item">간편주문</li>
+              <li class="tab-item">거래내역</li>
+            </ul>
+            <hr />
+            <div class="buy-container">
+              <div class="order-type-container">
+                <span style="margin-right: 80px">주문 구분</span>
+                <input type="radio" id="fixPrice" name="price-check" />
+                <label for="fixPrice">지정가</label>
+                <input type="radio" id="marketPrice" name="price-check" />
+                <label for="marketPrice">시장가</label>
+                <input type="radio" id="reservePrice" name="price-check" />
+                <label for="reservePrice">예약-지정가</label>
+              </div>
+              <div class="order-possible-container">
+                <span>주문 가능</span>
+                <span class="account"
+                  >0 <span class="currency-units">krw</span></span
+                >
+              </div>
+              <div class="buy-price-container">
+                <span>매수 가격</span>
+                <input
+                  type="text"
+                  placeholder="0"
+                  readonly
+                  onfocus="this.blur()"
+                  id="buyPrice"
+                />
+                <span class="control-price"
+                  ><span class="price-subtract">-</span>
+                </span>
+                <span class="control-price"
+                  ><span class="price-add">+</span></span
+                >
+              </div>
+              <div class="buy-steem-container">
+                <span>주문 수량</span>
+                <input
+                  type="text"
+                  placeholder="0"
+                  readonly
+                  onfocus="this.blur()"
+                  id="tradeVolume"
+                />
+              </div>
+              <div class="percent-container">
+                <span value="10">10%</span>
+                <span value="25">25%</span>
+                <span value="50">50%</span>
+                <span value="100">100%</span>
+                <span class="self-input">직접입력</span>
+
+                <div class="self-input-bar">
+                  <input
+                    type="range"
+                    id="progress"
+                    name="progress"
+                    min="0"
+                    max="100"
+                    value="50"
+                    style="width: 300px"
+                  />
+                  <p class="self-input-percent">0%</p>
+                </div>
+              </div>
+              <div class="all-price-container">
+                <span>주문 총액</span>
+                <input
+                type="text"
+                placeholder="0"
+                readonly
+                onfocus="this.blur()"
+            
+                id="orderSum"
+              />
+              </div>
+              <div class="btn-container">
+                <a href="../signUp/signUp.html" class="signup-btn">회원가입</a>
+                <a href="../signIn/signIn.html" class="signin-btn">로그인</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container"></div>
+    </div>
+  </body>
+  <script src="../allData.js"></script>
+  <script src="../util.js"></script>
+  <script src="./zerohoneyIndex.js"></script>
+</html>
