@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "truffle": "^5.11.5"
+  },
+  "name": "20231010",
+  "version": "1.0.0",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "^10.1.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

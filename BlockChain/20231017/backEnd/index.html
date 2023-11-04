@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Display a connect button and the current account -->
+    <button onclick="abc()">Enable Ethereum</button>
+    <h2>Account: <span class="showAccount"></span></h2>
+</body>
+<script>
+    // You should only attempt to request the user's account in response to user
+    // interaction, such as selecting a button.
+    // Otherwise, you popup-spam the user like it's 1999.
+    // If you fail to retrieve the user's account, you should encourage the user
+    // to initiate the attempt.
+    const showAccount = document.querySelector('.showAccount');
+
+    const abc = async () => {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            .catch((err) => {
+                if (err.code === 4001) {
+                    // EIP-1193 userRejectedRequest error
+                    // If this happens, the user rejected the connection request.
+                    console.log('Please connect to MetaMask.');
+                } else {
+                    console.error(err);
+                }
+            });
+        const account = accounts[0];
+        showAccount.innerHTML = account;
+    }
+
+    // .addEventListener('click', () => {
+    //     getAccount();
+    // });
+
+    // While awaiting the call to eth_requestAccounts, you should disable
+    // any buttons the user can select to initiate the request.
+    // MetaMask rejects any additional requests while the first is still
+    // pending.
+    async function getAccount() {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            .catch((err) => {
+                if (err.code === 4001) {
+                    // EIP-1193 userRejectedRequest error
+                    // If this happens, the user rejected the connection request.
+                    console.log('Please connect to MetaMask.');
+                } else {
+                    console.error(err);
+                }
+            });
+        const account = accounts[0];
+        showAccount.innerHTML = account;
+    }
+</script>
+
+</html>

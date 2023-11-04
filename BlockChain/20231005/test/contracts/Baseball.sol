@@ -67,19 +67,9 @@ contract Baseball{
         // 100 ~ 999의 랜덤값
     }
 
-    function isAdmin() public view returns (string memory) {
-        require(owner == msg.sender, "admin");
-        string memory res1 = string(abi.encodePacked(owner,"And",msg.sender));
-        return res1;
-        // require(owner == msg.sender);
-        // require(address(owner) == address(msg.sender));
+    function isAdmin() public view returns (bool) {
+        return owner == msg.sender;
     }
-
-//     function isAdmin() public view returns (string memory) {
-//     require(owner == msg.sender, "admin");
-//     string memory res1 = string(abi.encodePacked(owner, " And ", msg.sender));
-//     return res1;
-// }
 
     function gamereStart() public payable{
         require(address(owner) == address(msg.sender));

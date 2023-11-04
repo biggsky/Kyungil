@@ -25,14 +25,11 @@ const App = () =>{
 
     const [baseballContract, setbaseballContract] = useState(null);
 
-    // 이거 맞나?
-    const [isAdmin, setIsAdmin] = useState(true);
-
     useEffect(()=>{
         if(web3 !== null){
             if(baseballContract === null){
-                const Baseball = new web3.eth.Contract(abi, "0x88713d629f906B5F8a91e62868cAb392e47E3C25", {data:"", from: ""});
-                Baseball.options.from = "0x88713d629f906B5F8a91e62868cAb392e47E3C25";
+                const Baseball = new web3.eth.Contract(abi, "0xAa62B40BBcFD1096B4e18feC85dd266535317161", {data:"", from: ""});
+                Baseball.options.from = "0xAa62B40BBcFD1096B4e18feC85dd266535317161";
                 setbaseballContract(Baseball);
             }
         }
@@ -60,36 +57,30 @@ const App = () =>{
         setProgress(progress);
     }
 
-    // const [isAdmin, setIsAdmin] = useState(false);
     const getRandom = async () => {
         if(baseballContract === null) return;
         const result = await baseballContract.methods.isAdmin().call({
             from : user.account,
         });
+        console.log("result",result);
         // 요청을 보냈고
         // from 추가해주자
 
-        // await baseballContract.methods.gameStart(Number(value)).send({
-        //     from : user.account,
-        //     value : web3.utils.toWei("5", "ether"),
-        // });
+        if(result == true){
+            const Random = web3.utils.toBigInt(await baseballContract.methods.getRandom().call({
+                from : user.account,
+            })).toString(10);
 
-        console.log("예예옝",result);
+            setRandom(Random);
+        }else{
+            alert("넌 어드민 권한이 없어!");
+        }
 
-
-        // if(result == true){
-        //     const Random = web3.utils.toBigInt(await baseballContract.methods.getRandom().call()).toString(10);
-        //     setRandom(Random);
-        // }else{
-
-        // }
-
+        // 어드민 답 보이게 하기 코드
         // const Random = web3.utils.toBigInt(await baseballContract.methods.getRandom().call()).toString(10);
         //     setRandom(Random);
 
     };
-
-
 
 
     const gameStart = async () =>{
@@ -130,7 +121,6 @@ const App = () =>{
 
     if(user.account === null) return "지갑 연결 하세요"
     return(<>
-        <div>what{isAdmin}</div>
         <div>account : {user.account}</div>
         <div>티켓 가격 : {ticket}</div>
         <div>현재 게임 진행도 : {progress}</div>

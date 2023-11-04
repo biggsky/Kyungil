@@ -1,0 +1,15 @@
+
+자기소개
+블록체인 프라이버시, 해결법
+이더리움 가격 상승의 이유
+코인 이코노미
+ipfs
+public 블록체인으로 만들고 싶은 것
+블록체인 신원 증명에 대해서 (did, 마이데이터)
+프로젝트에서 맡은 부분 설명
+보안을 전공했는데 dns와 tcp/ip에 잘 아냐
+영어 커뮤니케이션 할 수 있냐
+89나무 접속 에러 (set holomi null) 뜨는데 왜인가
+http method GET POST 차이
+package.json package.lock.json 차이
+oracle isssue(on-chain, off-chain)

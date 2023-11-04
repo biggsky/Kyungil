@@ -133,7 +133,7 @@ contract Counter{
 
     mapping (address =>mapping(address=>uint256)) token2;
     // string이 key
-    // mapping mapping(address => uint256) 이 value //????
+    
     // address 가 key
     // uint256 value
     tokens2 {
