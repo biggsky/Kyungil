@@ -60,15 +60,8 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      // "https://hyunss.com",
-      "http://localhost:3000",
-      // "http://127.0.0.1:8080",
-      // "http://52.79.43.68",
-      // "http://localhost:8080",
-      // "http://127.0.0.1:5500",
-      // "https://zerohoney.com",
-      // "http://zerohoney.com",
-      // "https://zerohoney.site",
+      // "https://www.hyunss.com", //aws 
+      "http://localhost:3000", // 로컬
     ],
     credentials: true,
   })
@@ -98,6 +91,7 @@ sequelize
     console.log(err);
   });
 
+// --------------------------------------- /api/~~ 추가해줌
 app.use("/", mainRouter);
 app.use("/post", postRouter);
 app.use("/user", userRouter);
@@ -112,6 +106,7 @@ app.use("/board", boardEditRouter);
 app.use("/openAI", testGPT);
 // 플랜을 저장하고 관리하는 라우터
 app.use("/plan", planRouter);
+// --------------------------------------- /api/~~ 추가해줌
 const server = app.listen(8080, () => {
   console.log("server on");
 });

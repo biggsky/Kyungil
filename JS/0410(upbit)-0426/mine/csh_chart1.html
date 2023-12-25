@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CandleStick with Line Chart</title>
+
+    <link href="../../assets/styles.css" rel="stylesheet" />
+
+    <style>
+      #chart {
+        max-width: 650px;
+        margin: 35px auto;
+      }
+    </style>
+
+    <script>
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>',
+        );
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>',
+        );
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>',
+        );
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+      // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+      // Based on https://gist.github.com/blixt/f17b47c62508be59987b
+      var _seed = 42;
+      Math.random = function () {
+        _seed = (_seed * 16807) % 2147483647;
+        return (_seed - 1) / 2147483646;
+      };
+    </script>
+
+    <script src="../../assets/ohlc.js"></script>
+  </head>
+
+  <body>
+    <div id="chart"></div>
+
+    <script>
+      let time = new Date();
+      let minutes = time.getMinutes();
+      let seconds = time.getSeconds();
+      // console.log(minutes);
+      // console.log(seconds);
+      var options = {
+        series: [
+          // {
+          //   name: "line",
+          //   type: "line",
+          //   data: [
+          //     {
+          //       x: 1,
+          //       y: 1000,
+          //     },
+          //     {
+          //       x: 2,
+          //       y: 2000,
+          //     },
+          //     {
+          //       x: 3,
+          //       y: 3000,
+          //     },
+          //   ],
+          // },
+          {
+            name: "candle",
+            type: "candlestick",
+            data: [
+              // {
+              //   x: minutes + ":" + seconds,
+              //   y: [1000, 1200, 800, 1100],
+              //   // 시가 고가 저가 종가
+              // },
+              // {
+              //   x: seconds,
+              //   y: [2000, 1500, 2200, 1500],
+              // },
+            ],
+          },
+        ],
+        chart: {
+          height: 350,
+          type: "line",
+        },
+        title: {
+          text: "CandleStick Chart",
+          align: "left",
+        },
+        stroke: {
+          width: [3, 1],
+        },
+        tooltip: {
+          shared: true,
+          custom: [
+            function ({ seriesIndex, dataPointIndex, w }) {
+              return w.globals.series[seriesIndex][dataPointIndex];
+            },
+            function ({ seriesIndex, dataPointIndex, w }) {
+              var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex];
+              var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex];
+              var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex];
+              var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex];
+              return (
+                '<div class="apexcharts-tooltip-candlestick">' +
+                '<div>Open: <span class="value">' +
+                o +
+                "</span></div>" +
+                '<div>High: <span class="value">' +
+                h +
+                "</span></div>" +
+                '<div>Low: <span class="value">' +
+                l +
+                "</span></div>" +
+                '<div>Close: <span class="value">' +
+                c +
+                "</span></div>" +
+                "</div>"
+              );
+            },
+          ],
+        },
+        yaxis: {
+          min: -3000,
+          max: 3000,
+          // type: "string",
+          // label: {
+          //   format: "dd MMM yyyy",
+          // },
+        },
+      };
+
+
+      // console.log(options.series[1].data[0]);
+      // console.log(options.series[1].data[1].y);
+      // console.log(options.series[1].data[2]);
+      // options.series[1].data[1].y = [3000, 1800,3300,3200];
+      // 시가 고가 저가 종가
+
+      // console.log(options.series[1].data);
+      // options.series[1].data.splice(0,1);
+
+      // console.log(options.series[0].data[0]);
+
+      // console.log(options.series[1].data);
+
+
+
+      
+      /*
+      // 1번째 생김
+      setTimeout(() => {
+        let time = new Date();
+        let minutes = time.getMinutes();
+        let seconds = time.getSeconds();
+        let rn = Math.floor(Math.random() * 3 + 1) * 1000;
+        // options.series[0].data[0].splice(0, 1);
+        options.series[0].data[0] = {
+          x: minutes + ":" + seconds,
+          y: [1000, 1200, 800, rn],
+          // 시가 고가 저가 종가
+        };
+        chart.updateOptions(options);
+      }, 1000);
+
+      // 2번째 생김
+      setTimeout(() => {
+        let time = new Date();
+        let minutes = time.getMinutes();
+        let seconds = time.getSeconds();
+        let rn = Math.floor(Math.random() * 3 + 1) * 1000;
+        options.series[0].data[1] = {
+          x: minutes + ":" + seconds,
+          y: [1000, 1200, 800, rn],
+          // 시가 고가 저가 종가
+        };
+        chart.updateOptions(options);
+      }, 2000);
+
+      // 3
+      setTimeout(() => {
+        let time = new Date();
+        let minutes = time.getMinutes();
+        let seconds = time.getSeconds();
+        let rn = Math.floor(Math.random() * 3 + 1) * 1000;
+        options.series[0].data[2] = {
+          x: minutes + ":" + seconds,
+          y: [1000, 1200, 800, rn],
+          // 시가 고가 저가 종가
+        };
+        chart.updateOptions(options);
+      }, 3000);
+      */
+
+
+      let time0 = 1000;
+      let turn = 0;
+      let time1 = 0;
+      let count = 0;
+
+        const intervalId = setInterval(() => {
+
+          let time = new Date();
+          let minutes = time.getMinutes();
+          let seconds = time.getSeconds();
+          let rn = Math.floor(Math.random() * 3 + 1) * 1000;
+
+          options.series[0].data[count] = {
+            x: minutes + ":" + seconds,
+            y: [1000, 1200, 800, rn],
+            // 시가 고가 저가 종가
+          };
+          chart.updateOptions(options);
+          // count 0부터 시작하니까 이 값에 x + 1가 x축 범위임
+          if(count == 10){
+            clearInterval(intervalId);
+            return;
+          }
+          count++;
+          
+        }, 1000);
+
+      
+
+
+      let now1 = 11000;
+      // count 10 이라면 now1 은 11000
+
+      while(now1<100000){
+      setTimeout(() => {
+        let time = new Date();
+        let minutes = time.getMinutes();
+        let seconds = time.getSeconds();
+        let rn = Math.floor(Math.random() * 3 + 1) * 1000;
+        // console.log(options.series[0].data);
+        // console.log(options.series[0].data[0]);
+        
+        options.series[0].data.splice(0, 1);
+
+        // console.log(options.series[0].data);
+        // console.log(options.series[0].data[0]);
+
+        // options.series[0].data[0] = options.series[0].data[1];
+        options.series[0].data[10] = {
+          x: minutes + ":" + seconds,
+          y: [2000, 2200, 1800, rn],
+          // 시가 고가 저가 종가
+        };
+        chart.updateOptions(options);
+      }, now1);
+
+      now1 += 1000;
+      }
+
+
+
+
+
+
+      // while (time1 < 5000) {
+      //   setTimeout(() => {
+      //     let time = new Date();
+      //     let minutes = time.getMinutes();
+      //     let seconds = time.getSeconds();
+      //     let rn = Math.floor(Math.random() * 3 + 1) * 1000;
+      //     options.series[0].data.splice(0, 1);
+      //     // console.log(options.series[0].data);
+
+      //     options.series[0].data[1] = {
+      //       x: minutes + ":" + seconds,
+      //       y: [4000, 3200, 800, rn],
+      //       // 시가 고가 저가 종가
+      //     };
+      //     chart.updateOptions(options);
+      //   }, 3000);
+      //   time1 += 1000;
+      // }
+
+
+      // setTimeout(() => {
+      //   options.series[1].data.splice(0, 1);
+      //   options.series[1].data[0].x = new Date(1000);
+      //   options.series[1].data[1].x = new Date(2000);
+
+      //   chart.render();
+
+      //   chart.updateOptions(options);
+      // }, 2000);
+
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
+      chart.render();
+    </script>
+  </body>
+  <script src="../allData.js"></script>
+</html>

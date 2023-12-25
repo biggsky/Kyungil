@@ -176,8 +176,8 @@
                     <img class="like_btn" src="../nav_icon_img/icon_noti.png">
                     <div class="like_btn_count">${data.e_content[i].likes}</div>
                 </div>
-                </div>
-                `;
+            </div>
+            `;
         };
 
         async function add_s_Comment(a, b){
@@ -362,6 +362,7 @@
                     resolve();
                 });
             });
+            // new Promise는 likeC1 이라는 비동기 함수의 완료를 기다리는데 사용됨. likeC1 함수가 프로미스를 반환하며, then 메서드는 likec1이 완료됐을때 실행됨.
 
             this.classList.remove("disabled");
 

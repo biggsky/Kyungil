@@ -10,6 +10,11 @@ back / models / index.js
 util.js 수정
 back/routers/ path.join 수정
 
+boardEditRouter.js
+mypageRouter.js
+postRouter.js
+
+
 back / .env-------------------------------------
 DB_USERNAME=
 DB_PASSWORD=
