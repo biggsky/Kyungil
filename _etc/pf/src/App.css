@@ -1,0 +1,53 @@
+/* .App {
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 100px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    background: #dbdada;
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.2);
+}
+
+.scroll_lock {
+    overflow: hidden;
+}
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+.wrapper {
+    @media (max-width: 1024px) {
+        .w-980 {
+            width: 767px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .w-980 {
+            width: 100vw;
+            padding: 1vw;
+        }
+    }
+} */
