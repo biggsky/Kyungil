@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>관리자 페이지</h1>
+    <% data.forEach((a) => { %>
+    <!-- <form action="" method="post">
+        <hr>
+        <p><span id="id"><%= a.user_id %></span> <button>승인</button></p>
+    </form> -->
+    <hr>
+    <span>아이디:<%= a.user_id %> | </span><a href="/admin/<%= a.user_id %>">승인</a> <a href="/delete/<%= a.user_id %>">취소</a>
+    <br>
+    <% }); %>
+    <hr>
+
+</body>
+<script>
+</script>
+</html>

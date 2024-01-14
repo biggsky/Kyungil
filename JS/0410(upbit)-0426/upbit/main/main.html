@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="header">
+        <ul>
+          <a href="./main.html"
+            ><img
+              width="80px"
+              style="transform: translateY(-15px)"
+              src="./img/그림03-removebg-preview (1).png"
+              alt=""
+          /></a>
+          <a
+          id="trade"
+           href="#deal" style="text-decoration: none; color: black">
+            <li>거래소</li>
+          </a>
+          <a href="#withdraw" style="text-decoration: none; color: black">
+            <li>입출금</li>
+          </a>
+        </ul>
+        <div class="sub-header">
+          <a
+            id="logIn"
+            style="text-decoration: none; color: black"
+            href="../signIn/signIn.html"
+            >로그인</a
+          >
+          <a
+            id="signUp"
+            style="text-decoration: none; color: black"
+            href="../signUp/signUp.html"
+            >회원가입</a
+          >
+          <div class="con">
+            <img
+              class="con-img"
+              style="margin-right: 30px"
+              src="./img/스크린샷 2023-04-10 172027.png"
+              alt=""
+            />
+            <div class="con-img-box">
+              <div style="color: #797979; font-size: 15px">
+                블록스토리 앱 다운로드
+              </div>
+              <div style="display: flex">
+                <img
+                  width="80px"
+                  style="margin: 15px"
+                  src="./img/qrcode_55799122_02ddb728b5daa8f62c53f3ca78e1f7fe.png"
+                  alt=""
+                />
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 20pxx;
+                  "
+                >
+                  <a href="https://play.google.com/store/apps"
+                    ><img
+                      width="150px"
+                      height="50px"
+                      src="./img/스크린샷 2023-04-11 134121.png"
+                      alt=""
+                  /></a>
+                  <a href="https://www.apple.com/kr/app-store/"
+                    ><img
+                      width="150px"
+                      height="50px"
+                      src="./img/스크린샷 2023-04-11 134146.png"
+                      alt=""
+                  /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="popup-wrap">
+        <div class="popup">
+          <div style="position: absolute">
+            <img width="400px" src="./img/warning.png" alt="" />
+            <span>
+              <div class="popup-chk">
+                <div>
+                  <input type="checkbox" style="width: 20px" id="checkBox" />
+                  <label for="">하루동안 보지 않기</label>
+                </div>
+                <span class="popup-btn"></span>
+              </div>
+            </span>
+          </div>
+          <div class="popup-header"></div>
+          <div class="popup-body"></div>
+        </div>
+      </div>
+      <div class="pic" id="main">
+        <img
+          width="100%"
+          height="500px"
+          src="./img/main_gal_map.55adf02.png"
+          alt=""
+        />
+        <div class="pic-text">
+          <h2 style="font-size: 30px">
+            가장 신뢰받는 글로벌 표준 디지털 자산 거래소
+          </h2>
+          <p>
+            안전하고 투명한 시스템으로 빠르고 편리한 거래 환경을 제공합니다.
+          </p>
+        </div>
+        <div class="pic-num">
+          <ul style="display: flex">
+            <li style="list-style: none">
+              <p class="app-num"><span class="num-font">191</span></p>
+              <p class="app-text">Digital Assets</p>
+            </li>
+            <li style="list-style: none">
+              <p class="app-num"><span class="num-font">301</span></p>
+              <p class="app-text">Markets</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sub-banner">
+        <span>생체인증</span>으로 <span> Block-Story 로그인</span>을 더욱 빠르게
+        이용해 보세요
+      </div>
+      <div class="chart">
+        <div class="chart-box">
+          <div class="chart-header">
+            <label for="">UBMI</label>
+            <span style="color: red">6,323.13</span>
+          </div>
+          <div class="chart-box2">
+            <span>Block Market Index</span>
+            <span></span>
+            <span style="color: red">0.06</span>
+          </div>
+          <img
+            width="400px"
+            src="./img/스크린샷 2023-04-11 145025.png"
+            alt=""
+          />
+        </div>
+        <div class="chart-box">
+          <div class="chart-header">
+            <label for="">UBMI</label>
+            <span style="color: red">6,323.13</span>
+          </div>
+          <div class="chart-box2">
+            <span>Block Market Index</span>
+            <span></span>
+            <span style="color: red">0.06</span>
+          </div>
+          <img
+            width="400px"
+            src="./img/스크린샷 2023-04-11 145025.png"
+            alt=""
+          />
+        </div>
+        <div class="chart-box">
+          <label style="font-size: 30px" for="">코인시세</label>
+          <ul>
+            <li class="list">
+              <p>비트코인</p>
+              <span style="color: red">37,400,000 KRW</span>
+              <span style="color: red">+0.24%</span>
+            </li>
+            <li class="list">
+              <p>이더리움</p>
+              <span style="color: red">2,526,000 KRW</span>
+              <span style="color: red">+0.6%</span>
+            </li>
+            <li class="list">
+              <p>비트코인</p>
+              <span style="color: red">37,400,000 KRW</span>
+              <span style="color: red">+0.24%</span>
+            </li>
+            <li class="list">
+              <p>비트코인</p>
+              <span style="color: red">37,400,000 KRW</span>
+              <span style="color: red">+0.24%</span>
+            </li>
+            <li class="list">
+              <p>비트코인</p>
+              <span style="color: red">37,400,000 KRW</span>
+              <span style="color: red">+0.24%</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="app-info">
+        <div class="app-info-text">
+          <h2>빠르고 간편한 모바일 앱</h2>
+          <span
+            >코인 정보부터 주문까지 모바일에서도 간편하고 빠른 디지털 자산
+            거래소를 만나보세요.</span
+          >
+        </div>
+        <img
+          class="phone"
+          src="https://cdn.upbit.com/upbit-web/images/sliderGalbg.22348c5.png"
+          alt=""
+        />
+        <div>
+          <img
+            onclick="dot()"
+            id="appImg"
+            style="
+              position: absolute;
+              top: 48%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 240px;
+            "
+            src="./img/app_img1.png"
+            alt=""
+          />
+        </div>
+        <div>
+          <img
+            onclick="dot2()"
+            id="appImg2"
+            style="
+              position: absolute;
+              top: 48%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 240px;
+              height: 430px;
+            "
+            src="./img/app_img2.jpg"
+            alt=""
+          />
+        </div>
+        <div>
+          <img
+            onclick="dot3()"
+            id="danTa"
+            width="240px"
+            height="450px"
+            style="
+              position: absolute;
+              top: 48%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            "
+            src="./img/danta.jpg"
+            alt=""
+          />
+        </div>
+        <img
+          class="phone"
+          src="https://cdn.upbit.com/upbit-web/images/mobileFrame.9d08a5c.png"
+          alt=""
+          srcset=""
+        />
+        <div
+          style="
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            z-index: 1;
+            width: 350px;
+          "
+        >
+          <div class="button-icon" style="left: 84%">
+            <img
+              style="cursor: pointer"
+              onclick="dot()"
+              id="dotIcon"
+              src="./img/dot.png"
+              alt=""
+            />
+          </div>
+          <div>
+            <div class="phone-text">
+              <span style="color: white; font-size: 20px; font-weight: 600"
+                >실거래 시세 간편 확인</span
+              >
+              <br />
+              <span style="color: white; opacity: 0.6"
+                >앱을 실행하지 않아도 락스크린에서 <br />실시간 시세를 간편하게
+                확인</span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 60%;
+            left: 10%;
+            z-index: 1;
+            width: 355px;
+          "
+        >
+          <div class="button-icon" style="left: 90%">
+            <img
+              style="cursor: pointer"
+              onclick="dot2()"
+              id="arrowIcon"
+              src="./img/dot.png"
+              alt=""
+            />
+          </div>
+          <div class="phone-text">
+            <span style="color: white; font-size: 20px; font-weight: 600"
+              >증권사MTS수준의 안전한 거래</span
+            >
+            <br />
+            <span style="color: white; opacity: 0.6"
+              >빠르고 간편힌 모바일 주문 지원<br />모바일에 최적화된 거래</span
+            >
+          </div>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 20%;
+            left: 70%;
+            z-index: 1;
+            width: 290px;
+          "
+        >
+          <div class="button-icon" style="top: 20%; right: 99%">
+            <img
+              style="cursor: pointer"
+              onclick="dot3()"
+              id="bellIcon"
+              src="./img/dot.png"
+              alt=""
+            />
+          </div>
+
+          <div class="phone-text">
+            <span style="color: white; font-size: 20px; font-weight: 600"
+              >지정가 도달시 푸시 알림</span
+            >
+            <br />
+            <span style="color: white; opacity: 0.6"
+              >차트를 보면서 지정가 알람을 설정 <br />빠른 알람 수신</span
+            >
+          </div>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 60%;
+            left: 73%;
+            z-index: 1;
+            width: 300px;
+          "
+        >
+          <div class="phone-text">
+            <div class="button-icon" style="top: 20%; right: 99%">
+              <img
+                style="cursor: pointer"
+                onclick="dot4()"
+                id="coinIcon"
+                src="./img/dot.png"
+                alt=""
+              />
+            </div>
+            <span style="color: white; font-size: 20px; font-weight: 600"
+              >실시간 코인 동향과 정보</span
+            >
+            <br />
+            <span style="color: white; opacity: 0.6"
+              >다양한 알트코인 완벽분석 <br />한눈에 파악할 수 있는 실시간 코인
+              동향</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="app-info2">
+        <h2 style="font-size: 30px">
+          강력한 멀티팩터 인증으로 24시간 안심거래
+        </h2>
+        <span
+          >글로벌 최고 수준의 파트너들과 함께 가장 안전한 보안체계를
+          구축합니다.</span
+        >
+        <div>
+          <img
+            style="transform: translateY(20px)"
+            src="https://cdn.upbit.com/upbit-web/images/info02Img_coldWallet.0aa88ef.svg"
+            alt=""
+          />
+        </div>
+        <div
+          style="display: flex; position: relative; transform: translateY(20px)"
+        >
+          <div class="app-text">
+            <h3>월넷보안</h3>
+            <span>
+              "콜드월렛에 안전하게 분리 보관"
+              <br />
+              "최고 수준의 보안 시스템을 기반으로"
+              <br />
+              "다양한 디지털 자산 지갑을 안전하게 운영"
+            </span>
+          </div>
+          <div class="app-text">
+            <h3>계정보안</h3>
+            <span>
+              체계적인 보안 및 24시간 모니터링
+              <br />
+              OTP보다 간편하고 안전한
+              <br />
+              네이버 인증서와 카카오페이 2채널 인증
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="app-info3">
+        <h3 style="font-size: 30px; margin-top: 50px">
+          국제 표준 및 국내 주요 보안 인증 획득
+        </h3>
+        <div class="app-img">
+          <img src="./img/IsmsIco22.28c8046.svg" alt="" />
+          <img src="./img/ACT_Ico.d8e5474.svg" alt="" />
+          <img src="./img/KAB_Ico.f9083cd.svg" alt="" />
+          <img src="./img/IAF_ico.a9a20d3.svg" alt="" />
+        </div>
+        <div class="app-text2">
+          <span style="font-size: 20px"
+            >ISMS-P & ISO/IEC 27001, 27017, 27018 <br />
+          </span>
+          <br />
+          <span
+            >고객의 자산을 안전하게 보호하기 위해 국가에서 주관하는 정보보호 및
+            개인정보 관리체계 인증과 <br />
+            국제표준화기구 및 국제전기기술위원회가 제정한 국제 보안 표준 인증을
+            획득했습니다.</span
+          >
+        </div>
+      </div>
+      <div class="app-info4">
+        <div class="app-box">
+          <div style="display: flex">
+            <img width="60px" src="./img/mail.png" alt="" />
+            <span class="info4-text">블록스토리 고객센터</span>
+          </div>
+          <span class="info4-textsub">
+            <p style="font-size: 30px">0123-456</p>
+            <p style="margin-left: 10px">(평일09:00~18:00)</p>
+          </span>
+          <a
+            href="https://www.kakaocorp.com/page/service/service/KakaoTalk?lang=ko"
+            ><img
+              width="200px"
+              src="./img/스크린샷 2023-04-11 133621.png"
+              alt=""
+          /></a>
+        </div>
+        <div class="app-box">
+          <div style="display: flex">
+            <img width="60px" src="./img/phone.png" alt="" />
+            <span class="info4-text">블록스토리 라운지</span>
+          </div>
+          <span class="info4-textsub" style="color: #797979"
+            >방문 상담은 업비트라운지를 이용해주십시오. <br />
+            라운지는 회원님을 위한 상담과 교류의 공간입니다.</span
+          >
+          <ul style="list-style: circle; color: #797979">
+            <li>운영시간: 평일 09:00~18:00</li>
+            <li>서울 강동구 올림픽로 651, 예경빌딩 4층</li>
+          </ul>
+        </div>
+        <div class="app-box">
+          <div style="display: flex">
+            <img
+              width="60px"
+              src="./img/그림03-removebg-preview (1).png"
+              alt=""
+            />
+            <span class="info4-text">블록스토리 앱</span>
+          </div>
+          <div style="display: flex">
+            <div>
+              <img
+                width="80px"
+                style="margin: 10px"
+                src="./img/qrcode_55799122_02ddb728b5daa8f62c53f3ca78e1f7fe.png"
+                alt=""
+              />
+            </div>
+            <div
+              style="display: flex; flex-direction: column; margin-left: 20pxx"
+            >
+              <a href="https://play.google.com/store/apps"
+                ><img
+                  width="150px"
+                  height="50px"
+                  src="./img/스크린샷 2023-04-11 134121.png"
+                  alt=""
+              /></a>
+              <a href="https://www.apple.com/kr/app-store/"
+                ><img
+                  width="150px"
+                  height="50px"
+                  src="./img/스크린샷 2023-04-11 134146.png"
+                  alt=""
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>
+          <a href="./main.html"
+            ><img
+              width="100px"
+              src="./img/그림03-removebg-preview (1).png"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="footer-text">
+          <div>
+            <span>고객센터 : </span><span>0123-456 |</span>
+            <span>서울시 천호동</span>
+            <div style="display: flex; height: 25px">
+              <p>블록스토리 주식회사 |</p>
+              <p>서울시 천호동 |</p>
+              <p>대표 : 이무헌 |</p>
+            </div>
+            <div style="display: flex; height: 25px">
+              <p>책임자 장원철 |</p>
+              <p>책임자 조성현 |</p>
+              <p>책임자 고연수 |</p>
+            </div>
+            <div style="display: flex">
+              <p style="color: black">
+                가상자산은 고위험 상품으로써 투자금의 전부 또는 일부 손실을 초래
+                할 수 있습니다.
+              </p>
+            </div>
+            <div class="sns-icon">
+              <a href="https://twitter.com/?lang=ko">
+                <img
+                  width="90%"
+                  src="https://cdn.upbit.com/upbit-web/images/ic_sns_twitter.b95ef9e.svg"
+                  alt=""
+              /></a>
+              <a href="https://ko-kr.facebook.com/">
+                <img
+                  width="90%"
+                  src="https://cdn.upbit.com/upbit-web/images/ic_sns_facebook.2c4b45b.svg"
+                  alt=""
+              /></a>
+              <a href="https://www.naver.com/">
+                <img
+                  width="90%"
+                  src="https://cdn.upbit.com/upbit-web/images/ic_sns_naver.bd9b815.svg"
+                  alt=""
+              /></a>
+              <a href="https://www.instagram.com/">
+                <img
+                  width="90%"
+                  src="https://cdn.upbit.com/upbit-web/images/ic_sns_linkedin.af76827.svg"
+                  alt=""
+              /></a>
+              <a href="https://www.youtube.com/">
+                <img
+                  width="90%"
+                  src="https://cdn.upbit.com/upbit-web/images/ic_sns_youtube.a0e8102.svg"
+                  alt=""
+              /></a>
+            </div>
+            <br />
+            <div>
+              <a href="https://www.samsungfire.com/"
+                ><img
+                  src="https://cdn.upbit.com/upbit-web/images/logo_samsung.447ca4a.svg"
+                  alt=""
+              /></a>
+              <a href="https://ekyc.naver.com/home/main"
+                ><img
+                  style="margin-left: 10px"
+                  src="https://cdn.upbit.com/upbit-web/images/logo_naverAuth.1ee2005.svg"
+                  alt=""
+              /></a>
+              <a href="https://www.kakaopay.com/main"
+                ><img
+                  style="margin-left: 10px"
+                  src="https://cdn.upbit.com/upbit-web/images/logo_kakaopay.d05a169.svg"
+                  alt=""
+              /></a>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <h3 style="margin: 0">회사</h3>
+          <ul
+            style="
+              list-style: none;
+              transform: translateX(-40px);
+              cursor: pointer;
+            "
+          >
+            <li>회사소개</li>
+            <li>공지사항</li>
+            <li>이용약관</li>
+            <li>Open API 이용약관</li>
+            <li>개인정보처리방침</li>
+          </ul>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <h3 style="margin: 0">고객지원</h3>
+          <ul
+            style="
+              list-style: none;
+              transform: translateX(-40px);
+              cursor: pointer;
+            "
+          >
+            <li>자주하는 질문</li>
+            <li>문의하기</li>
+            <li>Open API</li>
+            <li>거래이용 안내</li>
+            <li>입출금 이용 안내</li>
+            <li>거래지원 문의 및 제보(Market Support)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="../util.js"></script>
+  <script src="../allData.js"></script>
+  <script src="./main.js"></script>
+</html>

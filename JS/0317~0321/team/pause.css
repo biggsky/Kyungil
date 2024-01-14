@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'spider';
+    src: url('./font/CombackHomeRegular-jEMd9.ttf');
+}
+
+h1{
+    font-family: 'spider';
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('./spidermanBackground.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'spider';
+}
+
+.main-container{
+    border: 0px solid white;
+    width: 950px;
+    height: 550px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 30px;
+}
+
+.main-container button{
+    font-family: 'spider';
+    width: 100px;
+    height: 50px;
+    background-color: #f5b1b1;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.main-container button:hover{
+    background-color: #fccfcf;
+}
+
+.main-container button:active{
+    background-color: #f5b1b1;
+}
+
+.jeong_pause_background{
+    background-color: rgba(0, 0, 0, 0.492);
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.jeong_pause_background.is_active{
+    display: block;
+}
+
+.jeong_pause_menu{
+    border: 1px solid white;
+    width: 950px;
+    height: 550px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.pause_title{
+    background-color: #7286D3;
+    width: 100%;
+    height: 80px;
+    border-radius: 30px 30px 0 0;
+    line-height: 1.3;
+    text-align: center;
+    font-size: 60px;
+    letter-spacing: 20px;
+    font-weight: bold;
+}
+
+.pause_list{
+    margin-top: 70px;
+}
+
+
+.pause_list .continue,
+.pause_list .retry,
+.pause_list .exit{
+    border: none;
+    border-radius: 10px;
+    background-color: #7f97f7;
+    opacity: 90%;
+    width: 370px;
+    height: 80px;
+    text-align: center;
+    font-size: 60px;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    cursor: pointer;
+    
+}
+
+.pause_list .retry{
+    background-color: #aa9bf3;
+    opacity: 90%;
+}
+
+.pause_list .exit{
+    background-color: #f5b1b1;
+    opacity: 90%;
+}
+
+.pause_list .continue:hover{
+    background-color: #9aacf7;
+    
+}
+
+.pause_list .retry:hover{
+    background-color: #bfb4f5;
+    
+}
+
+.pause_list .exit:hover{
+    background-color: #fccfcf;
+    
+}
+
+.pause_list .continue:active{
+    background-color: #7f97f7;
+    opacity: 90%;
+}
+
+.pause_list .retry:active{
+    background-color: #aa9bf3;
+    opacity: 90%;
+}
+
+.pause_list .exit:active{
+    background-color: #f5b1b1;
+   
+}

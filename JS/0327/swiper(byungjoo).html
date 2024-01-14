@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .swiper-wrap {
+        width: 500px;
+        height: max-content;
+        position: relative;
+        margin: auto;
+      }
+      .swiper {
+        width: 500px;
+        height: 500px;
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+      }
+      .swiper-content {
+        width: max-content;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        transition: 1s;
+        display: flex;
+        list-style: none;
+      }
+      .swiper-item {
+        width: 500px;
+        height: 100%;
+        border: 1px solid;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* 이벤트 제거 */
+        pointer-events: none;
+      }
+      .prev,
+      .next {
+        /* 부모보다 앞으로 */
+        /* position속성 있을때 */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        border: 1px solid;
+      }
+      .prev {
+        left: 5px;
+      }
+      .next {
+        right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- swiper 라이브러리를 사용하면 빠르고 편하긴한데
+        수정이 어렵다. -->
+    <div class="swiper-wrap">
+      <div class="swiper">
+        <ul class="swiper-content">
+          <!-- <li class="swiper-item">4</li> -->
+          <li class="swiper-item">1</li>
+          <li class="swiper-item">2</li>
+          <li class="swiper-item">3</li>
+          <li class="swiper-item">4</li>
+          <li class="swiper-item">1</li>
+          <!-- <li class="swiper-item">1</li> -->
+          <!-- <li class="swiper-item">1</li> -->
+        </ul>
+      </div>
+      <span class="prev">이전</span>
+      <span class="next">다음</span>
+    </div>
+  </body>
+  <script>
+    // 클릭의 시작 위치를 가지고 있고
+    // 끝나면 끝난 좌표와 비교를해서
+    // 오른쪽으로 스와이프 된건지
+    // 왼쪽으로 스와이프 된건지 부터 확인을하고
+    // 인덱스를 기준으로 움직임을 제어해보자.
+
+    // 마우스 시작 클릭 지점 X좌표
+    let _start;
+    // 진행중인 인덱스
+    let _index = 0;
+
+    let _swiper = document.querySelector(".swiper"); // ul를 감싸는 div
+    let _swiperContent = document.querySelector(".swiper-content"); //ul
+    let { length } = document.querySelectorAll(".swiper-item");
+    let _prev = document.querySelector(".prev");
+    let _next = document.querySelector(".next");
+
+    console.log("length : " + length);
+    // getComputedStyle 적용된 스타일의 값을 가져올수있다.
+    // 적용된 스타일을 가져올 태그를 매개변수로 전달
+    let _swiperWidth = parseInt(getComputedStyle(_swiper).width);
+    console.log("_swiperWidth : " + _swiperWidth);
+
+    _swiper.addEventListener("mousedown", function (e) {
+      // 마우스를 누르자 마자 실행되는 이벤트
+
+      // console.log("클릭 시작");
+      // 클릭했을때 X 좌표
+      // console.log(e);
+      // 클릭한 X의 좌표
+      // e.clientsX;
+      _start = e.clientX;
+      // console.log("시작x의 값: " + _start);
+    });
+
+    _swiper.addEventListener("mouseup", function (e) {
+      //  마우스를 누르다가 땠을때 실행되는 이벤트
+      
+      if (e.clientX < _start) {
+        // 오른쪽으로 가기
+
+        // console.log("끝 좌표가 더 작아");
+        if (_start - e.clientX > 10) {
+          console.log(_index);
+          
+          if (_index < length - 1) _index++;
+
+          console.log("length: " + length);
+          console.log(_index);
+          swiperMove();
+        }
+        if (_index == length-1){
+          setTimeout(() => {
+            _swiperContent.style.transition = "none";
+            _index = 0;
+            _swiperContent.style.left = "0px";
+          }, 1000);
+        }else{
+          _swiperContent.style.transition = "1s";
+        }
+
+      } else {
+        // 왼쪽으로 가기
+
+        if (e.clientX - _start > 10) {
+          if (_index > 0) _index--;
+          console.log(_index);
+          swiperMove();
+        }
+        // console.log("끝 좌표가 더 커");
+      }
+    });
+
+    // 인덱스를 기준으로 움직임
+    function swiperMove() {
+      _swiperContent.style.left = -(_index * _swiperWidth) + "px";
+    }
+    swiperMove();
+
+    _prev.addEventListener("click", function () {
+      if (_index == 0) {
+        _index = 4;
+        _swiperContent.style.left = -(_index * _swiperWidth) +"px";
+      } else {
+        if (_index > 0) _index--;
+        swiperMove();
+      }
+    });
+
+    _next.addEventListener("click", function () {
+      console.log("_index : " + _index);
+      
+      if(_index < length - 1){
+        _index++;
+        swiperMove();
+        // _swiperContent.addEventListener("transitionend", function())
+        if(_index == length - 1){
+          _swiperContent.addEventListener("transitionend", function(){
+            _swiperContent.style.transition = "none";
+            _index = 0;
+            _swiperContent.style.left = -(_index * _swiperWidth) + "px";
+          });
+
+
+          // setTimeout(() => {
+          //   _swiperContent.style.transition = "none";
+          //   _index = 0;
+          //   _swiperContent.style.left = -(_index * _swiperWidth) + "px";
+          // }, 1000);
+        }
+        else{
+          _swiperContent.style.transition = "1s";
+        }
+      }
+    });
+
+  </script>
+</html>

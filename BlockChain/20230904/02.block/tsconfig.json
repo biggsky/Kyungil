@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module" : "CommonJS",
+    "outDir" : "./dist",
+    "target" : "ES6",
+    "esModuleInterop" : true,
+    "baseUrl" : ".",
+    "paths" : {
+      // baseUrl 경로 부터 별칭 사용
+      "@core/*" : ["src/core/*"]
+      // 타입스크립트에서 이 경로를 사용하면 매핑
+      // 타입스크립트 컴파일 옵션
+    }
+  },
+  "ts-node": {
+    "require" : ["tsconfig-paths/register"]
+  }
+  
+}

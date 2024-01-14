@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        #isLoading {
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #isLoading img {
+        width: 300px;
+    }
+
+    #isLoading.disable {
+        display: none;
+    }
+
+    body {
+        text-align: center;
+    }
+
+    #hi.disable {
+        display: none;
+    }
+    </style>
+</head>
+<body>
+    <div id="isLoading">
+        <img src="./img/groot.gif" alt="">
+    </div>
+    <h1>마이페이지</h1>
+    <!-- <p>이름<span id="name"></span></p> -->
+    <button id="btn">회원탈퇴</button>
+    <p>내가 작성한 글</p>
+    <hr>
+    <div id="list"></div>
+</body>
+<script>
+    setTimeout( async() => {
+        isLoading.classList.add("disable");
+        const data1 = await axios.get("http://127.0.0.1:8000/mypage", {
+            withCredentials: true
+        });
+        let a = data1.data;
+        console.log("컴백값 : ",a);
+
+        let ui = a[0].id;
+        document.querySelector("#btn").onclick = function(){
+            del1(ui);
+        }
+        for(let i=0; i<a.length; i++){
+            document.querySelector("#list").innerHTML += "제목:"+ a[i].title +" 내용:"+ a[i].content + "<hr>";
+        }
+        
+    }, 500);
+    async function del1(abc){
+        const data1 = await axios.get(`http://127.0.0.1:8000/delete/${abc}`, {
+            withCredentials: true
+        });
+        console.log(data1);
+        window.location.href = "./login.html";
+    }
+</script>
+</html>

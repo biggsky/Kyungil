@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .line{
+            overflow: hidden;
+        }
+        .seat{
+            margin: 2px;
+            float: left;
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+        }
+        .enable{
+            background-color: gray;
+        }
+        .disable{
+            background-color: khaki;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 교수님이 주심(axios) -->
+</head>
+<body>
+    <div>비행기</div>
+    <!-- select 선택 박스 태그 -->
+    <select name="" id="selectBtn">
+        <option value="0">1 번</option>
+        <option value="1">2 번</option>
+        <option value="2">3 번</option>
+    </select>
+    <div id="content"></div>
+</body>
+<script>
+    window.onload = () =>{
+        const socket = io.connect();
+        socket.on("reserve",(data)=>{
+            if(data.selectCount== selectBtn.selectedIndex){
+                let target = document.querySelector(`div[data-x="${data.x}"][data-y="${data.y}"]`);
+                target.classList.remove("enable");
+                target.classList.add("disable");
+            }
+        });
+        let selectCount = 0;
+        selectBtn.onchange = function(){
+            content.innerHTML = "";
+            // select 태그의 선택한 옵션의 value를 호출한다.
+            selectCount = this.selectedIndex;
+            console.log("selectCount : ", selectCount);
+            // 시트 생성 함수 여기에
+            getseats(selectCount);
+        }
+        // 시트를 클릭해서 예약하는 함수
+        const onClickSeat = function(){
+            // disable 클래스가 있는 확인 메서드 contains
+            if(this.classList.contains("disable")){
+                // 이미 예약이 되어있으면 여기서 끝
+                return;
+            }
+            // 어트리뷰트 데이터 속성을 호출 getAttribute 메서드로 매개변수로 가져올 속성 이름
+            let x = this.getAttribute("data-x");
+            let y = this.getAttribute("data-y");
+            if(confirm("이 좌석을 예약할거임?")){
+                // socket 이벤트를 푸쉬할 예정
+                socket.emit("reserve",{
+                    x, y, selectCount
+                });
+            }else{
+                alert("Don't do it.");
+            }
+        }
+
+
+        // 시트 생성 함수
+        function getseats(selectIndex){
+            // 요청 응답으로 시트를 가져올 예정
+            // 변수로 받을 예정
+            // axios 무조건 이것만 쓸거임
+            // CDN 으로 사용
+            // 요청은 get방식이고 매개변수는 아이디 값으로 요청
+            axios.get("/seats/"+ selectIndex).then((e)=>{
+                // 요청 이후 응답받은 값이 e
+                // 시트 배열이 넘어온다.
+                console.log("whooooooooooo", e);
+                let {data} = e;
+                data.forEach((line, indexY) => {
+                    let lineElem = document.createElement("div");
+                    // 시트들의 열
+                    lineElem.classList.add("line");
+
+                    line.forEach((seat, indexX)=>{
+                        let seatElem = document.createElement("div");
+                        // 시트들
+                        seatElem.classList.add("seat");
+                        // 데이터 속성 이라는 어트리뷰트속성을 사용
+                        // setAttribute : 어트리뷰트 속성을 추가 메서드
+                        // 첫번째 매개변수는 속성의 이름
+                        // 두번째 매개변수는 속성의 값
+                        seatElem.setAttribute("data-x", indexX);
+                        seatElem.setAttribute("data-y", indexY);
+                        // 빈공간, 예약 가능한 시트, 이미 예약된 시트
+                        if(seat == 1){
+                            seatElem.classList.add("enable");
+                            // 시트를 클릭하면 예약
+                            seatElem.addEventListener("click", onClickSeat);
+                        }else if(seat == 2){
+                            seatElem.classList.add("disable");
+                        }
+                        lineElem.appendChild(seatElem);
+                    });
+                    content.appendChild(lineElem);
+                });
+            });
+
+        }
+        getseats(0);
+    }
+</script>
+</html>

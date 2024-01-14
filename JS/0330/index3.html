@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // promise 객체
+    // 비동기 처리를 가능하게 해주는 객체
+
+    // nodjs 사용을 많이할건데
+    // 비동기 처리를 할때 promise객체를 사용한다.
+    // 비동기처리란?★★★★★★
+    function testPromise(num) {
+      // new 키워드로 빈객체를 만들고
+      // Promise객체를 생성
+      // 전달하는 함수값에
+      // resolve, reject 두 가지의 매개변수를 받는데
+      // resolve() 함수고, 처리가 완료되면 반환
+      // reject() 함수고, 처리가 오류나면 반환
+      return new Promise(function (res, rej) {
+        try {
+          //   if (num > 10) rej({ date: "숫자큼" });
+
+          if (num > 10) {
+            // date : "숫자큼";
+            rej({ date: "숫자큼" });
+            // 거부됐다는 소리인데 에러조건에 맞기때문에 거부됐다는 소리인가요?
+          }
+
+          // if의 중괄호가 없으면 바로 밑코드까지
+          // 조건문 영역
+          // 데이터를 받아온다 가정을하자.
+          // 데이터를 가져오는 시간이 좀 걸리는데
+          // 데이터를 다 가져오고 작업을 진행시켜야할때
+          setTimeout(function () {
+            res(num + "야야");
+            // 성공적으로 이행될때 호출되는 함수
+            // 어떤 점에서 성공하였다는 건가요?
+
+          }, num);
+
+        } catch (error) {
+          rej(error);
+        }
+      });
+    }
+    // testPromise(20).then().catch(function(e){console.log(e)});
+
+
+
+    // testPromise(9).then(function (date) {
+    //     console.log("date : ", date);
+    //     // 데이터를 가져오고 처리할 구문을 여기에 작성하면 된다.
+    //     // 데이터를 가지고 처리해야할 작업
+    //     return testPromise(date);
+    //     // res를 실행하면 then() 메소드가 실행되고
+    //     // rej를 실행하면 catch() 메소드가 실행된다.
+    //   })
+    //   .then(function (date) {
+    //     // 성공
+    //     console.log(date);
+    //   })
+    //   .catch(function (err) {
+    //     // 실패
+    //     console.log(err);
+    //   });
+
+    // then 이랑 catch는 짝
+
+
+    // then이랑 catch랑 async await 같이 쓰지말자
+    // 같이써도 작업은 잘돌아가겠지 근데 안좋은 버릇이니까 절대로 같이 사용하지말자. Promise 잘 모른다는 뜻
+
+    // async await 구문
+
+    async function asyncFun(){
+        // 이제 왠만하면 try catch로 작업의 오류를 예외상황을 잡으면서 작업하자
+        try {
+            // await 뒤에 promise 객체
+            let temp = await testPromise(5);
+            // 기다리고 promise 객체 res나 rej이 처리될때까지
+            console.log(temp);
+            // console.log(1);
+            temp = await testPromise(temp);
+            console.log(temp);
+            // await + Promise = promise를 기다리고 resolve값을 반환한다.
+            // async await는 짝이다.
+            // 같이 붙어다닌다.
+
+        } catch (error) {
+        }
+    }
+    asyncFun();
+  </script>
+</html>

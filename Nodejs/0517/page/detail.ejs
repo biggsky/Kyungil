@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>글 상세보기 페이지</h1>
+    <div>
+        <label for="">글번호</label>
+        <input type="text" value="<%= data.id %>" disabled>
+    </div>
+    <div>
+        <label for="">제목</label>
+        <input type="text" value="<%= data.title %>" disabled>
+    </div>
+    <div>
+        <label for="">내용</label>
+        <input type="text" value="<%= data.content %>" disabled>
+    </div>
+    <div>
+        <label for="">작성자</label>
+        <input type="text" value="<%= data.user_id %>" disabled>
+    </div>
+
+    <div>
+        <a href="/bulletin/edit/<%= data.id %>">수정</a>
+        <a href="/bulletin/delete/<%= data.id %>">삭제</a>
+        <a href="/bulletin">돌아가기</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table style="width: 100%;">
+        <a href="/insert">추가 페이지로 가자~</a>
+        <tr>
+            <th>삭제</th>
+            <th>수정</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>시리즈</th>
+        </tr>
+        <!-- 페이지에 리스트면 여러개의 데이터가 있을텐데.. -->
+        <!-- html에서 동적으로 뭔가를 해본적이 없죠?... -->
+        <% data.forEach(function (el, index){  %>
+            <tr>
+                <td>삭제</td>
+                <td>수정</td>
+                <td><%= el.id %></td>
+                <!-- 변수표기법은 =이 들어가야함 -->
+                <td><%= el.name %></td>
+                <td><%= el.number %></td>
+                <td><%= el.series %></td>
+            </tr>
+        <% }); %>
+    </table>
+    <script>
+        // let data = [];
+        // data.forEach(function(el,index){
+            
+        // });
+        //????????????
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        input{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>게시판 글작성 페이지</h1>
+    <form method="post">
+        <textarea name="tt" cols="100" rows="3" placeholder="제목"></textarea>
+        <br>
+        <textarea name="ta" cols="100" rows="20" placeholder="내용"></textarea>
+        <br>
+        <input type="text" name="input" value="">
+        <br>
+        <button>작성</button>
+    </form>
+</body>
+<script>
+    let my = sessionStorage.getItem("mysession");
+    document.querySelector("input[name='input']").value = my;
+    
+    // let x= location.hash;
+    // let xx = x.replace("#", "")
+    // document.querySelector("input").value = xx;
+</script>
+</html>

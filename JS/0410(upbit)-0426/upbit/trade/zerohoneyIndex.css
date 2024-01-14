@@ -1,0 +1,230 @@
+a {
+  text-decoration: none;
+}
+
+.main-container {
+  width: 1400px;
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.left-container {
+  width: 37%;
+  height: max-content;
+  box-sizing: border-box;
+  position: absolute;
+  top: 605px;
+  left: 33%;
+  background-color: white;
+}
+
+.chart {
+  width: 100%;
+  height: 630px;
+  border: 1px solid;
+  height: 630px;
+}
+.right-container {
+  width: 30%;
+  box-sizing: border-box;
+}
+.board-trade-conatainer {
+  width: 100%;
+  height: 700px;
+  display: flex;
+
+  position: relative;
+}
+.board {
+  width: 50%;
+  height: 800px;
+}
+.sell-buy {
+  width: 100%;
+  height: 800px;
+  position: relative;
+}
+
+/* zerohoney part */
+
+.sell-buy ul {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  position: absolute;
+  top: 6px;
+}
+
+.sell-buy ul li {
+  width: 25%;
+  height: 45px;
+  text-align: center;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1;
+}
+.sell-buy hr {
+  width: 100%;
+  position: absolute;
+  border: 1px solid silver;
+  top: 49px;
+  z-index: 0;
+
+}
+
+.buy-container {
+  position: absolute;
+  width: 100%;
+  height: 755px;
+  top: 45px;
+  padding: 14px;
+  margin-top: 40px;
+}
+.order-type-container,
+.order-possible-container,
+.buy-price-container,
+.buy-steem-container,
+.percent-container,
+.all-price-container,
+.btn-container {
+  height: 45px;
+}
+.order-possible-container {
+  position: relative;
+}
+
+.order-possible-container span:nth-child(2) {
+  position: absolute;
+  right: 40px;
+}
+
+.buy-price-container > span:nth-child(1) {
+  width: 110px;
+  display: inline-block;
+}
+.buy-price-container input {
+  width: 250px;
+  height: 33px;
+  border: 1px solid #dfe0e5;
+}
+.buy-price-container input::placeholder {
+  text-align: right;
+}
+.buy-price-container .control-price {
+  width: 38px;
+  height: 35px;
+  border: 1px solid #dfe0e5;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: -5px;
+  position: relative;
+}
+
+.buy-price-container .control-price span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(212, 214, 220);
+}
+.buy-steem-container input {
+  width: 330px;
+  height: 33px;
+  border: 1px solid #dfe0e5;
+}
+
+.buy-steem-container input::placeholder{
+    text-align: right;
+}
+
+.buy-steem-container > span:nth-child(1) {
+  width: 110px;
+  display: inline-block;
+}
+
+.percent-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.percent-container span {
+  width: 70px;
+  height: 25px;
+  border: 1px solid #dfe0e5;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+.percent-container .self-input-bar{
+    display: none;
+    justify-content: space-around;
+    width: 450px;
+}
+
+.percent-container .self-input-percent{
+align-items: center;
+}
+
+.all-price-container input {
+  width: 330px;
+  height: 33px;
+  border: 1px solid #dfe0e5;
+}
+
+.all-price-container input::placeholder{
+    text-align: right;
+    font-size: 18px;
+}
+
+.all-price-container > span:nth-child(1) {
+  width: 110px;
+  display: inline-block;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.signup-btn {
+  width: 95px;
+  height: 44px;
+  background-color: #0c3887;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-btn {
+  width: 300px;
+  height: 44px;
+  background-color: #1261c4;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buy-btn,.sell-btn {
+  width: 300px;
+  height: 44px;
+  background-color: #1261c4;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

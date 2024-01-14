@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 엑시오스 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<style>
+    #isLoading {
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #isLoading img {
+        width: 300px;
+    }
+
+    #isLoading.disable {
+        display: none;
+    }
+
+    body {
+        text-align: center;
+    }
+
+    #hi.disable {
+        display: none;
+    }
+</style>
+
+<body>
+    <div id="isLoading">
+        <img src="./img/groot.gif" alt="">
+    </div>
+    <!-- <div>
+        <div>
+            <span>이름 : </span>
+            <span id="user_name"></span>
+        </div>
+        <div>
+            <span>나이 : </span>
+            <span id="user_age"></span>
+        </div>
+    </div> -->
+
+    <div>
+        <h1>게시글 확인 페이지 / <a href="/0526/frontEnd/mypage.html">마이페이지</a> </h1>
+        <hr>
+        <a href="/0526/frontEnd/insert.html">게시글 추가하기</a>
+        <hr>
+
+        <p>제목 | 작성자</p>
+        <hr>
+        <br>
+        <div id="hi"></div>
+    </div>
+</body>
+<script>
+    // async function getAPI(){
+    function getAPI() {
+        try {
+            setTimeout(async () => {
+                // login.js 의 view
+                const { data } = await axios.get("http://127.0.0.1:8000/login/view", {
+                    // withCredentials : 브라우저가 쿠키를 서버로 전달 할 수 있는 옵션
+                    withCredentials: true
+                });
+                if(data == "다시 로그인 해주세요"){
+                    window.location.href = "./login.html";
+                }else{
+                    if (data.length != 0) {
+                        console.log(data);
+                        console.log(data.length);
+                        for(let i=0; i<data.length; i++){
+                            hi.innerHTML += `<a href="/0526/frontEnd/boardview.html#${data[i].id}">${data[i].title}</a> | <span>${data[i].user_id}</span> <hr>`;
+                            // hi.innerHTML += `<a href="/0526/frontEnd/boardview.html">${data[i].title}</a> | <span>${data[i].user_id}</span> <hr>`;
+                        }
+                    } else {
+                        hi.classList.add("disable");
+                    }
+                }
+                // user_name.innerHTML = data.name;
+                // user_age.innerHTML = data.age;
+                isLoading.classList.add("disable");
+            }, 500);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getAPI();
+</script>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    li {
+      width: 800px;
+      height: 80px;
+    }
+
+    li>div {
+      width: 150px;
+      height: 80px;
+      border: 1px solid;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    li>div:first-child {
+      width: 100px;
+    }
+
+    li>div:nth-child(2) {
+      border-right: 0px;
+      width: 50px;
+    }
+
+    li>div:last-child {
+      border: 1px solid;
+      border-left: 0px;
+      width: 50px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    #ce {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+    }
+
+    #ce2 {
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>todoList</h2>
+  <div id="ce2">
+    <div id="ce">
+      <label for="">시간</label>
+      <input type="text" />
+      <label for="">할일</label>
+      <input type="text" />
+      <button id="addBtn">추가</button>
+      <div id="_div"></div>
+    </div>
+  </div>
+</body>
+<script>
+  let res;
+  let _json = '{"key" : "value"}';
+  // console.log("first : ", _json);
+  // console.log("JSON.parse(_json) : ", JSON.parse(_json));
+  let obj = { key: 24 };
+  // console.log("JSON.stringify(obj) : ", JSON.stringify(obj));
+  window.localStorage.clear();
+
+  function addList() {
+    let inputs = document.querySelectorAll("input");
+    let value = window.localStorage.getItem("게시판");
+    // window.localStorage.clear();
+    if (window.localStorage.length == 0 || window.localStorage.getItem("게시판") == "") {
+      window.localStorage.setItem("게시판", `{"name" : "${inputs[0].value}", "age" : "${inputs[1].value}" }`);
+    } else {
+      window.localStorage.setItem("게시판", value + "|" + `{"name" : "${inputs[0].value}", "age" : "${inputs[1].value}" }`);
+    }
+    console.log(window.localStorage.getItem("게시판", _json));
+
+    render();
+  }
+
+  function render() {
+    try {
+
+
+      console.log("redner 시작", window.localStorage.getItem("게시판"));
+      let _json = window.localStorage.getItem("게시판");
+      // 문자열에서 "|" 문자열마다 잘라서 배열로 변경
+      _json = _json.split("|");
+      // console.log(_json[0]);
+      _div.innerHTML = "";
+      let _ul = document.createElement("ul");
+      _div.append(_ul);
+      let _li = document.createElement("li");
+      _ul.append(_li);
+      _li.style.display = "flex";
+      let _div1 = document.createElement("div");
+      let _div2 = document.createElement("div");
+      let _div3 = document.createElement("div");
+      _li.append(_div1, _div2, _div3);
+
+      _div1.innerHTML = "시간";
+      _div2.innerHTML = "할일";
+
+      let nb = 0;
+
+      _json.forEach(function (i) {
+        let _li = document.createElement("li");
+        let _div1 = document.createElement("div");
+        let _div2 = document.createElement("div");
+        let _div3 = document.createElement("div");
+        let _button = document.createElement("button");
+        _div1.innerHTML = JSON.parse(i).name;
+        _div2.innerHTML = JSON.parse(i).age;
+        _li.style.display = "flex";
+        _ul.append(_li);
+        _li.append(_div1, _div2, _div3);
+        _li.id = "lin" + nb;
+        _div3.append(_button);
+        _button.append("×");
+        // _button.id = nb;
+        _button.id = nb;
+
+        _button.onclick = function () {
+          // 처음에만 삭제시키고 그다음에는 랭스 구해와서 삭제시키기
+          let id = _button.id;
+          console.log(id);
+
+          let res = this.parentElement;
+          res.parentNode.remove();
+
+          _json.splice(id, 1);
+          console.log("_json", _json);
+          window.localStorage.setItem("게시판", _json.join("|"));
+
+          // window.localStorage.setItem("게시판",_json.join("|"));
+          // console.log(window.localStorage.getItem("게시판"));
+          render();
+
+
+          // console.log(window.localStorage.getItem("게시판"));
+        };
+
+        nb++;
+      });
+      console.log("render끝", window.localStorage.getItem("게시판", _json));
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+
+  // if(window.localStorage.length != 0){
+  //     render();
+  // }
+
+
+  addBtn.addEventListener("click", addList);
+</script>
+
+</html>

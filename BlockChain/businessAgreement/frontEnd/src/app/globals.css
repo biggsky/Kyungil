@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* max-width: 1400px; */
+  min-width: 280px;
+  overflow: scroll;
+  margin: 0 auto;
+  background-color: rgb(250 251 253);
+}
+
+@font-face {
+  font-family:'explorerFont';
+  src : url('/fonts/Pretendard-Regular.otf') format('truetype');
+}
+
+/* @font-face {
+  font-family:'titleFont';
+  src : url('/fonts/Valoon.ttf') format('truetype');
+}
+
+@font-face {
+  font-family:'headerFont';
+  src : url('/fonts/Louis George Cafe Light Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family:'EthereumOverviewFont';
+  src : url('/fonts/Louis George Cafe Bold Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family:'numberFont';
+  src : url('/fonts/Walkway UltraBold.ttf') format('truetype');
+}
+@font-face {
+  font-family:'gunmetl';
+  src : url('/fonts/gunmetl.ttf') format('truetype');
+}
+@font-face {
+  font-family:'Dalgona Candy';
+  src : url('/fonts/Dalgona Candy.ttf') format('truetype');
+} */
+
+
+
+
+

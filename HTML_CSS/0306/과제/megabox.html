@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tab-menu {
+            /* display: flex; */
+            /* justify-content: center; */
+        }
+        #top{
+            display: flex;
+            justify-content: center;
+        }
+
+        #top>input {
+            display: none;
+        }
+
+        #top>input+label {
+            display: inline-block;
+            /* padding-left: 30px; */
+            /* padding-right: 30px; */
+            background-color: yellow;
+            color: black;
+            font-size: 14px;
+            border: 1px solid #503396;
+            cursor: pointer;
+        }
+
+        #top>input:checked+label {
+            background-color: aqua;
+            color: #503396;
+        }
+
+        .box {
+            width: 500px;
+            height: 500px;
+            background-color: red;
+            margin: 0 auto;
+            display: none;
+        }
+
+        
+        input[class="tab01"]:checked~.item1 {
+            display: block;
+            color: white;
+        }
+
+        input[class="tab02"]:checked~.item2 {
+            display: block;
+            color: white;
+        }
+
+        input[class="tab03"]:checked~.item3 {
+            display: block;
+            color: white;
+        }
+
+        input[class="tab04"]:checked~.item4 {
+            display: block;
+            color: white;
+        }
+
+        input[class="tab05"]:checked~.item5 {
+            display: block;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>전체영화</h1>
+    <div class="tab-menu">
+        <div id="top">
+            <input class="tab01" type="radio" id="tab01" name="tabmenu" checked>
+            <label for="tab01">박스오피스</label>
+            <input class="tab02" type="radio" id="tab02" name="tabmenu">
+            <label for="tab02">상영예정작</label>
+            <input class="tab03" type="radio" id="tab03" name="tabmenu">
+            <label for="tab03">특별상영</label>
+            <input class="tab04" type="radio" id="tab04" name="tabmenu">
+            <label for="tab04">필름소사이어티</label>
+            <input class="tab05" type="radio" id="tab05" name="tabmenu">
+            <label for="tab05">클래식소사이어티</label>
+        </div>
+
+        <br><br>
+
+        <div class="box item1">1번 박스</div>
+        <div class="box item2">2번 박스</div>
+        <div class="box item3">3번 박스</div>
+        <div class="box item4">4번 박스</div>
+        <div class="box item5">5번 박스</div>
+    </div>
+</body>
+
+</html>

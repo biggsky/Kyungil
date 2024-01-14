@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+    <!-- 교수님이 주심 -->
+</head>
+<body>
+    
+</body>
+<script>
+    /*
+    웹에서 네트워크와 상호작용
+
+    web3.js
+    맛보기 간단히 html javascript를 사용해서
+    네트워크의 상호작용을 한번 해보자.
+
+    Ganache 를 사용할것.
+    npm install -g ganache-cli
+    실행 명령어는
+    npx ganache-cli
+
+    npx ganache-cli -h 0.0.0.0   이건 굳이 설치 안해도 됨
+    
+    web3로 어떤 네트워크로 요청할건지 지정을 해주자.
+    */
+   const web3 = new Web3("http://127.0.0.1:8545");
+
+   web3.eth.getAccounts().then(console.log);
+
+   web3.eth.getBalance("0x47e618E3a34d1AfAA0C169284a23f610De080f52").then((data)=>{
+    // wei라는 단위로 뜨는데
+    // 10 ** 18으로 측정이 된다
+    // 이 단위가 있는 이유는 가스비 연산에 사용하기 위해서
+
+    console.log(data);
+    // 단위 변환
+    const value = web3.utils.fromWei(data);
+    console.log(value);
+
+   })
+</script>
+</html>

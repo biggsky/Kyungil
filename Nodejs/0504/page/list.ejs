@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>리스트 페이지</h2>
+    <a href="/insert">추가 페이지로 이동</a>
+    <table>
+        <tr>
+            <td><a href="">삭제</a> </td>
+            <td>수정</td>
+            <td>아이디</td>
+            <td>이름</td>
+            <td>전화번호</td>
+            <td>시리즈</td>
+        </tr>
+        <% if(data){ %>
+
+            <% data.forEach((el,index) => { %>
+            <tr>
+                <td><a href="/delete/<%= el.id %>"> 삭제</a></td>
+                <td><a href="/edit/<%= el.id %>">수정</a></td>
+                <td><%= el.id %></td>
+                <td><%= el.name %></td>
+                <td><%= el.number %></td>
+                <td><%= el.series %></td>
+            </tr>
+            <% }); %>
+
+        <% }else{ %>
+
+        <% } %>
+    </table>
+</body>
+<script>
+    // 데이터 베이스로 요청해서 data 객체로 전달 해주면 우리가 데이터베이스에 등록해놓은 지금은
+    // 4	2	3	4
+    // 6	1	토르	인피니티워
+    // 이렇게 데이터베이스에 값이 있다고 가정할때
+    // [{id:4, name:2, number:3, series:4},{ 밑에꺼랑 동일}}]
+
+
+
+    // if(data){
+
+    // }else{
+
+    // }
+
+    // data = [];
+    // data.forEach((el,index) => {
+        
+    // });
+</script>
+</html>

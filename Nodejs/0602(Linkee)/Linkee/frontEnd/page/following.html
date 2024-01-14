@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>following</title>
+    <script src="http://andybyungjoopark.com/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/nav.css" />
+    <link rel="stylesheet" href="../css/following.css">
+  </head>
+  <body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+
+    <div class="middle_body">
+        <div id="followingUsers">
+            <div class="text">팔로워 N명</div>
+        </div>
+        <div id="followerUsers">
+            <div class="text">팔로워 N명</div>
+
+        </div>
+    </div>
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div></div>
+        </div>
+    </div>
+  </body>
+
+</html>

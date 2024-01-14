@@ -1,0 +1,8 @@
+프론트엔드 폴더 만들기
+npx create-react-app [만들 폴더명]
+
+styled-components 설치
+npm i styled-components
+
+
+

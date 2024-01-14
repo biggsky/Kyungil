@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes rot1{
+            0%{
+                transform: rotate(0);
+            }
+            50%{
+                transform: rotate(360deg);
+            }
+            100%{
+                transform: rotate(0);
+            }
+        }
+        #div1{
+            /* background-color: yellow; */
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        #div1 img{
+            /* animation: rot1 1s ease; */
+            height: 300px;
+            width: 300px;
+            transition: transform 3s linear, border 1s ease-in-out, border-radius 1s ease-in-out;
+        }
+        #div1:hover img{
+            transform: rotate(720deg);
+            border-radius: 50%;
+            border: 10px solid black;
+        }
+
+        @media only screen and (max-width: 1200px){
+            #div1{
+                width: 350px;
+                height: 350px;
+                /* background-color: yellow; */
+                border: 10px solid red;
+            }
+        }
+        @media only screen and (max-width: 600px){
+            #div1{
+                width: 350px;
+                height: 350px;
+                border: 10px solid blue;
+            }
+        }
+        @media only screen and (min-width: 1200px){
+            #div1{
+                width: 350px;
+                height: 350px;
+                border: 10px solid green;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <img src="https://file2.nocutnews.co.kr/newsroom/image/2019/03/06/20190306032809346893_0_777_1113.jpg" alt="">
+    </div>
+</body>
+</html>

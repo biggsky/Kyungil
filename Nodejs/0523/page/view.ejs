@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>상세보기 페이지</h1>
+    <form action="/edit/<%= data.id %>" method="post">
+        <input type="text" name="title" value="<%= data.title %>"><br><br>
+        <textarea name="content" cols="30" rows="10"><%= data.message %></textarea><br>
+        <button>수정</button>
+    </form>
+    <button><a href="/view/delete/<%= data.id %>">삭제</a></button>
+
+    <br><br>
+    <hr>
+    <p>댓글</p>
+    <form action="/comment/<%= data.id %>" method="post">
+        <input type="text" name="comment">
+        <button>입력</button>
+    </form>
+    <p>내용 | 작성자</p>
+    <hr>
+    <% data22.forEach((a)=>{ %>
+        <p>
+            <span><%= a.message %></span>
+            <span><%= a.userid %></span>
+        </p>
+        <hr>
+    <% }) %>
+</body>
+</html>

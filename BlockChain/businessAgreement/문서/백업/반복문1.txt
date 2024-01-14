@@ -1,0 +1,188 @@
+// const count = [
+  //   {
+  //     component_name: "Blocks",
+  //     component_count : 1,
+
+  //     component1_1 : "Block",
+  //     component1_2 : "1",
+  //     component1_3: 16,
+  //     component1_2 : "1",
+  //     component1_3: 16,
+
+  //     component2_1 : "Fee Recipient",
+  //     component2_2 : "Titan Builder",
+
+  //     component3_1 : "102 txns", // transactions in this Block
+  //     component3_2 : "in 12 secs",
+  //     component3_3 : "0.2503"
+  //   }
+  // ];
+
+
+import React from 'react'
+
+interface ComponentItem {
+  component_name: string;
+  component_count : number;
+  component1_1: string;
+  component1_2: string;
+  component1_3: number;
+  component2_1: string;
+  component2_2: string;
+  component3_1: string;
+  component3_2: string;
+  component3_3: string;
+}
+
+interface MainProps {
+  obj:ComponentItem[]
+}
+
+// interface ComponentListProps {
+//   obj:{
+//     component_name: string;
+//     component_count : number;
+//     component1_1: string;
+//     component1_2: string;
+//     component1_3: number;
+//     component2_1: string;
+//     component2_2: string;
+//     component3_1: string;
+//     component3_2: string;
+//     component3_3: string;
+//   }[]
+// }
+
+const Main:React.FC<MainProps> = ({obj}) => {
+  // const count = [1,2,3,4,5,6,7];
+
+  // console.log("1",count[0].component_name);
+  // console.log("count.length:" ,count.length);
+  
+  // const count2 = [{component_name: "Transactions", component1: }];
+  // console.log(count2.length);
+
+  return (
+    <>
+      <div className='bg-black min-h-screen flex justify-center'>
+        {/* maincomponent */}
+        {/* w-11/12 width: 91% */}
+        <div className='bg-gray w-11/12 h-32 rounded-lg'>
+
+          {/* header */}
+          <div className='bg-white w-full h-14 border-b-2 border-b-gray rounded-t-lg flex flex-wrap items-center ' >
+            <b className='ml-4'>Latest {obj[0].component_name}</b> 
+          </div>
+
+          {/* body */}
+          <div className='bg-white w-full h-[484.8px] flex flex-wrap justify-center content-start overflow-auto'>
+            <hr className='w-11/12 h-[15px] border-0 ' />
+            {obj.map((item, index)=>(
+              <>
+                <div className='bg-white w-11/12 h-[66.38px]'>
+                  {/* 1 */}
+                  <div>
+                    {/* 1_1 */}
+                    {item.component1_1} 
+
+                    {/* 1_2 */}
+                    <span className='text-body_link_text_color' style={{ marginLeft: '0.5em' }}>
+                      {item.component1_2}
+                    </span> 
+
+                    {/* 1_3 */}
+                    <span className='text-xs text-body_time_color' style={{ marginLeft: '0.5em' }}>
+                      {item.component1_3} secs ago
+                    </span>
+                  </div>
+
+                  {/* 2 */}
+                  <div>
+                    {/* 2_1 */}
+                    {item.component2_1} 
+                    {/* 2_2 */}
+                    <span className='text-body_link_text_color' style={{ marginLeft: '0.5em' }}>{item.component2_2}</span> 
+                  </div>
+
+                  {/* 3 */}
+                  <div>
+                    {/* 설계미스 + 조언 */}
+
+                    {/* 3_1 */}
+                    {/* name[index].component_name == "Blocks" ? :  */}
+                    {/* <span className='text-body_link_text_color'>{item.component3_1}</span>  */}
+                    {/* <span className='text-black'>{item.component3_1}</span>  */}
+
+                    <span className={obj[index].component_name == "Blocks" 
+                    ?
+                    "text-body_link_text_color"
+                    :
+                    "text-black"
+                    } 
+                    >
+                      {item.component3_1}
+                    </span>
+
+                    {/* 3_2 */}
+                    {/* <span className='text-xs text-body_time_color' style={{ marginLeft: '0.5em' }}>{item.component3_2} </span> */}
+
+                    <span className={obj[index].component_name == "Blocks" 
+                    ?
+                    "text-xs text-body_time_color"
+                    :
+                    "text-body_link_text_color"
+                    }
+                    style={{ marginLeft: '0.5em' }}
+                    >
+                      {item.component3_2}
+                    </span>
+
+                    {/* 3_3 */}
+                    <span className='border-body_border border-2 rounded-md p-1 text-xs' style={{ marginLeft: '0.5em' }}>
+                      {item.component3_3} Eth
+                    </span> 
+                  </div>
+                </div>
+                {/* 마지막에는 hr이 추가되지 않게끔 작성함  */}
+                {item.component_count != obj.length 
+                ?
+                <>
+                  <hr className='w-11/12 h-[15px] border-0 ' />
+                  <hr className="w-11/12 h-[30px] border-0 relative before:absolute before:top-1/2 before:left-0 before:w-full before:border-t before:border-gray before:h-[5px] before:-translate-y-1/2" />
+                </>
+                :                
+                <>
+                  <hr className='w-11/12 h-[15px] border-0 ' />
+                </>
+                }
+              </>
+            ))}
+            <hr className='w-11/12 h-[15px] border-0 ' />
+          </div>
+
+          {/* footer */}
+          <div className='bg-footer w-full h-[51px] flex flex-wrap items-center justify-center rounded-b-lg text-footer_text'>VIEW ALL {obj[0].component_name} → </div>
+
+        </div>
+      </div>
+
+
+
+      {/* 연습 */}
+      {/* <div className="space-y-6 bg-blue-300">
+        <div className="w-96 bg-white shadow rounded">w-96</div>
+        <div className="w-80 bg-white shadow rounded">w-80</div>
+        <div className="w-72 bg-white shadow rounded">w-72</div>
+        <div className="w-64 bg-white shadow rounded">w-64</div>
+        <div className="w-60 bg-white shadow rounded">w-60</div>
+        <div className="w-56 bg-white shadow rounded">w-56</div>
+        <div className="w-52 bg-white shadow rounded">w-52</div>
+        <div className="w-48 bg-white shadow rounded">w-48</div>
+        <div className='bg-[#d23232F]'>hello</div>
+      </div> */}
+      {/* <h1 className="text-3xl font-bold underline">Hello, Next.js!</h1> */}
+    </>
+  )
+}
+
+export default Main

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>insert</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/insert.css">
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div class="live_chat_noti_container">
+        <div class="live_chat_noti">
+            <p>OOO님이</p>
+            <p>대화를 요청하였습니다.</p>
+            <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+            <div class="btns">
+                <div class="appBtn">승인</div>
+                <div class="rejBtn">거절</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="middle_body">
+        <form>
+            <div class="form_top">
+                <h4>새 게시물</h4>
+                <button id="uploadBtn" type="button">공유</button>
+            </div>
+            <div id="inputFile" class="inputFile">
+                <img id="preview" onerror="style.display='none'">
+                <label class="fileUpload" for="fileUpload">파일 선택</label>
+                <input name="img" type="file" id="fileUpload" style="display: none">
+            </div>
+            <textarea name="content" id="content" cols="50" rows="10" placeholder="문구 입력...&#13;&#10;태그를 사용하면 다른 사용자가 게시물을 검색할 수 있습니다.&#13;&#10;&#13;&#10;ex)&#13;&#10;안녕안녕&#13;&#10;#링키 #LINKee #룰루&#13;&#10;#태그뒤에는 #띄어쓰기 #꼭붙여주기"></textarea>
+        </form>
+    </div>
+
+    <!-- noti / dm -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo">LINKee</div>
+            <div class="noti"><a href="./noti.html"><img src="../nav_icon_img/icon_noti.png" alt=""></a></div>
+            <div id="red_dot"></div>
+            <div class="live_chat"><img src="../nav_icon_img/icon_dm.png" alt=""></div>
+        </div>
+    </div>
+
+    <!-- home / search / insert / mypage -->
+    <div class="bottom_nav_container">
+        <div class="bottom_nav">
+            <div class="icon"><a href="./main.html"><img src="../nav_icon_img/icon_home.webp" alt=""></a></div>
+            <div class="icon"><a href="./search.html"><img src="../nav_icon_img/icon_search.png" alt=""></a></div>
+            <div class="icon"><a href="./insert.html"><img src="../nav_icon_img/icon_plus.png" alt=""></a></div>
+            <div id="profile_img" class="profile_img"></div>
+        </div>
+    </div>
+</body>
+<script>
+    // 로그인 된 유저 프로필 가져오기
+    async function getProfile() {
+        try {
+            const {data} = await axios.get('http://127.0.0.1:8080/main/getProfile', {
+                // 브라우저가 서버로 쿠키를 전달할 수 있는 옵션
+                withCredentials : true
+            });
+
+            console.log(data);
+            // 소켓------------------------------- sh
+            // 모든 페이지에 다 들어갈 부분!!!
+            const socket = io.connect('localhost:8080'); // 소켓 연결 시도
+            socket.emit("userIn", data.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                console.log("접속 중인 유저 : ", userID);
+                console.log("접속 중인 유저의 소켓 아이디 : ", socketID);
+            });
+
+            // 소켓 받아오기
+            socket.on("detail_page_like_click_noti_send", () =>{
+                document.querySelector("#red_dot").style.display = "block";
+            });
+            // 소켓------------------------------- sh
+
+            if(data.profile_img == null) {
+                profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/default_profile.jpeg" alt=""></a>`;
+            }else {
+                profile_img.innerHTML = `<a href="./mypage.html"><img src="http://127.0.0.1:8080/user_img/${data.profile_img}" alt=""></a>`;
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getProfile();
+
+    uploadBtn.onclick = () => {
+        if(!content.value) {
+            content.style.border = "1px solid red";
+        }else {
+            content.style.border = "1px solid black";
+
+            // content <br>
+
+            const form = new FormData();
+            form.append("img", fileUpload.files[0]);
+            form.append("content", content.value);
+    
+            axios.post('http://127.0.0.1:8080/insert', form, {
+                "Content-Type" : "multipart/form-data",
+                withCredentials : true
+            }).then((e) => {
+                console.log("전달 완료");
+                console.log(e.data);
+            }).catch((err) => {
+                console.log(error);
+            });
+    
+            content.value = "";
+            content.innerHTML = "";
+        }
+    }
+
+</script>
+<script src="../js/insert.js"></script>
+</html>

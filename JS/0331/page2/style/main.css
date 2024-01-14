@@ -1,0 +1,183 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    transition: 1s;
+    top: 0;
+}
+
+.header.isActive{
+    position: fixed;
+    animation: headerAni 1s;
+    background-color: #fff;
+}
+
+.header ul{
+    display: flex;
+    list-style: none;
+}
+
+.header ul li{
+    margin: 15px;
+}
+
+.header::before{
+    content: "b";
+    background-color: #00c9b7;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    color: #fff;
+    font-weight: 900;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 15px;
+    border-radius: 50%;
+}
+
+
+.header::after{
+    content: "itKunst";
+    position: absolute;
+    left: 47px;
+    font-size: 28px;
+    font-weight: 900;
+    /* position 속성이 있을때 order를 설정할수있다. */
+    /* z-index: -1; */
+}
+
+/* main content-01 ---------------------------------------- */
+.main{
+    /* view height 브라우저의 높이 */
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    z-index: -1;
+}
+
+.main .content-01{
+    width: 100%;
+    height: 100%;
+}
+
+.overlay{
+    width: 50%;
+    height: 100%;
+    background-color: #00c9b7;
+    opacity: 0.1;
+}
+
+.content-01 .text-warp{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.content-01 .text-warp p{
+    color: #00c9b7;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.content-01 .text-warp h1{
+    margin: 0;
+    padding: 0;
+    font-size: 54px;
+}
+
+.content-01 .text-warp h2 {
+    margin: 15px 0 0 0;
+    padding: 0;
+    font-size: 30px;
+}
+
+.text-warp h2 span{
+    color: #00c9b7;
+    position: relative;
+}
+/* 테그잡고 접근하지 말자 되도록 */
+.text-warp h2 span::before{
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    background-color: #00c9b7;
+    bottom: -5px;
+}
+
+.content-01 .mouse{
+    position: absolute;
+    background-color: #edf0ff;
+    width: 70px;
+    height: 70px;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.content-01 .mouse .arrow{
+    height: 20px;
+    width: 2px;
+    background-color: #00c9b7;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    animation: ani 1s infinite;
+}
+
+.content-01 .mouse .arrow::before,
+.content-01 .mouse .arrow::after{
+    content: "";
+    width: 2px;
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 4px;
+    transform: rotate(45deg);
+    background-color: #00c9b7;
+}
+
+.content-01 .mouse .arrow::after{
+    left: -4px;
+    transform: rotate(-45deg);
+}
+
+@keyframes ani{
+    from{
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    to{
+        left: 80%;
+        transform: translate(-50%, 60%) rotate(-45deg);
+    }
+}
+
+@keyframes headerAni{
+    from{
+        top : -80px;
+    }
+    to{
+        top : 0;
+    }
+}
+
+.content-02{
+    width: 100%;
+    height: 500px;
+    background-color: antiquewhite;
+}

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>가위바위보</title>
+  <style>
+    .player-select,
+    .com-select {
+      width: 180px;
+      height: 154px;
+      background-image: url("./img/img.png");
+      background-repeat: no-repeat;
+      border: 1px solid;
+      background-size: 440px;
+      background-position-x: 25px;
+    }
+
+    .rock {
+      background-position-x: 25px;
+    }
+
+    .paper {
+      background-position-x: -276px;
+    }
+
+    .scissors {
+      background-position-x: -121px;
+    }
+
+    .game-wrap {
+      display: flex;
+    }
+
+    #show2 {
+      display: none;
+    }
+
+    #basic {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 버튼 가위 바위보 -->
+  <div id="bb"></div>
+  <div id="bbb"></div>
+  <div id="basic">
+    <div class="game-wrap">
+      <!-- player 선택한 이미지 -->
+      <div class="player-select"></div>
+      <div class="com-select"></div>
+    </div>
+
+    <div id="show1">
+      <button class="player-btn">가위</button>
+      <button class="player-btn">보</button>
+      <button class="player-btn">바위</button>
+    </div>
+    <div id="show2">
+      <button class="player-btn">묵</button>
+      <button class="player-btn">찌</button>
+      <button class="player-btn">빠</button>
+    </div>
+  </div>
+
+  <!-- <h1 class="result">결과</h1>
+    <p class="subResult">내용</p> -->
+</body>
+<script>
+  let easy = document.createElement("button");
+  let hard = document.createElement("button");
+  let vhard = document.createElement("button");
+  let comoney;
+  easy.innerHTML = "쉬움";
+  easy.id = 100000;
+  hard.innerHTML = "어려움";
+  hard.id = 50000;
+  vhard.innerHTML = "매우 어려움";
+  vhard.id = 10000;
+  document.querySelector("#bb").append(easy, hard, vhard);
+
+  // HTML에서 모든 버튼 요소를 가져옴
+  let buttons = document.querySelectorAll("button");
+  let bb = document.querySelector("#bb");
+  let first = false;
+
+  // 각 버튼에 이벤트 리스너를 추가함
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      console.log(event);
+      // 클릭된 버튼의 ID를 가져옴
+      let id = event.target.id;
+      let nb = Math.floor(Math.random() * 2 + 2);
+      let nb2 = nb * 1000;
+      document.querySelector("#bb").remove();
+      
+      if (first == false) {
+        first = true;
+        
+        comoney = id;
+        document.getElementById("basic").style.display = "block";
+        let div1 = document.createElement("div");
+        div1.innerHTML = `내돈 : ${comoney} 컴퓨터 돈 : ${comoney} 배팅금액 : ${nb2}`;
+        document.querySelector("#bbb").append(div1);
+      }
+
+
+      function createuser(_name, _money, _batting) {
+        // name 컴퓨터or플레이어
+        this.name = _name;
+        this.money = _money;
+        this.batting = nb2;
+      }
+
+      // 클래스의 이름으로 사용하고 결과에서도 사용할 가위 바위 보를 담은 문자열 배열 만들자
+      let gameArr = [
+        "scissors",
+        "paper",
+        "rock",
+        "rock",
+        "scissors",
+        "paper",
+      ];
+      // 버튼들도 담아놓고
+      let playerBtns = document.querySelectorAll(".player-btn");
+      // player 화면선택한 결과를 보여줄 태그
+      let playerSelect = document.querySelector(".player-select");
+
+      // 컴퓨터의 결과를 보여줄 태그
+
+      function init() {
+        gameArr.forEach(function (item, index) {
+          // "scissors", "paper", "rock" 순서대로 item에 담긴다.
+          // index = 0, 1, 2 이 순서대로
+          // playerBtns[0], playerBtns[1], playerBtns[2]
+          // 첫번째 버튼, 두번째 버튼, 세번째 버튼
+          playerBtns[index].addEventListener("click", function () {
+            console.log(index);
+            // player 화면 선택한 가위나 바위 보 이미지를 보여주는 태그
+            // 클래스 추가하되 player-select 클래스를 유지하고 새로운 클래스를 추가해주자
+            playerSelect.className = "player-select " + item;
+            // 구조 분해할당으로 받고
+            console.log("item : " + item);
+            // let { value, text } = gameStart(item);
+            gameStart(item);
+            // 결과
+            // document.querySelector(".result").innerHTML = value;
+            // 내용
+            // document.querySelector(".subResult").innerHTML = text;
+          });
+        });
+      }
+      init();
+
+      let win = 0;
+      let lose = 0;
+      // let nb = Math.floor(Math.random() * 2 + 2);
+      let obj = new createuser("플레이어", comoney);
+      let obj2 = new createuser("컴퓨터", comoney);
+      console.log(obj);
+      console.log(obj2);
+
+      function gameStart(player) {
+        console.log("win ::::" + win);
+        console.log(player);
+        // 랜덤값으로 gameArr배열안에 가위, 바위, 보를 가져오자
+        let comSelect = gameArr[Math.floor(Math.random() * gameArr.length)];
+        document.querySelector(".com-select").className =
+          "com-select " + comSelect;
+        // 무승부 거르고 시작
+        if (player == comSelect && win == 0 && lose == 0) {
+          return { value: "무승부", text: "비겼어!" };
+          // && 둘다 true 일때
+          // || 둘중 하나 true 일때
+        } else if (
+          ((player == "rock" && comSelect == "scissors") ||
+            (player == "paper" && comSelect == "rock") ||
+            (player == "scissors" && comSelect == "paper")) &&
+          win == 0
+        ) {
+          document.getElementById("show1").style.display = "none";
+          document.getElementById("show2").style.display = "block";
+          win = 1;
+          // 여기서 이기는 조건을 만들어보자.
+          // win();
+          return { value: "승리", text: "승리!" };
+        } else if (
+          win == 1 &&
+          ((player == "rock" && comSelect == "scissors") ||
+            (player == "paper" && comSelect == "rock") ||
+            (player == "scissors" && comSelect == "paper"))
+        ) {
+          // alert("묵찌빠인데 일단 이김");
+        } else if (
+          win == 1 &&
+          ((player == "rock" && comSelect == "paper") ||
+            (player == "paper" && comSelect == "scissors") ||
+            (player == "scissors" && comSelect == "rock"))
+        ) {
+          lose = 1;
+          win = 0;
+          // alert("묵찌빠인데 짐");
+        } else if (win == 1 && player == comSelect) {
+          document.getElementById("show1").style.display = "block";
+          document.getElementById("show2").style.display = "none";
+
+          console.log(obj.money);
+          console.log(obj2.money);
+
+          let nbbb = Math.floor(Math.random() * 2 + 2);
+          // obj.money += obj.batting * 2; why?????????????????
+          obj.money = Number(obj.money) + obj.batting * nbbb;
+          obj2.money -= obj2.batting * nbbb; //이건 왜?
+
+          // console.log(obj);
+          // console.log(obj.money);
+          setTimeout(() => {
+            alert("묵찌빠이김");
+          }, 300);
+
+          setTimeout(() => {
+            document.querySelector("#bbb").innerHTML = `내돈 : ${obj.money} 컴퓨터 돈 : ${obj2.money} 배팅금액 : ${nb2}`;
+            if (obj.money <= 0 || obj2.money <= 0) {
+              document.getElementById("basic").style.display = "none";
+              alert("최종 승리");
+            }
+          }, 500);
+
+          console.log(obj);
+          console.log(obj.money);
+          console.log(obj2);
+          console.log(obj2.money);
+
+          win = 0;
+          lose = 0;
+
+        }
+
+        // 묵찌빠에서 가위바위보 졌을때
+        else if (lose == 1 && player == comSelect) {
+          document.getElementById("show1").style.display = "block";
+          document.getElementById("show2").style.display = "none";
+
+
+          console.log(obj.money);
+          console.log(obj2.money);
+
+          let nbbb = Math.floor(Math.random() * 2 + 2);
+          obj.money = Number(obj.money) - obj.batting * nbbb;
+          obj2.money = Number(obj2.money) + obj.batting * nbbb;
+          // obj2.money -= obj2.batting *nbbb; //이건 왜?
+
+          setTimeout(() => {
+            alert("묵찌빠 짐");
+          }, 300);
+
+          setTimeout(() => {
+            document.querySelector("#bbb").innerHTML = `내돈 : ${obj.money} 컴퓨터 돈 : ${obj2.money} 배팅금액 : ${nb2}`;
+            if (obj.money <= 0 || obj2.money <= 0) {
+              alert("최종 패배");
+              document.getElementById("basic").style.display = "none";
+            }
+          }, 500);
+
+
+          console.log(obj);
+          console.log(obj.money);
+          console.log(obj2);
+          console.log(obj2.money);
+
+          win = 0;
+          lose = 0;
+
+        } else if (
+          lose == 1 &&
+          ((player == "rock" && comSelect == "scissors") ||
+            (player == "paper" && comSelect == "rock") ||
+            (player == "scissors" && comSelect == "paper"))
+        ) {
+          lose = 0;
+          win = 1;
+        } else if (
+          lose == 1 &&
+          ((player == "rock" && comSelect == "paper") ||
+            (player == "paper" && comSelect == "scissors") ||
+            (player == "scissors" && comSelect == "rock"))
+        ) {
+          // alert("묵찌빠에서 가위바위보 짐");
+        } else {
+          document.getElementById("show1").style.display = "none";
+          document.getElementById("show2").style.display = "block";
+          lose = 1;
+          // alert("가위바위보 짐");
+        }
+
+        // else {
+        //   // 패배 조건
+        //   // lose();
+        //   return { value: "패배", text: "패배!" };
+        // }
+        // 함수 실행하면 반환값이 객체다..
+      }
+    });
+  });
+</script>
+
+</html>

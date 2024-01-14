@@ -1,0 +1,41 @@
+.position1{
+    /* position: absolute; */
+    /* relative 속성을 가지고 있는 부모의 좌측 상단을 기준으로 지정 */
+    
+    position: relative;
+    /* 이전 영역의 위치를 기준으로 지정한다. */
+
+    border: 1px solid;
+    background-color: skylbue;
+    width: 500px;
+    height: 2000px;
+
+    /* 태그를 해당위치에서 움직여줘야할때 위치를 지정하고 싶을때 */
+    /* position 속성을 주고 top left */
+    top: 100px;
+    /* bottom: 100px; */
+    left: 100px;
+    /* right: 100px; */
+    /* top이랑 right를 쓰던지, top이랑 left를 쓰던지 둘중에 하나만 써야함 */
+}
+
+.position2{
+    /* relative 속성을 가지고 있는 부모가 없으면 body를 기준으로 움직인다. */
+    /* position: absolute; */
+
+    width: 100px;
+    height: 100px;
+    border: 1px solid;
+
+    position: fixed;
+    /* 우리가 보고있는 브라우저의 위치로 고정시킨다. (즉 스크롤해도 따라서 움직임) 
+    nav바를 만들때사용
+    */
+    position: sticky;
+    /* 지정한 위치 밖으로 나가지 못하게 */
+    
+    /* bottom: 100px; */
+    /* right: 50px; */
+    top: 100px;
+    left: 0;
+}

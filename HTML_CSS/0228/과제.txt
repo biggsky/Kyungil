@@ -1,0 +1,20 @@
+1. 영화 제목을 쓰고
+2. 영화의 감독
+3. 평점
+4. 줄거리
+5. 영화 포스터
+최소 4개의 영화를 번호를 붙여서 나열
+
+2차 과제
+입사지원서
+
+표준이력서양식 사이트
+http://campmap.kr/bbs/board.php?bo_table=camp_free&wr_id=27
+
+당신은 모를 수도 있는 css의 7가지 단위
+https://webdesign.tutsplus.com/ko/articles/7-css-units-you-might-not-know-about--cms-22573
+
+width 80%로 잡아도 max-width: 748px 라고 가정하고 입력을 해놓으면 더이상 늘어나지 않음
+
+
+★  col style = "width: 50px" px는 고정이 아닌건가요?

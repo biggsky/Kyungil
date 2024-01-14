@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>가위바위보</title>
+    <style>
+      .player-select, .com-select {
+        width: 180px;
+        height: 154px;
+        background-image: url("./img/img.png");
+        background-repeat: no-repeat;
+        border: 1px solid;
+        background-size: 440px;
+        background-position-x: 25px;
+      }
+      .rock {
+        background-position-x: 25px;
+      }
+      .paper {
+        background-position-x: -276px;
+    }
+    .scissors{
+        background-position-x: -121px;
+    }
+    .game-wrap{
+        display: flex;
+    }
+    </style>
+  </head>
+  <body>
+    <!-- 버튼 가위 바위보 -->
+    <div class="game-wrap">
+      <!-- player 선택한 이미지 -->
+      <div class="player-select"></div>
+      <div class="com-select"></div>
+    </div>
+    <h1 class="result">결과</h1>
+    <p class="subResult">내용</p>
+
+    <button class="player-btn">가위</button>
+    <button class="player-btn">보</button>
+    <button class="player-btn">바위</button>
+  </body>
+  <script>
+    // 클래스의 이름으로 사용하고 결과에서도 사용할 가위 바위 보를 담은 문자열 배열 만들자
+    let gameArr = ["scissors", "paper", "rock"];
+    // 버튼들도 담아놓고
+    let playerBtns = document.querySelectorAll('.player-btn');
+    // player 화면선택한 결과를 보여줄 태그
+    let playerSelect = document.querySelector('.player-select');
+
+    // 컴퓨터의 결과를 보여줄 태그
+
+
+
+    function init(){
+        gameArr.forEach(function(item, index){
+            // "scissors", "paper", "rock" 순서대로 item에 담긴다.
+            // index = 0, 1, 2 이 순서대로
+            // playerBtns[0], playerBtns[1], playerBtns[2]
+            // 첫번째 버튼, 두번째 버튼, 세번째 버튼
+            playerBtns[index].addEventListener('click', function(){
+                // player 화면 선택한 가위나 바위 보 이미지를 보여주는 태그
+                // 클래스 추가하되 player-select 클래스를 유지하고 새로운 클래스를 추가해주자
+                playerSelect.className = "player-select " + item;
+                // 구조 분해할당으로 받고
+                let {value, text} = gameStart(item);
+                // 결과
+                document.querySelector('.result').innerHTML = value;
+                // 내용
+                document.querySelector('.subResult').innerHTML = text;
+            })
+        })
+    }
+    init();
+
+    function gameStart(player){
+        // 랜덤값으로 gameArr배열안에 가위, 바위, 보를 가져오자
+        let comSelect = gameArr[Math.floor(Math.random() * gameArr.length)];
+        document.querySelector('.com-select').className = "com-select " + comSelect;
+        // 무승부 거르고 시작
+        if(player == comSelect){
+            return {value : "무승부", text : "비겼어!"}
+            // && 둘다 true 일때
+            // || 둘중 하나 true 일때
+        }else if(player == "rock" && comSelect == "scissors" || player == 'paper' && comSelect =="rock" || player == "scissors" && comSelect == "paper"){
+            // 여기서 이기는 조건을 만들어보자.
+            return {value : "승리", text : "승리!"}
+        }else{
+            // 패배 조건
+            return {value : "패배", text : "패배!"}
+        }
+        // 함수 실행하면 반환값이 객체다..
+    }
+  </script>
+</html>

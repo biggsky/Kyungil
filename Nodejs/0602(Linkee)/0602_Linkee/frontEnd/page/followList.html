@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>follow list</title>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/nav.css" />
+    <link rel="stylesheet" href="../css/followList.css">
+  </head>
+  <body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+
+    <div class="middle_body">
+        <div id="following_wrap">
+            <div class="text" id="followingNum">팔로잉 N명</div>
+            <div id="followings" class="followings">
+            </div>
+        </div>
+        <div id="follower_wrap">
+            <div class="text" id="followerNum">팔로워 N명</div>
+            <div id="followers" class="followers">
+            </div>
+        </div>
+    </div>
+
+    <!-- 상단 nav -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo"><img src="../nav_icon_img/icon_back.png" alt="" onclick="history.back()"></div>
+            <div></div>
+        </div>
+    </div>
+  </body>
+  <script>
+    window.onload = async () => {
+      try {
+        const {data} = await axios.get('http://127.0.0.1:8080/main', {
+            withCredentials : true
+        });
+        const {user, userAll} = data;
+
+        // 팔로잉
+        let followingArr = JSON.parse(user.following);
+        followingNum.innerHTML = `팔로잉 ${followingArr.length}명`;
+
+        followingArr.forEach((el) => {
+          let followingUser = userAll.find(user => user.id === el);
+          let div = document.createElement("div");
+          div.innerHTML = `
+          <div class="profile_img">
+              <img src="http://127.0.0.1:8080/user_img/${followingUser.profile_img}" alt=""/>
+          </div>
+          <div class="nickname">${followingUser.nickname}</div>
+          `;
+          followings.appendChild(div);
+
+          div.onclick = () => {
+            location.href = `./userpage.html#${followingUser.nickname}`;
+          }
+        });
+
+        // 팔로워
+        let followerArr = JSON.parse(user.follower);
+        followerNum.innerHTML = `팔로워 ${followerArr.length}명`;
+
+        followerArr.forEach((el) => {
+          let followerUser = userAll.find(user => user.id === el);
+          let div = document.createElement("div");
+          div.innerHTML = `
+          <div class="profile_img">
+              <img src="http://127.0.0.1:8080/user_img/${followerUser.profile_img}" alt=""/>
+          </div>
+          <div class="nickname">${followerUser.nickname}</div>
+          `;
+          followers.appendChild(div);
+
+          div.onclick = () => {
+            location.href = `./userpage.html#${followerUser.nickname}`;
+          }
+        });
+
+
+
+        ////////////////////////////////////////////
+        const socket = io.connect('localhost:8080');
+        socket.emit("userIn", user.id); // 로그인 한 유저 아이디 보내기
+
+        socket.on("userIn", (socketID, userID) => {
+            console.log("접속 중인 유저 : ", userID);
+        });
+
+        // 채팅 방 요청 알림창
+        socket.on("requestChat", (senderID, receiverID) => {
+            let sender = userAll.find(item => item.id == senderID);
+
+            live_chat_noti_wrap.innerHTML = `
+            <div class="live_chat_noti">
+                <p><span class="nickname">${sender.nickname}</span>님이</p>
+                <p>대화를 요청하였습니다.</p>
+                <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+                <div class="btns">
+                    <div id="appBtn" onclick="approve(${senderID}, ${receiverID})">승인</div>
+                    <div id="rejBtn" onclick="reject(${senderID}, ${receiverID})">거절</div>
+                </div>
+            </div>`;
+
+            live_chat_noti_wrap.style.display = "block";
+        });
+
+        // 대화 요청 거절 알림창
+        socket.on("reject", (senderID, receiverID) => {
+            let receiver = userAll.find(item => item.id == receiverID);
+
+            live_chat_noti_wrap.innerHTML = `
+            <div class="live_chat_noti">
+                <p><span class="nickname">${receiver.nickname}</span>님이</p>
+                <p>대화를 요청을 거절하였습니다.</p>
+                <div class="btns">
+                    <div id="appBtn" onclick="closeNoti()">확인</div>
+                </div>
+            </div>`;
+
+            live_chat_noti_wrap.style.display = "block";
+        });
+
+        // 대화 요청 수락시 페이지 넘어감
+        socket.on("approve", (senderID, receiverID) => {
+            location.href = `./livechatRoom.html#${senderID}#${receiverID}`;
+        });
+
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  </script>
+</html>

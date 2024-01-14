@@ -1,0 +1,103 @@
+/* style 태그에 작성했던 방식으로 코드를 작성 해주면 된다. */
+div{
+    color: red;
+}
+
+/* basic css */
+
+.display{
+    display: block;
+    /* block은 블록요소, div태그의 기본값, 자기의 너비를 전부 갖고 옆에 아무도 없어야 한다. */
+
+    display: inline;
+    /* 인라인, span, a 등등 기본값을 인라인으로 가지고 있고 옆으로 태그가 자리 할수 있다. */
+
+    display: flex;
+    /* 자식 태그들을 정렬시킬수 있다. 정렬시키는 방식은 여러가지 있다. */
+
+    display: inherit;
+    /* 부모한테 값을 가져와서 적용시킨다. 사용할 일이 거의 없긴함 */
+
+    display: initial;
+    /* 태그가 기본적으로 가지고 있던 속성으로 초기화. 기본값으로 적용 */
+
+    display: none;
+    /* 화면에서 지운다. 태그를 보이지 않게 지워 버린다. 나중에 자바스크립트에서 display속성이 none으로 적용되어 있으면 선택이 되지 않는다. */
+}
+
+.wh{
+    width: 100px;
+    /* 태그의 너비 */
+
+    height: 100px;
+    /* 태그의 높이 */
+
+    width: max-content;
+    /* 가지고있는 자식 태그의 너비 만큼 차지한다. */
+
+    width: min-content;
+    /* 자식 태그의 최소만큼 너비를 차지한다. */
+    
+    max-width: 100px;
+    /* 설정한 너비 이상으로 태그의 너비가 넓어지지 않는다. 최대 너비 */
+
+    min-width: 100px;
+    /* 설정한 너비 이하로 태그의 너비가 줄어들지 않는다. 최소 너비 */
+}
+
+.content{
+    width: 500px;
+    height: 500px;
+
+    overflow: hidden;
+    /* 자식의 태그가 부모영역 이상으로 보이지 않게 설정 */
+
+    overflow: scroll;
+    /* 자식의 태그의 내용을 스크롤 처리 할것이냐? */
+
+    /* 스크롤 방향을 x축으로 만들거냐? y축으로 만들거냐? */
+    overflow-x: scroll;
+    overflow-y: scroll;
+    /* y축만 스크롤 가능하게 */
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+    /* x축만 스크롤 가능하게 */
+
+    opacity: 0.5;
+    /* 투명도를 설정해줄수 있다. */
+}
+
+.text{
+    font-size: 16px;
+    /* 글씨의 크기 pc 크롬 기준 기본값이 16px */
+    /* 환경에 따라 기본 값이 다를수 있다. 모바일, pc 브라우저에 따라 */
+
+    font-weight: 500;
+    /* 글씨의 굵기 */
+    /* 기본값은 500이고 글꼴을 가져왔을땐 기본값이 변할수 있다. */
+
+    color: rgba(22, 6, 255, 1);
+    /* 글씨의 색 rgb(), rgba() 등등으로 설정이 가능하다 */
+
+    text-align: center;
+    /* 글자의 정렬을 가운데로 */
+    
+    text-align: end;
+    /* 오른쪽 끝으로 정렬 */
+    
+    text-align: start;
+    /* 왼쪽 끝으로 정렬 */
+
+    text-decoration: overline;
+    /* 텍스트에 줄 긋기 */
+
+    text-decoration: underline;
+    /* 텍스트에 밑줄 추가 */
+
+    text-decoration: none;
+    /* 텍스트 꾸밈 요소 제거 */
+
+    letter-spacing: 10px;
+    /* 글자의 간격 */
+}

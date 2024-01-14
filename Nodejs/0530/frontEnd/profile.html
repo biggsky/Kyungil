@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+      img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+      }
+      body {
+        text-align: center;
+      }
+      #imgs {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>프로필 페이지</h1>
+    <img src="" alt="" id="img1" />
+    <br />
+    <input type="file" id="file" /><br /><br />
+    <button id="btn">프로필 수정</button>
+  </body>
+  <script>
+    setTimeout(async (req,res) => {
+      const abc = await axios.get("http://127.0.0.1:8000/upload/profile", {
+        withCredentials: true,
+      });
+      console.log("1일거야", abc.data);
+      document.querySelector("#img1").src = `http://localhost:8000/img/${abc.data}`;
+    }, 100);
+
+    btn.onclick = (event) => {
+      const form = new FormData();
+      form.append("upload", file.files[0]);
+
+      axios.post("http://127.0.0.1:8000/upload/profilechange", form, {
+         headers :{ "Content-Type": "multipart/form-data"},
+          withCredentials: true,
+        })
+        .then((e) => {
+          console.log("이미지 전달됨");
+        //   img1.src = "http://localhost:8000/img/milkyway_1685421848775.jpg";
+          console.log("e.data", e.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  </script>
+</html>

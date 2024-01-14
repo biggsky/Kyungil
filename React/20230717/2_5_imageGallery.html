@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            opacity: 0.8;
+        }
+        #div2{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        #images{
+            width: 500px;
+            height: 500px;
+            background-color: blue;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+        #absolute{
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            /* background-color: yellow; */
+        }
+        #body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #body_in{
+            width: 800px;
+            height: 500px;
+            /* background-color: aliceblue; */
+        }
+        #body_in p{
+            text-align: center;
+            color: blue;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        #four_div{
+            width: 100%;
+            height: 300px;
+            /* background-color: blue; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #four_div .four{
+            display: inline-block;
+            margin: 0 5px;
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+        }
+        #border{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="absolute">
+        <div id="body">
+            <div id="body_in">
+                <p>이미지 갤러리</p>
+                <div id="four_div">
+                    <div class="four">
+                        <img src="./img1.jpg" alt="">
+                    </div>
+                    <div class="four">
+                        <img src="./img2.jpg" alt="">
+                    </div>
+                    <div class="four">
+                        <img src="./img3.jpg" alt="">
+                    </div>
+                    <div class="four">
+                        <img src="./img4.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="border">
+        <div id="div1"></div>
+        <div id="div2">
+            <div id="images">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.querySelectorAll(".four").forEach((e,index)=>{
+        e.addEventListener("click", function(){
+            document.querySelector("#border").style.display = "block";
+            document.querySelector("#images img").src = `./img${index+1}.jpg`;
+        });
+    });
+    document.querySelector("#div1").addEventListener("click", function(){
+        document.querySelector("#border").style.display = "none";
+    });
+</script>
+</html>

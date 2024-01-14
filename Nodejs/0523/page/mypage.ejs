@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>마이페이지</h1>
+    <br><br>
+    <p><%= data.grade %>등급</p>
+
+    <form action="/nickupdate" method="post">
+        닉네임 <input type="text" name="nick" value="<%= data.user_nick %>">
+        <button>수정</button>
+    </form>
+    <hr><br><br>
+
+    <p>내가 쓴 글</p>
+    <p>제목 | 내용</p>
+    <% data2.forEach((a)=>{ %>
+        <hr>        
+        <p><%= a.title %> | <%= a.message %></p>
+    <% }) %>
+
+    <hr>
+    <br><br>
+
+    <p>내가 쓴 댓글</p>
+    <% data3.forEach((a)=>{ %>
+        <hr>
+        <p><%= a.message %></p>
+    <% }) %>
+    <hr>
+</body>
+</html>

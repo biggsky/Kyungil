@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./inventory.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="tab_content">
+        <input type="radio" name="tab-meun" id="tab01">
+        <label for="tab01">INVENTORY</label>
+        <div class="conbox con1">
+        <div class="display">
+            <div class="display2">
+                <div class="sub-content">ATK</div>
+                <div class="font" id='atkresult'>0</div>
+                <div class="sub-content">DEF</div>
+                <div class="font" id='defresult'>0</div>
+                <div class="sub-content">HP</div>
+                <div class="font" id='hpfresult'>0</div>
+            </div>
+            <div>
+            <div class="item atk-item"><input id="atkInput1" type='image' src="./blockStudio_csh/img/gauntlet1.png" 
+                onclick='atkcount1("plus")'value='+'/></div>
+            <div class="item atk-item"><input id="atkInput2" type='image' src="./blockStudio_csh/img/gauntlet2.png" 
+                onclick='atkcount2("plus")'value='+'/></div>
+            <div class="item atk-item"><input id="atkInput3" type='image' src="./blockStudio_csh/img/gauntlet3.png" 
+                onclick='atkcount3("plus")'value='+'/></div>
+            <div class="item atk-item"><input id="atkInput4" type='image' src="./blockStudio_csh/img/gauntlet4.png" 
+                onclick='atkcount4("plus")'value='+'/></div>
+           </div>
+           <div>
+            <div class="item def-item">
+                <input id="defInput1" type='image' src="./blockStudio_csh/img/shield1.png" 
+                onclick='defcount1("plus")'value='+'/>
+            </div>
+            <div class="item def-item">
+                <input id="defInput2" type='image' src="./blockStudio_csh/img/shield2.png" 
+                onclick='defcount2("plus")'value='+'/>
+            </div>
+            <div class="item def-item">
+                <input id="defInput3" type='image' src="./blockStudio_csh/img/shield3.png" 
+                onclick='defcount3("plus")'value='+'/>
+            </div>
+            <div class="item def-item">
+                <input id="defInput4" type='image' src="./blockStudio_csh/img/shield4.png" 
+                onclick='defcount4("plus")'value='+'/>
+            </div>
+           </div>
+           <div>
+            <div class="item hp-item">
+                 <input id="hpInput1" type='image' src="./blockStudio_csh/img/sapphire1.png" 
+                onclick='hpcount1("plus")'value='+'/>
+            </div>
+            <div class="item hp-item">
+                <input id="hpInput2" type='image' src="./blockStudio_csh/img/sapphire2.png" 
+                onclick='hpcount2("plus")'value='+'/>
+            </div>
+            <div class="item hp-item">
+                <input id="hpInput3" type='image' src="./blockStudio_csh/img/sapphire3.png" 
+                onclick='hpcount3("plus")'value='+'/>
+            </div>
+            <div class="item hp-item">
+                <input id="hpInput4" type='image' src="./blockStudio_csh/img/sapphire4.png" 
+                onclick='hpcount4("plus")'value='+'/>
+            </div>
+           </div>
+           <div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+           </div>
+         </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="./inventory.js"></script>
+</html>

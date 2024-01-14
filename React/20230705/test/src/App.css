@@ -1,0 +1,12 @@
+.App{
+  display: flex;
+}
+
+.block{
+  border: 1px solid;
+}
+
+.block img{
+  width: 200px;
+  height: 200px;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spiderman</title>
+    <link rel="stylesheet" href="./pause.css" />
+  </head>
+  <body>
+    <!-- 일시 정지 활성화 버튼 -->
+    <div class="pause_btn">
+      <div class="main-container">
+        <button onclick="openPopup();">PAUSE</button>
+      </div>
+    </div>
+<!-- 일시 정지 시 화면 전체에 나타나는 검은색 화면 -->
+    <div class="jeong_pause_background">
+      <div class="main-container">
+        <!-- 일시 정지 시 나타나는 메뉴 -->
+        <div class="jeong_pause_menu">
+          <div class="pause_title">PAUSE</div>
+            <div class="pause_list">
+              <div class="continue" onclick="openPopup();">continue</div>
+              <div class="retry" onclick="openPopup();">retry</div>
+              <div class="exit">exit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./pause.js"></script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 문서를 읽다가 html 쭉 읽다가 스크립트를 만나면 스크립트를 읽고 밑으로 다시 문서를 읽어나가기 때문에 태그 선택자들이 안될수 있다. -->
+<script>
+    // let a = document.querySelector(".aaa");
+    // console.log(a);
+    // null 이 떴음. 왜인지는 html 참고
+
+    // 문서를 그릴 준비가 다 끝나고 실행되는 함수
+    window.onload = function(){
+        let a = document.querySelector(".aaa");
+
+        // a 지역변수
+        console.log(a);
+        // 여기서 작업을 다하거나 분리하거나
+    }
+    // console.log("A:" + a); 
+    // 여기서는 지역변수
+</script>
+ 
+<body>
+    <div class="aaa"></div>
+</body>
+
+</html>

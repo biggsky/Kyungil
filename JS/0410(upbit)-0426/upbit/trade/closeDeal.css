@@ -1,0 +1,52 @@
+.closeDeal{
+    width: 70%;
+    height: 270px;
+    max-height: 360px;
+    background-color: white;
+    position: absolute;
+    top: 1314px;
+}
+
+.closed-subtitle ul,
+.deal-content ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(244, 245, 248);
+    border-bottom: 1px solid rgb(199, 199, 199);
+    font-size: 12px;
+    height: 30px;
+    line-height: 2.4;
+    text-align: center;
+}
+
+.closed-subtitle li{
+    color: rgb(86, 86, 86);
+    font-weight: bold;
+}
+
+.deal-time, .dealTime{
+    width: 20%;
+}
+
+.deal-currentPrice, .dealPrice{
+    width: 30%;
+}
+
+.deal-volume, .dealVolume{
+    width: 30%;
+}
+
+.deal-amount, .dealAmount{
+    width: 20%;
+}
+
+.deal-content{
+    width: 100%;
+    height: 35px;
+}
+
+.deal-content ul{
+    background-color: white;
+}
+

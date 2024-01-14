@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mypage</title>
+    <link rel="stylesheet" href="./myPage.css">
+</head>
+<body>
+    <div class="header">
+        <ul>
+            <a href="../main/main.html"><img width="80px" src="../main/img/그림03-removebg-preview (1).png" alt=""></a>
+            <a href="../trade/assemble.html" style="text-decoration: none; color: black;">
+                <li> 거래소</li>
+            </a>
+            <a href="#withdraw" style="text-decoration: none;color: black;">
+                <li>입출금</li>
+            </a>
+        </ul>
+        <div class="sub-header">
+            <div class="con">
+                <img class="con-img" style="margin-right: 30px;" src="../main/img/스크린샷 2023-04-10 172027.png" alt="">
+                <div class="con-img-box">
+                    <div style="color: #797979; font-size: 15px;">블록스토리 앱 다운로드</div>
+                    <div style="display: flex;">
+
+                        <img width="80px" style="margin: 15px;"
+                            src="../main/img/qrcode_55799122_02ddb728b5daa8f62c53f3ca78e1f7fe.png" alt="">
+                        <div style="display: flex;flex-direction: column; margin-left: 20pxx;">
+                            <a href="https://play.google.com/store/apps"><img width="150px" height="50px"
+                                    src="../main/img/스크린샷 2023-04-11 134121.png" alt=""></a>
+                            <a href="https://www.apple.com/kr/app-store/"><img width="150px" height="50px"
+                                    src="../main/img/스크린샷 2023-04-11 134146.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 닉네임 변경 팝업 창 -->
+    <div class="nickName">
+        <button class="close">X</button>
+        <h3>사용할 닉네임을 입력해주세요.</h3>
+        <input type="text" class="inputNic" placeholder="2~12자, 문자와 숫자만 가능">
+        <p class="cautionText"></p>
+        <button class="submit">확인</button>
+    </div>
+    <!-- 계좌관리 팝업 창 -->
+    <div class="bankAccount">
+        <button class="close_account">X</button>
+        <div class="myAsset">
+            <div class="totalAsset">
+                <p class="total">총 보유자산</p>
+                <p class="money"><span class="moneyNum">0</span> KRW</p>
+            </div>
+            <div class="searchCoin">
+                <input type="text" class="findCoin" placeholder="코인명/심볼검색">
+                <button class="searchCoinBtn"><img src="./1093183.png"></button>
+            </div>
+            <div class="accountList">
+                <ul class="list-title">
+                    <li class="name">코인명</li>
+                    <li class="percent">보유비중</li>
+                    <li class="haveNum">보유수량(현재가)</li>
+                </ul>
+                <div class="container"></div>
+            </div>
+        </div>
+
+        <!-- 입출금 및 내역 -->
+        <div class="KRW-trade">
+            <div class="tradeName"><span>KRW</span> 입출금</div>
+            <div class="haveMoney">
+                <p>보유금액</p>
+                <p class="moneyUnit"><span class="myMoney">0</span> KRW</p>
+            </div>
+            <div class="haveCoin">
+                <p>보유수량</p>
+                <p><span class="myCoin">0</span> <span class="coinUnit">BTC</span></p>
+            </div>
+            <div class="change-to-won">
+                <p>평가금액</p>
+                <p><span>0</span> KRW</p>
+            </div>
+            <div class="tradeContent">
+                <input class="charge" type="radio" id="charging" checked>
+                <label for="charging" id="charge"><span>KRW</span>충전</label>
+                <input class="withdraw" type="radio" id="withdrawing">
+                <label for="withdrawing" id="withdraw">출금신청</label>
+                <input class="history" type="radio" id="historing">
+                <label for="historing" id="history">입출금내역</label>
+            </div>
+            <div class="charge-tab">
+                <div class="myAccount">
+                    <div class="thisAccount">
+                        <p class="whatBank">연계계좌</p>
+                        <p class="thisBank">11*****3314 신한 홍길동</p>
+                    </div>
+                </div>
+                <div class="inputMoney">
+                    <p class="howMuch">입금금액(<span>KRW</span>)</p>
+                    <input type="tel" pattern="\d*" placeholder="금액(수량)을 입력하세요">
+                </div>
+                <button class="applyInput">입금신청</button>
+            </div>
+            <div class="withdraw-tab">
+                <div class="user-out-account">
+                    <p class="out-account">출금계좌</p>
+                    <div class="out-account-num thisBank">신한 11*****3314</div>
+                </div>
+                <div class="user-out-money">
+                    <p class="out-money">출금금액(수량)<br><span>(KRW)</span></p>
+                    <input class="out-money-num" type="tel" pattern="\d*" placeholder="금액(수량)을 입력하세요">
+                </div>
+                <button class="applyout">출금신청</button>
+            </div>
+            <div class="history-tab">
+                <!-- <ul>
+                    <li class="Name"></li>
+                    <li class="Money"></li>
+                    <li class="state"></li>
+                    <li class="Date"></li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+    <div class="myPage">
+        <h2>마이페이지</h2>
+        <div class="accessInfo">
+            <p><span>1chori</span>님은 거래 및 원화 입출금이 가능합니다.</p>
+        </div>
+
+        <!-- 내 정보 -->
+        <div class="myInfo">
+            <h3>내 정보</h3>
+            <div class="group">
+                <div class="infoText">
+                    <p class="title">개인정보 관리</p>
+                    <p class="descrip">닉네임 및 기본정보 등을 변경하실 수 있습니다.</p>
+                </div>
+                <button class="changeNic" onclick="popup()">닉네임 변경</button>
+                <button class="changeInfo">개인정보 변경</button>
+            </div>
+        </div>
+        <!-- 내 계좌 -->
+        <div class="account">
+            <h3>내 계좌</h3>
+            <div class="group">
+                <div class="accountText">
+                    <p class="title">개인 계좌 관리</p>
+                    <p class="descrip">본인 소유로 인증된 계좌로만 입출금이 가능합니다<div class=""></div></p>
+                </div>
+                <button class="accountManage" onclick="bankPopup()">관리하기</button>
+            </div>
+        </div>
+        <!-- 문의 내역 -->
+        <div class="QnA">
+            <h3>문의 내역</h3>
+            <div class="QnAlist">
+                <ul class="bar">
+                    <li class="num">번호</li>
+                    <li class="category">문의 유형</li>
+                    <li class="title">문의 제목</li>
+                    <li class="date">문의 날짜</li>
+                    <li class="state">상태</li>
+                </ul>
+                <div class="alert">등록된 문의 내역이 없습니다.</div>
+            </div>
+        </div>
+        <!-- 관심 종목 -->
+        <div class="interested">
+            <h3>관심 종목</h3>
+            <div class="list">
+                <ul class="bar">
+                    <li class="star"></li>
+                    <li class="coin">종목</li>
+                    <li class="price">현재가</li>
+                    <li class="ratio">전일대비</li>
+                </ul>
+                <div class="interested-alert">등록된 관심 코인이 없습니다.</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer" style="border-top: #eee 1px solid; ">
+        <div>
+           <a href="../main/main.html"><img width="100px" style="margin-top: 20px;" src="../main/img/그림03-removebg-preview (1).png" alt="">
+        </div></a> 
+        <div class="footer-text" style="margin-top: 20px;">
+            <div>
+                <span>고객센터 : </span><span>0123-456 |</span> <span>서울시 천호동</span>
+                <div style="display: flex; height: 25px;">
+                    <p>블록스토리 주식회사 |</p>
+                    <p>서울시 천호동 |</p>
+                    <p>대표 : 이무헌 |</p>
+                </div>
+                <div style="display: flex;height: 25px;">
+                    <p>책임자 장원철 |</p>
+                    <p>책임자 조성현 |</p>
+                    <p>책임자 고연수 |</p>
+                </div>
+                <div style="display: flex;">
+                    <p style="color: black;">가상자산은 고위험 상품으로써 투자금의 전부 또는 일부 손실을 초래 할 수 있습니다.</p>
+                </div>
+                <div class="sns-icon"style="margin-top: 20px;">
+                    <a href="https://twitter.com/?lang=ko"> <img width="90%"
+                            src="https://cdn.upbit.com/upbit-web/images/ic_sns_twitter.b95ef9e.svg" alt=""></a>
+                    <a href="https://ko-kr.facebook.com/"> <img width="90%"
+                            src="https://cdn.upbit.com/upbit-web/images/ic_sns_facebook.2c4b45b.svg" alt=""></a>
+                    <a href="https://www.naver.com/"> <img width="90%"
+                            src="https://cdn.upbit.com/upbit-web/images/ic_sns_naver.bd9b815.svg" alt=""></a>
+                    <a href="https://www.instagram.com/"> <img width="90%"
+                            src="https://cdn.upbit.com/upbit-web/images/ic_sns_linkedin.af76827.svg" alt=""></a>
+                    <a href="https://www.youtube.com/"> <img width="90%"
+                            src="https://cdn.upbit.com/upbit-web/images/ic_sns_youtube.a0e8102.svg" alt=""></a>
+                </div>
+                <br>
+                <div>
+                    <a href="https://www.samsungfire.com/"><img
+                            src="https://cdn.upbit.com/upbit-web/images/logo_samsung.447ca4a.svg" alt=""></a>
+                    <a href="https://ekyc.naver.com/home/main"><img style="margin-left: 10px;"
+                            src="https://cdn.upbit.com/upbit-web/images/logo_naverAuth.1ee2005.svg" alt=""></a>
+                    <a href="https://www.kakaopay.com/main"><img style="margin-left: 10px;"
+                            src="https://cdn.upbit.com/upbit-web/images/logo_kakaopay.d05a169.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;flex-direction: column; margin-top: 20px;">
+            <h3 >회사</h3>
+            <ul style="list-style: none; cursor: pointer;">
+                <li>회사소개</li>
+                <li>공지사항</li>
+                <li>이용약관</li>
+                <li>Open API 이용약관</li>
+                <li>개인정보처리방침</li>
+            </ul>
+        </div>
+        <div style="display: flex;flex-direction: column; margin-top: 20px;">
+            <h3 style="margin: 0;">고객지원</h3>
+            <ul style="list-style: none;cursor: pointer;">
+                <li>자주하는 질문</li>
+                <li>문의하기</li>
+                <li>Open API</li>
+                <li>거래이용 안내</li>
+                <li>입출금 이용 안내</li>
+                <li>거래지원 문의 및 제보(Market Support)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="../allData.js"></script>
+<script src="../util.js"></script>
+<script src="../trade/liveTrading.js"></script>
+<script src="./myPage.js"></script>
+</html>

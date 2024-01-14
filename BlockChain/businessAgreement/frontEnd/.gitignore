@@ -1,0 +1,5 @@
+node_modules/
+.next/
+.env
+cert.pem
+key.pem

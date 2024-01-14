@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script type="text/babel">
+    class TEXT extends React.Component {
+        constructor(props){
+            super(props);
+            // props받아와서 실행시킬려고
+
+            console.log("TEXT 안의 props: ", props);
+        }
+        // 생성했을때 한번만 실행
+
+        render(){
+            console.log("this.props.text", this.props.text);
+            return <h2>{this.props.text}</h2>
+        }
+    }
+
+    class LoginBtnText extends React.Component {
+        constructor (props){
+            super(props);
+            console.log("LoginBtnText 안의 props: ", props);
+        }
+
+        render(){
+            // this.props.flag 조건부 렌더링
+            // 속성이름으로 props에 전달하는 객체의 키값으로 전달된다.
+            // props = {text : "로그아웃"}
+            return this.props.flag ? <TEXT text="로그아웃" /> : <TEXT text="로그인" />
+        }
+    }
+
+    class LoginBtn extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                isLogin : false
+            }
+            console.log("LoginBtn 안의 props : ", props);
+            // ▶{}
+
+
+            // bind 메서드로 바인딩하면 함수 호출할때 컨텍스트를 유지할 수 있다.
+            // 리액트에서 유용하게 쓸 수 있음.
+            this.handleClick = this.handleClick.bind(this);
+        }
+
+        handleClick() {
+            this.setState({isLogin : !this.state.isLogin})
+        }
+
+        render(){
+            return (
+                <button onClick = {this.handleClick}>
+                <LoginBtnText flag ={this.state.isLogin} />
+                {/* flag는 LoginBtnText 컴포넌트에 전달되는 속성의 이름입니다. flag 라는 속성을 통해 LoginBtnText 컴포넌트 내에서 사용할 값을 전달할 수 있습니다. */}
+                </button>
+            )
+        }
+    }
+
+    class App extends React.Component {
+        constructor(props){
+            super(props)
+            this.state = {
+                isLogin : false
+            }
+            // console.log("디스",this.state);
+            // {isLogin: false}
+            // console.log("App 안의 props", props);
+            // {}
+        }
+        render(){
+            return (
+                <>
+                    <TEXT tex123123123t="로그인 레이아웃" />
+                    <LoginBtn />
+                </>
+            )
+        }
+    }
+    // 컴포넌트의 상태가 변하면 리렌더링 된다.????????????????????
+
+    // 루트 요소 생성
+    // 루트로 설정
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<App />);
+</script>
+</html>

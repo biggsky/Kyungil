@@ -1,0 +1,19 @@
+{
+  "compilerOptions" : {
+      "module" : "CommonJS",
+      "outDir" : "./dist",
+      "target" : "ES6",
+      "esModuleInterop" : false,
+      "strict" : true,
+      "baseUrl" : "./src",
+      "paths" : {
+          "@user/*" : ["user/*"]
+      }
+  },
+  "include" : ["src/**/*"],
+  "exclude" : ["**/*.test.ts"],
+  // .test.ts 확장자가 붙은 파일은 모두 제외
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

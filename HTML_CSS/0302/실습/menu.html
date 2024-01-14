@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* class로 작성할때 */
+        .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid;
+            width: 300px;
+            padding: 30px;
+        }
+
+        /* 태그 이름 선택자 */
+        img {
+            width: 100px;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+        }
+
+        #content {
+            width: 80%;
+            height: 100%;
+            /* margin: calc(100% - 80%); */
+            /* 수치 calc로 연산을 추가할 수 있다 */
+            background-color: green;
+            border-radius: 20px;
+            border: 1px solid;
+            padding: 30px;
+            /* border-radius 모서리 부분을 타원으로 깎아준다. */
+        }
+
+        #wrap {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        1. 메뉴 하나만들고
+        메뉴에 필요한건
+        - 이미지
+        - 제목
+        - 서브 제목
+        메뉴는 여러개 일거 같아.
+        class로 만들어야겠다.
+     -->
+    <div id="content">
+        <div id="wrap">
+            <div class="item">
+                <img src="0302/img/pizza.jpg" alt="">
+                <h1>볶음밥</h1>
+                <h2>5000원</h2>
+            </div>
+            <div class="item">
+                <img src="0302/img/pizza.jpg" alt="">
+                <h1>볶음밥</h1>
+                <h2>5000원</h2>
+            </div>
+            <div class="item">
+                <img src="0302/img/pizza.jpg" alt="">
+                <h1>볶음밥</h1>
+                <h2>5000원</h2>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

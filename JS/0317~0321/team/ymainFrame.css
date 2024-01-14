@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'spider';
+    src: url('./font/CombackHomeRegular-jEMd9.ttf');
+}
+
+h1{
+    font-family: 'spider';
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('./spidermanBackground.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.main-container{
+    border: 1px solid white;
+    width: 950px;
+    height: 550px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 30px;
+    font-family: 'spider';
+}
+
+/* @font-face {
+    font-family: 'spider';
+    src: url('./font/CombackHomeRegular-jEMd9.ttf');
+}
+
+h1{
+    font-family: 'spider';
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('./spidermanBackground.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'spider';
+
+}
+.yeon-main-container{
+    border: 1px solid white;
+    width: 400px;
+    height: 550px;
+    background-color: rgba(255, 255, 255, 0.601);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 30px;
+}
+.yeon-id{
+    border: 0;
+    display: flex;
+    justify-content: center;
+    flex: 1 0 0px;
+    font: inherit;
+    font-size: 100%;
+    height: 36px;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+    position: relative;
+    vertical-align: baseline;
+    margin-top: 10px;
+    
+}
+.yeon-id-content{
+    height: 36px;
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+.log-title{
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    height: 36px;
+    width: 200px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.yeon-lg-inbtn{
+    cursor: pointer;
+    background-color: rgb(142, 167, 233);
+    height: 36px;
+    width: 200px;
+    font-family: 'spider';
+    font-size: 600;
+    font-size: 30px;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    
+}
+.yeon-mid{
+    position: absolute;
+    font-weight: normal;
+    align-items: center;
+}
+.yeon-mid2{
+    display: flex;
+    font-size: 14px;
+    line-height: 14px;
+
+}
+.mid-display{
+    display: flex;
+    position: absolute;
+}
+.yeon-click{
+    border-radius: 3px;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+    left: 50%;
+}
+
+.yeon-imfo{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    vertical-align: baseline;
+    width: 200px;
+    font-size: 20px;
+    left: 50%;
+
+}
+
+input[type="checkbox" i] {
+    background-color: white;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    padding: initial;
+    border: initial;
+
+} */

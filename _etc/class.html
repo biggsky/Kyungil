@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script> -->
+    <!-- <script>eruda.init();</script> -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: "Dongle";
+            src: url(./Sigmar/Sigmar-Regular.ttf) format('truetype');
+        }
+
+        body {
+            font-family: 'Dongle';
+        }
+
+        * {
+            margin: 0;
+        }
+
+        header {
+            width: 100%;
+            height: 100px;
+            font-size: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header a {
+            text-decoration: none;
+            color: black;
+        }
+
+        nav {
+            width: 100%;
+            height: 44px;
+            background-color: #282A35;
+            text-align: center;
+            word-spacing: 50px;
+            font-size: 30px;
+            overflow: hidden;
+        }
+
+        nav a {
+            padding-left: 10px;
+            padding-right: 10px;
+            width: 100px;
+            height: 100px;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: black;
+        }
+
+        div img {
+            height: 50vh;
+        }
+
+        #content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #left {
+            position: absolute;
+            background-color: #E7E9EB;
+            width: 220px;
+            height: calc(100vh - 144px);
+            overflow: scroll;
+        }
+
+        #right {
+            position: absolute;
+            left: 220px;
+            width: calc(100% - 220px);
+            height: calc(100vh - 144px);
+            overflow: hidden;
+        }
+
+        #list1,
+        #list2,
+        #list3 {
+            display: none;
+        }
+
+        #list1 a,
+        #list2 a,
+        #list3 a {
+            display: block;
+            text-decoration: none;
+            margin: 10px;
+            color: black;
+        }
+
+        #right iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        #right img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #list1>h2,
+        #list2>h2,
+        #list3>h2 {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header><a href="">Block Chain</a></header>
+    <nav>
+        <a id="html" href="">HTML&CSS</a>
+        <a id="js" href="">JavaScript</a>
+        <a id="node" href="">Nodejs</a>
+    </nav>
+    <div id="content">
+        <div id="left">
+            <div id="list1">
+                <h2>HTML&CSS</h2>
+                <br>
+                <a href="./HTML_CSS/0227/day_1.html" target="1">day_1</a>
+                <a href="./HTML_CSS/0227/과제.html" target="1">😆실습: 자기소개 만들기</a>
+                <br>
+                <a href="./HTML_CSS/0228/1.html" target="1">로그인페이지</a>
+                <a href="./HTML_CSS/0228/2.html" target="1">메인페이지</a>
+                <a href="./HTML_CSS/0228/3.html" target="1">마이페이지</a>
+                <a href="./HTML_CSS/0228/page/temp/4.html" target="1">로그인페이지</a>
+                <a href="./HTML_CSS/0228/Day_2.html" target="1">ol / ul</a>
+                <a href="./HTML_CSS/0228/index.html" target="1">리스트 이동</a>
+                <a href="./HTML_CSS/0228/table.html" target="1">테이블</a>
+                <a href="./HTML_CSS/0228/실습/index2.html" target="1">😃:실습</a>
+                <a href="./HTML_CSS/0228/과제/과제.html" target="1">😆:입사지원서 만들기</a>
+                <br>
+                <a href="./HTML_CSS/0302/index.html" target="1">CSS (index.html)</a>
+                <a href="./HTML_CSS/0302/day_3.html" target="1">DAY_3</a>
+                <a href="./HTML_CSS/0302/index2.html" target="1">index2.html</a>
+                <a href="./HTML_CSS/0302/input.html" target="1">Input</a>
+                <a href="./HTML_CSS/0302/실습/간단한실습.html" target="1">😃:메뉴판 만들기</a>
+                <a href="./HTML_CSS/0302/실습/menu.html" target="1">😃:메뉴판 따라하기</a>
+                <a href="./HTML_CSS/0302/과제/과제.html" target="1">😆:오늘의 과제</a>
+                <br>
+                <a href="./HTML_CSS/0303/index(1).html" target="1">iframe</a>
+                <a href="./HTML_CSS/0303/position.html" target="1">Position</a>
+                <a href="./HTML_CSS/0303/실습/Youtube.html" target="1">😃:Youtube</a>
+                <a href="./HTML_CSS/0303/실습/main.html" target="1">😃:Youtube2</a>
+                <a href="./HTML_CSS/0303/과제/03-03_html_(유튜브화면) 만들기.html" target="1">😆:유튜브화면 만들기</a>
+                <br>
+                <a href="./HTML_CSS/0306/index(1).html" target="1">애니메이션 & transition</a>
+                <a href="./HTML_CSS/0306/index(2).html" target="1">반응형 style</a>
+                <a href="./HTML_CSS/0306/index(3).html" target="1">폰트 style</a>
+                <a href="./HTML_CSS/0306/index(4).html" target="1">input 으로 div 열기</a>
+                <a href="./HTML_CSS/0306/실습/실습.html" target="1">😃:transition 주기</a>
+                <a href="./HTML_CSS/0306/과제/megabox2.html" target="1">😆:메가박스 만들기</a>
+                <br>
+                <a href="./HTML_CSS/0307/index.md" target="1">GIT 메모1</a>
+                <a href="./HTML_CSS/0308/index.md" target="1">GIT 메모2</a>
+                <br>
+                <!-- 0308 ~ 0309 -->
+                <a href="./HTML_CSS/0309/csh/csh.html" target="1">😆웹페이지 만들기</a>
+            </div>
+            <div id="list2">
+                <h2>JS</h2>
+                <br>
+                <a href="./JS/0310/index.html" target="1">Console(변수 & 타입 & 비교연산자)</a>
+                <a href="./JS/0310/index2.html" target="1">Console(구구단 & 수상자 호출 & 3의 배수 구하기)</a>
+                <a href="./JS/0313/index.html" target="1">가위바위보 연습</a>
+                <a href="./JS/0313/index2.html" target="1">업다운 게임</a>
+                <a href="./JS/0313/assignment.html" target="1">묵찌빠 v1</a>
+                <a href="./JS/0314/assignment2.html" target="1">묵찌빠 v2</a>
+                <a href="./JS/0314/index.html" target="1">function</a>
+                <a href="./JS/0315/index.html" target="1">배열심화1</a>
+                <a href="./JS/0315/index2.html" target="1">배열심화2</a>
+                <a href="./JS/0315/lotto.html" target="1">★Lotto★</a>
+                <a href="./JS/0316(★)/index.html" target="1">★콜백함수★</a>
+                <a href="./JS/0317/index.html" target="1">생성함수</a>
+                <a href="./JS/0317/index2.html" target="1">스크립트 위에 선언</a>
+                <a href="./JS/0317/index3.html" target="1">인풋 내용 화면 출력</a>
+                <a href="./JS/0317/popup.html" target="1">Popup</a>
+                <a href="./JS/0317~0321/team/mainFrame.html" target="1">★TeamProject</a>
+                <br>
+                <a href="./JS/0322/index.html" target="1">JS 다양한 이벤트들</a>
+                <a href="./JS/0322/index2.html" target="1">JS Drag</a>
+                <a href="./JS/0322/index3.html" target="1">★JS 쿠키 연습</a>
+                <a href="./JS/0323/index.html" target="1">★JS 쿠키 & 세션</a>
+                <a href="./JS/0323/index2.html" target="1">JS CSS</a>
+                <a href="./JS/0323/index3.html" target="1">JS list 추가하기</a>
+                <a href="./JS/0323/0323.html" target="1">★JS todoList</a>
+                <a href="./JS/0324/0324.html" target="1">JS 쿠키 + 팝업</a>
+                <a href="./JS/0327/index.html" target="1">구조분해할당 & 스프레드연산자</a>
+                <a href="./JS/0327/index2.html" target="1">객체 배열 반환</a>
+                <a href="./JS/0327/index3.html" target="1">로또 추첨</a>
+                <a href="./JS/0327/index4.html" target="1">swiper 연습</a>
+                <a href="./JS/0327/swiper.html" target="1">swiper 실습</a>
+                <br>
+                <a href="./JS/0328/index.html" target="1">스프레드 연산자</a>
+                <a href="./JS/0328/index2.html" target="1">게시판 등록 삭제</a>
+                <a href="./JS/0328/index3.html" target="1">time 메소드</a>
+                <a href="./JS/0328/index4.html" target="1">버튼 가위바위보 만들기</a>
+                <a href="./JS/0328/practice1.html" target="1">게시판 수정 버튼</a>
+                <a href="./JS/0328/practice2.html" target="1">묵찌빠 v3</a>
+                <br>
+                <a href="./JS/0330/index.html" target="1">try-catch</a>
+                <a href="./JS/0330/index2.html" target="1">재귀함수</a>
+                <a href="./JS/0330/index3.html" target="1">Promise객체</a>
+                <a href="./JS/0330/index4.html" target="1">정규 표현식</a>
+                <br>
+                <a href="./JS/0331/index.html" target="1">클래스 생성자 함수</a>
+                <a href="./JS/0331/index2.html" target="1">클래스 상속</a>
+                <br>
+                <a href="./JS/0405/index.html" target="1">프로토타입</a>
+                <a href="./JS/0405/index2.html" target="1">클로저</a>
+                <a href="./JS/0405/index3.html" target="1">즉시 실행 함수</a>
+                <a href="./JS/0405/index4.html" target="1">이터러블&이터레이터</a>
+                <a href="./JS/0405/signUp.html" target="1">정규식</a>
+                <br>
+                <a href="./JS/0406/index.html" target="1">Map, Set</a>
+                <a href="./JS/0406/index2.html" target="1">배열 메소드</a>
+                <a href="./JS/0406/index3.html" target="1">drawer-opener</a>
+                <br>
+                <a href="./JS/0410(upbit)/upbit/main/main.html" target="1">팀프로젝트(업비트)</a>
+
+            </div>
+            <div id="list3">
+                <h2>Nodejs</h2>
+                <br>
+                <a href="./Nodejs/0427/nodejs.md" target="1">Node.js 정의</a>
+                <a href="./Nodejs/0427/index.js" target="1">Node.js repl</a>
+                <a href="./Nodejs/0427/index2.js" target="1">모듈</a>
+                <a href="./Nodejs/0427/index3.js" target="1">모듈을 가져오는 방법</a>
+                <a href="./Nodejs/0427/index4.js" target="1">nodejs의 내장 모듈</a>
+                <a href="./Nodejs/0427/index5.js" target="1">index5</a>
+                <a href="./Nodejs/0427/index6.js" target="1">index6</a>
+                <a href="./Nodejs/0427/index7.js" target="1">웹서버 만들어보기</a>
+                <br>
+                <a href="./Nodejs/0428/tcp.md" target="1">TCP UDP</a>
+                <a href="./Nodejs/0428/index.js" target="1">TCP server 만들어보기</a>
+                <a href="./Nodejs/0428/client.js" target="1">client.js</a>
+                <a href="./Nodejs/0428/server.js" target="1">server.js</a>
+                <a href="./Nodejs/0428/index2.js" target="1">mysql 설치&테이블 명령어</a>
+                <br>
+                <a href="./Nodejs/0501/index.js" target="1">123</a>
+            </div>
+        </div>
+        <div id="right">
+            <img src="_img/shutterstockRF_638183854.jpg" alt="">
+            <!-- <img src="./img/image.jpg" alt=""> -->
+            <iframe src="" frameborder="0" name="1"></iframe>
+        </div>
+    </div>
+</body>
+<script>
+    document.querySelector("#html").addEventListener("click", function (event) {
+        event.preventDefault();
+        document.querySelector("#list2").style.display = "none";
+        document.querySelector("#list3").style.display = "none";
+        document.querySelector("img").style.display = "none";
+        document.querySelectorAll("#list1").forEach(function (link) {
+            link.style.display = "block";
+        });
+    });
+    document.querySelector("#js").addEventListener("click", function (event) {
+        event.preventDefault();
+        document.querySelector("#list1").style.display = "none";
+        document.querySelector("#list3").style.display = "none";
+        document.querySelector("img").style.display = "none";
+        document.querySelectorAll("#list2").forEach(function (link) {
+            link.style.display = "block";
+        });
+    });
+    document.querySelector("#node").addEventListener("click", function (event) {
+        event.preventDefault();
+        document.querySelector("#list1").style.display = "none";
+        document.querySelector("#list2").style.display = "none";
+        document.querySelector("img").style.display = "none";
+        document.querySelectorAll("#list3").forEach(function (link) {
+            link.style.display = "block";
+        });
+    });
+
+</script>
+
+</html>

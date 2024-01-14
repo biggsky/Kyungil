@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>detail</title>
+    <script src="https://andybyungjoopark.com/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/detail.css">
+    <style>
+        #useron{
+            display: none;
+        }
+        .comments_wrap{
+            display: hidden;
+        }
+        .i_comment_id{
+            display: none;
+        }
+        .smallcomment_id{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 실시간 알림창 -->
+    <div id="live_chat_noti_wrap">
+    </div>
+    
+    <!-- 중간 -->
+    <div class="middle_body">
+        <!-- 게시글 상세 부분 -->
+        <div class="post_container">
+            <div class="post_top">
+                <div class="profile_img"></div>
+                <div class="profile_text">
+                    <p class="nickname">Nickname</p>
+                    <span>·</span>
+                    <p class="updated_time">2h</p>
+                </div>
+                <div id="useron">
+                    <div class="editBtn">수정</div>
+                    <div class="delBtn">삭제</div>
+                </div>
+            </div>
+            <div class="post_body">
+                <!-- <video class="video" src="../post_img/KakaoTalk_Video_2023-06-04-23-42-29.mp4" autoplay muted controls></video> -->
+            </div>
+            <div class="post_bottom">
+                <div class="likes"><img id="heartImage" src="../nav_icon_img/icon_noti.png"><p><span id="likecount"></span> likes</p></div>
+                <div class="content">
+                    <p>
+                        <span class="nickname">Nickname</span>
+                        <span id="deContent"><br></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 댓글 부분 -->
+        <div id="reply_container" class="reply_container">
+        </div>
+    </div>
+    <div class="input_wrap">
+        <input class="comment_input" name="bigComment" type="text" placeholder="댓글 달기...">
+        <div class="commentBtn">전송</div>
+    </div>
+
+    <!-- noti / dm -->
+    <div class="top_nav_container">
+        <div class="top_nav">
+            <div class="logo" onclick="moveToMain()">LINKee</div>
+            <div class="noti"><a href="/noti"><img src="../nav_icon_img/icon_noti.png" alt=""></a></div>
+            <div id="red_dot"></div>
+            <div class="live_chat"><a href="/livechat"><img src="../nav_icon_img/icon_dm.png" alt=""></a></div>
+        </div>
+    </div>
+
+
+    <!-- home / search / insert / mypage -->
+    <div class="bottom_nav_container">
+        <div class="bottom_nav">
+            <div class="icon"><a href="/main"><img src="../nav_icon_img/icon_home.webp" alt=""></a></div>
+            <div class="icon"><a href="/search"><img src="../nav_icon_img/icon_search.png" alt=""></a></div>
+            <div class="icon"><a href="/insert"><img src="../nav_icon_img/icon_plus.png" alt=""></a></div>
+            <div id = "profile_img" class="profile_img"></div>
+        </div>
+    </div>
+</body>
+<script src="../js/notiSocket.js"></script>
+<script>
+    window.onload = async () =>{
+        const socket = io.connect('https://andybyungjoopark.com'); // 소켓 연결 시도
+
+        let x = location.hash;
+        let xx = x.replace("#", "");
+        const {data} = await axios.get(`https://andybyungjoopark.com/main/getcontents/${xx}`,{
+            withCredentials : true
+        });
+        // console.log(data);
+        const user = await axios.get("https://andybyungjoopark.com/detail/loginUser");
+        // console.log(user);
+        if(data.d == 1){
+            document.querySelector("#useron").style.display = "block";
+        }else{
+            document.querySelector("#useron").style.display = "none";
+        }
+
+        // 날짜 계산
+        let now = new Date();
+        let posteddate = new Date(data.a.createdAt);
+        let calc = (now.getTime() - posteddate.getTime()) / 1000;
+        let s = 1;
+        let m = s * 60;
+        let h = m * 60;
+        let d = h * 24;
+        let dateText = "";
+        if(calc < s) {
+            dateText = "방금 전";
+        }else if(calc < m) {
+            dateText = parseInt(calc) + "초 전";
+        }else if(calc < h) {
+            dateText = Math.trunc(calc/m) + "분 전";
+        }else if(calc < d) {
+            dateText = Math.trunc(calc/h) + "시간 전";
+        }else if(calc < d * 15) {
+            dateText = Math.trunc(calc/d) + "일 전";
+        }else {
+            let year = posteddate.getFullYear();
+            let month = posteddate.getMonth() + 1;
+            let date = posteddate.getDate();
+            dateText = `${year}.${month}.${date}`;
+        }
+
+        // 좋아요
+        const likeCheck = await axios.get("https://andybyungjoopark.com/main/getlike",{
+            withCredentials : true,
+            params : {
+                user_id : data.b.id,
+                post_id : xx,
+            }
+        });
+        if(likeCheck.data == "0"){ // 좋아요 안눌렀으면
+            document.querySelector("#heartImage").src = '../nav_icon_img/icon_noti.png';
+            document.querySelector("#heartImage").dataset.value = "0";
+        }else{
+            document.querySelector("#heartImage").src = '../nav_icon_img/icon_heart.png';
+            document.querySelector("#heartImage").dataset.value = "1";
+        }
+
+        for(let i=0; i<data.e.length;i++){
+            reply_container.innerHTML += `
+            <div class="comments_wrap">
+                <div class="profile_img" onclick="moveToUser('${data.e_nick[i]}','${user.data.nickname}')"><img src="https://andybyungjoopark.com/user_img/${data.e_profile[i]}" alt=""></div>
+                <div class="commentlist">
+                    <div class="nickname" onclick="moveToUser('${data.e_nick[i]}','${user.data.nickname}')">${data.e_nick[i]}</div>
+                    <div class="bigCommentText">${data.e_content[i].content}</div>
+                    <input type="text" class="i_comment_id" value="${data.d_comment_id[i]}">
+                    <details>
+                        <summary>답글 달기</summary>
+
+                        <div class="cw">${await add_s_Comment(data.s_comment[i].length, data.s_comment[i])}</div>
+
+
+                        <div class="input_wrap2">
+                            <input class="comment_input2" name="smallComment" type="text" placeholder="대댓글 달기...">
+                            <div class="commentBtn2">전송</div>
+                        </div>
+                    </details>
+                </div>
+                <div class="likes_btn">
+                    <img class="like_btn" src="../nav_icon_img/icon_noti.png">
+                    <div class="like_btn_count">${data.e_content[i].likes}</div>
+                </div>
+            </div>
+            `;
+        };
+
+        async function add_s_Comment(a, b){
+            let html = "";
+            for(let i=0; i<a;i++){
+                const data = await axios.get(`https://andybyungjoopark.com/detail/c_comment_nick`, {
+                    withCredentials :true,
+                    params : {
+                        c_comment_nick : b[i].user_id,
+                        comment_id : b[i].id,
+                    },
+                });
+
+                let dv, src;
+                if(data.data.data2 != null){
+                    dv = 1;
+                    src = "icon_heart";
+                }else{
+                    dv = 0;
+                    src = "icon_noti";
+                }
+
+                // console.log(data);
+
+                html += `
+                    <div class="s_comments_wrap">
+
+                        <div class="profile_img" onclick="moveToUser('${data.data.a.nickname}','${user.data.nickname}')"><img src="https://andybyungjoopark.com/user_img/${data.data.a.profile_img}" alt=""></div>
+                        <div>
+                            <div class="nickname" onclick="moveToUser('${data.data.a.nickname}','${user.data.nickname}')">${data.data.a.nickname}</div>
+                            <div class="bigCommentText">${b[i].content}</div>
+                        </div>
+                        <div class="s_likes_btn">
+                            <input class="smallcomment_id" value ="${data.data.b.id}">
+                            <img class="s_like_btn" data-value="${dv}" src="../nav_icon_img/${src}.png">
+                            <span class="s_like_btn_count">${data.data.b.likes}</span>
+                        </div>
+                    </div>
+                `;
+
+                
+            }
+            return html;
+        }
+
+        document.querySelector(".nickname").innerHTML = data.b.nickname;
+        document.querySelector(".nickname").onclick = ()=>{
+            if(data.b.nickname === user.data.nickname){
+                location.href = "/mypage";
+            }else{
+                location.href = `/userpage#${data.b.nickname}`;
+            }
+        };
+        document.querySelector("p .nickname").innerHTML = data.b.nickname;
+        document.querySelector("p .nickname").onclick = ()=>{
+            if(data.b.nickname === user.data.nickname){
+                location.href = "/mypage";
+            }else{
+                location.href = `/userpage#${data.b.nickname}`;
+            }
+        };
+        document.querySelector(".profile_img").innerHTML = `<img src="https://andybyungjoopark.com/user_img/${data.b.profile_img}" alt="">`;
+        document.querySelector(".profile_img").onclick = ()=>{
+            if(data.b.nickname === user.data.nickname){
+                location.href = "/mypage";
+            }else{
+                location.href = `/userpage#${data.b.nickname}`;
+            }
+        };
+        document.querySelector(".updated_time").innerHTML = dateText;
+        
+        let content = data.a.content.replace(/(?:\r\n|\r|\n)/g, "<br>"); // 줄바꿈
+        document.querySelector("#deContent").innerHTML = content;
+        document.querySelector("#likecount").innerHTML = data.a.likes;
+        if(data.a.img) {
+            let ext = data.a.img.split('.').pop();
+            // console.log(ext);
+            if(ext == "jpeg" || ext == "gif" || ext == "png" || ext == "jpg" || ext == "jfif" || ext == "webp") {
+                document.querySelector(".post_body").innerHTML = `<img src="https://andybyungjoopark.com/post_img/${data.a.img}">`;
+            }else if(ext == "mp4") {
+                document.querySelector(".post_body").innerHTML = `<video class="video" src="https://andybyungjoopark.com/post_img/${data.a.img}" autoplay loop muted controls></video>`;
+            }
+        }else {
+            document.querySelector(".post_body").innerHTML = "";
+        }
+
+        // 댓글 좋아요
+        let inputArr = [];
+        let iii=0;
+        const bigClikeElement = document.querySelectorAll(".comments_wrap");
+        bigClikeElement.forEach(el=>{
+            // console.log(el);
+            const inputValue = el.querySelector(".commentlist .i_comment_id").value; 
+            inputArr[iii] = inputValue;
+            iii++;
+        });
+
+        const bigClikeCheck = await axios.get("https://andybyungjoopark.com/detail/getbiglike", {
+            withCredentials : true,
+            params : {
+                user_id : data.b.id,
+                post_id : inputArr,
+            }
+        });
+        
+        // console.log("bigClikeCheck.data.length : ", bigClikeCheck.data.length);
+        // console.log("bigClikeCheck.data[0] : ", bigClikeCheck.data[0]);
+        // console.log("bigClikeCheck.data[1] : ", bigClikeCheck.data[1]);
+        // console.log("bigClikeCheck.data[2] : ", bigClikeCheck.data[2]);
+        // console.log("-----------------------------------------------");
+
+
+            // 0  1 2 3 4
+            // 1 == 맞다고 넘어가고
+            // 2 == 맞다고 넘어가고
+            // 3 맞다고 넘어가고
+        const bigClikeElement2 = document.querySelectorAll(".comments_wrap");
+        bigClikeElement2.forEach((el)=>{
+            // console.log(el);
+            const inputValue = el.querySelector(".commentlist .i_comment_id").value;
+            // console.log(inputValue);
+            // console.log("현재 페이지의 큰댓글들 전체 id :", inputValue);
+            for(let i=0; i<bigClikeCheck.data.length; i++){
+                if(inputValue == bigClikeCheck.data[i].comment_id){
+                    el.querySelector(".likes_btn .like_btn").src = "../nav_icon_img/icon_heart.png";
+                    el.querySelector(".likes_btn .like_btn").setAttribute("data-value", "1");
+                    break;
+                }
+                else{
+                    el.querySelector(".likes_btn .like_btn").src = "../nav_icon_img/icon_noti.png";
+                    el.querySelector(".likes_btn .like_btn").setAttribute("data-value", "0");
+                }
+            }
+        });
+
+
+
+        // document.querySelector(".updated_time").innerHTML = dateText;
+        // document.querySelector("#deContent").innerHTML = data.a.content;
+        // document.querySelector("#likecount").innerHTML = data.a.likes;
+        // document.querySelector(".post_body").innerHTML = `<img src="https://andybyungjoopark.com/post_img/${data.a.img}" alt="">`;
+        // document.querySelector(".nickname").innerHTML = data.b.nickname;
+        // document.querySelector("p .nickname").innerHTML = data.b.nickname;
+        // document.querySelector(".profile_img").innerHTML = `<img src="https://andybyungjoopark.com/user_img/${data.b.profile_img}" alt="">`;
+        
+        // 수정버튼 클릭시
+        const editBtn = document.querySelector(".editBtn");
+        editBtn.onclick = ()=>{
+            location.href = `/editPost#${xx}`;
+        };
+
+        // 삭제버튼 클릭시
+        document.querySelector(".delBtn").addEventListener("click", async function(){
+            const {data} = await axios.get(`https://andybyungjoopark.com/main/delBtn/${xx}`);
+            if(data == 1){
+                window.location.href= "/search";
+            }
+        });
+
+        // 하트 클릭시
+        document.querySelector("#heartImage").addEventListener("click", async function(){
+            if(this.classList.contains("disabled")){
+                return;
+            }
+            let checkval = document.querySelector("#heartImage").getAttribute("data-value");
+            let lc = document.querySelector("#likecount").textContent;
+            if(checkval == 0){
+                document.querySelector("#heartImage").dataset.value = "1";
+                document.querySelector("#heartImage").src = '../nav_icon_img/icon_heart.png';
+                let count = Number(lc) + 1;
+                document.querySelector("#likecount").innerHTML = count;
+            }else{
+                document.querySelector("#heartImage").dataset.value = "0";
+                document.querySelector("#heartImage").src = '../nav_icon_img/icon_noti.png';
+                let count = Number(lc) - 1;
+                document.querySelector("#likecount").innerHTML = count;
+            }
+            this.classList.add("disabled");
+
+            await new Promise(resolve =>{
+                likeC1(checkval).then(()=>{
+                    resolve();
+                });
+            });
+            // new Promise는 likeC1 이라는 비동기 함수의 완료를 기다리는데 사용됨. likeC1 함수가 프로미스를 반환하며, then 메서드는 likec1이 완료됐을때 실행됨.
+
+            this.classList.remove("disabled");
+
+        });
+
+        async function likeC1(checkval){
+            const likeClick = await axios.get("https://andybyungjoopark.com/detail/likeClick",{
+                withCredentials : true,
+                params : {
+                    user_id : data.b.id,
+                    post_id : xx,
+                    check : checkval
+                }
+            });
+            if(likeClick.data.noti_on == 1){
+                let receiver_ID = likeClick.data.receiver; // 알림이 뜨게 할 id
+                socket.emit("detail_page_like_click_noti_emit", receiver_ID);
+            }
+        };
+
+
+        document.querySelector(".commentBtn").addEventListener("click" , async function(){
+            let big_comment_input = document.querySelector(".comment_input");
+
+            const abc = await axios.get(`https://andybyungjoopark.com/main/bigComment/${xx}`, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials : true,
+                params : {
+                    bigInputValue : big_comment_input.value,
+                }
+
+                // bigInputValue : inputvalue,
+                // data: { bigInputValue : inputvalue},
+                // params:{
+                //     bigInputValue: inputvalue,
+                // }
+            });
+
+            if(abc.data.bigcomment_insert == 1){
+                let receiver_ID = abc.data.receiver_user_id; // 알림이 뜨게 할 id
+                socket.emit("detail_page_like_click_noti_emit", receiver_ID);
+            }
+
+            // console.log(abc.data);
+            reply_container.innerHTML += `
+            <div class="comments_wrap">
+                <div class="profile_img" onclick="moveToUser('${abc.data.a.nickname}','${user.data.nickname}')"><img src="https://andybyungjoopark.com/user_img/${abc.data.a.profile_img}" alt=""></div>
+                <div class="commentlist">
+                    <div class="nickname" onclick="moveToUser('${abc.data.a.nickname}','${user.data.nickname}')">${abc.data.a.nickname}</div>
+                    <div class="bigCommentText">${big_comment_input.value}</div>
+                    <input type="text" class="i_comment_id" value="${abc.data.b}">
+                    <details>
+                        <div class="cw"></div>
+                        <summary>답글 달기</summary>
+
+                        <div class="input_wrap2">
+                            <input class="comment_input2" name="smallComment" type="text" placeholder="대댓글 달기...">
+                            <div class="commentBtn2">전송</div>
+                        </div>
+                    </details>
+                </div>
+                <div class="likes_btn">
+                    <img class="like_btn" data-value="0" src="../nav_icon_img/icon_noti.png" alt="">
+                    <div class="like_btn_count">0</div>
+                </div>
+            </div>
+            `;
+            btn2();
+            big_comment_input.value = "";
+            // location.reload();
+        });
+
+        async function likeC2(a, b){
+            const data = await axios.get(`https://andybyungjoopark.com/detail/likebigcomment`,{
+                withCredentials : true,
+                params:{
+                    civalue1 : a, // comment-id
+                    check : b
+                }
+            });
+            if(data.data.bigcomment_like_click_noti == 1){
+                let receiver_ID = data.data.receiver; // 알림이 뜨게 할 id
+                socket.emit("detail_page_like_click_noti_emit", receiver_ID);
+            }
+        };
+
+        function btn2(){
+            const likeBtn = document.querySelectorAll(".like_btn");
+            likeBtn.forEach(function(el){
+                el.addEventListener("click", async function(event){
+                    if(el.classList.contains("disabled")){
+                        return;
+                    }
+                    let checkval = el.getAttribute("data-value");
+                    let civalue = el.closest('.likes_btn');
+                    // closest가 부모요소를 말하는거같음.
+                    let up_civalue = civalue.closest('.comments_wrap').querySelector('.commentlist input.i_comment_id').value;
+                    let lc = civalue.querySelector('.like_btn_count').textContent;
+
+                    if(checkval == 0){
+                        el.dataset.value = "1";
+                        el.src = '../nav_icon_img/icon_heart.png';
+                        let count = Number(lc) + 1;
+                        civalue.querySelector('.like_btn_count').innerHTML = count;
+                    }else{
+                        el.dataset.value = "0";
+                        el.src = '../nav_icon_img/icon_noti.png';
+                        let count = Number(lc) - 1;
+                        civalue.querySelector('.like_btn_count').innerHTML = count;
+                    }
+                    this.classList.add("disabled");
+
+                    await new Promise(resolve =>{
+                        likeC2(up_civalue, checkval).then(()=>{
+                            resolve();
+                        });
+                    });
+                    this.classList.remove("disabled");
+                });
+            });
+
+            const Btn2 = document.querySelectorAll(".commentBtn2");
+            Btn2.forEach(function(el){
+                el.addEventListener("click", async function(event){
+                    let small_comment_input = event.target.closest('.input_wrap2').querySelector(".comment_input2");
+                    let civalue = event.target.closest('.comments_wrap').querySelector('input.i_comment_id').value;
+                    const abc = await axios.get(`https://andybyungjoopark.com/detail/smallComment/${xx}`, {
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        withCredentials : true,
+                        params : {
+                            smallInputValue : small_comment_input.value,
+                            comment_id : civalue,
+                        }
+    
+                        // post
+                        // bigInputValue : inputvalue,
+                        // data: { bigInputValue : inputvalue},
+                        // params:{
+                        //     bigInputValue: inputvalue,
+                        // }
+                    });
+
+                    if(abc.data.smallcomment_insert == 1){
+                        let receiver_ID = abc.data.receiver_ID; // 알림이 뜨게 할 id
+                        socket.emit("detail_page_like_click_noti_emit", receiver_ID);
+                    }
+
+                    // console.log(abc.data);
+
+                    event.target.closest('details').querySelector(".cw").innerHTML += `
+                                <div class="s_comments_wrap">
+                                    <div class="profile_img" onclick="moveToUser('${abc.data.a.nickname}','${user.data.nickname}')"><img src="https://andybyungjoopark.com/user_img/${abc.data.a.profile_img}" alt=""></div>
+                                    <div>
+                                        <div class="nickname" onclick="moveToUser('${abc.data.a.nickname}','${user.data.nickname}')">${abc.data.a.nickname}</div>
+                                        <div class="bigCommentText">${small_comment_input.value}</div>
+                                    </div>
+                                    <div class="s_likes_btn">
+                                        <input class="smallcomment_id" value ="${abc.data.smallcommentcreateId.id}">
+                                        <img class="s_like_btn" data-value="0" src="../nav_icon_img/icon_noti.png">
+                                        <div class="s_like_btn_count">0</div>
+                                    </div>
+                                </div>
+                    `;
+                    btn3();
+                    small_comment_input.value = "";
+                });
+            });
+
+            function btn3(){
+                // 대댓글 좋아요
+                // const Btn2 = document.querySelectorAll(".commentBtn2");
+                const Btn3 = document.querySelectorAll(".s_like_btn");
+                Btn3.forEach(function(el){
+                    el.addEventListener("click",async function(){
+                        if(el.classList.contains("disabled")){
+                            return;
+                        }
+                        // comment_id
+                        let a = el.closest('.s_likes_btn');
+                        let s_comment_id = a.querySelector(".smallcomment_id").value;
+                        let lc = a.querySelector(".s_like_btn_count").textContent;
+                        let checkval = el.getAttribute("data-value");
+
+                        if(checkval == 0){
+                            el.dataset.value = "1";
+                            el.src = '../nav_icon_img/icon_heart.png';
+                            let count = Number(lc) + 1;
+                            a.querySelector(".s_like_btn_count").innerHTML = count;
+                        }else{
+                            el.dataset.value = "0";
+                            el.src = '../nav_icon_img/icon_noti.png';
+                            let count = Number(lc) - 1;
+                            a.querySelector(".s_like_btn_count").innerHTML = count;
+                        }
+                        this.classList.add("disabled");
+
+                        await new Promise(resolve =>{
+                            likeC3(s_comment_id, checkval).then(()=>{
+                                resolve();
+                            });
+                        });
+                        this.classList.remove("disabled");
+
+                    });
+                });
+            }
+            btn3();
+        }
+        async function likeC3(s_comment_id, check_val1){
+            const abc = await axios.get(`https://andybyungjoopark.com/detail/likesmallComment`, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials : true,
+                params : {
+                comment_id : s_comment_id,
+                check_val : check_val1
+            }
+            });
+
+            if(abc.data.smallcomment_like_click_noti == 1){
+                let receiver_ID = abc.data.receiver; // 알림이 뜨게 할 id
+                socket.emit("detail_page_like_click_noti_emit", receiver_ID);
+            }
+        }
+
+        btn2();
+
+        // 소켓
+        try {
+            const {data} = await axios.get('https://andybyungjoopark.com/main/posts', {
+                withCredentials : true
+            });
+            const {user, userAll} = data;
+
+            socket.emit("userIn", user.id); // 로그인 한 유저 아이디 보내기
+
+            socket.on("userIn", (socketID, userID) => {
+                // console.log("접속 중인 유저 : ", userID);
+                // console.log("접속 중인 유저의 소켓 아이디 : ",socketID);
+            });
+
+            // 알림 소켓 받아오기
+            socket.on("detail_page_like_click_noti_send", () =>{
+                // console.log("red dot?");
+                document.querySelector("#red_dot").style.display = "block";
+            });
+
+            // 채팅 방 요청 알림창
+            socket.on("requestChat", (senderID, receiverID) => {
+                let sender = userAll.find(item => item.id == senderID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${sender.nickname}</span>님이</p>
+                    <p>대화를 요청하였습니다.</p>
+                    <p>승인 버튼을 누르면 대화방으로 이동합니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="approve(${senderID}, ${receiverID})">승인</div>
+                        <div id="rejBtn" onclick="reject(${senderID}, ${receiverID})">거절</div>
+                    </div>
+                </div>`;
+
+                live_chat_noti_wrap.style.display = "block";
+            });
+
+            // 대화 요청 거절 알림창
+            socket.on("reject", (senderID, receiverID) => {
+                let receiver = userAll.find(item => item.id == receiverID);
+
+                live_chat_noti_wrap.innerHTML = `
+                <div class="live_chat_noti">
+                    <p><span class="nickname">${receiver.nickname}</span>님이</p>
+                    <p>대화를 요청을 거절하였습니다.</p>
+                    <div class="btns">
+                        <div id="appBtn" onclick="closeNoti()">확인</div>
+                    </div>
+                </div>`;
+            });
+
+            // 대화 요청 수락시 페이지 넘어감
+            socket.on("approve", (senderID, receiverID) => {
+                location.href = `/livechat/room#${senderID}#${receiverID}`;
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function getProfile() {
+        try {
+            const {data} = await axios.get('https://andybyungjoopark.com/main/getProfile', {
+                // 브라우저가 서버로 쿠키를 전달할 수 있는 옵션
+                withCredentials : true
+            });
+
+            if(data.profile_img == null) {
+                profile_img.innerHTML = `<a href="/mypage"><img src="https://andybyungjoopark.com/user_img/default_profile.jpeg" alt=""></a>`;
+            }else {
+                profile_img.innerHTML = `<a href="/mypage"><img src="https://andybyungjoopark.com/user_img/${data.profile_img}" alt=""></a>`;
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getProfile();
+
+    // 유저 페이지로 이동
+    function moveToUser(nickname,me){
+        if(nickname == me){
+            location.href = "/mypage";
+        }else{
+            location.href = `/userpage#${nickname}`;
+        };
+    };
+</script>
+</html>

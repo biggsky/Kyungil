@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./chart.css" />
+  </head>
+  <body>
+    <div id="chart"></div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script>
+    var options = {
+      series: [
+        {
+          name: "candle",
+          type: "candlestick",
+          data: [
+            {
+              x: 0,
+              y: [0, 0, 0, 0],
+            },
+
+          ],
+        },
+      ],
+      chart: {
+        height: 350,
+        type: "line",
+      },
+      title: {
+        text: "CandleStick Chart",
+        align: "left",
+      },
+      stroke: {
+        width: [3, 1],
+      },
+      tooltip: {
+        shared: true,
+        custom: [
+          function ({ seriesIndex, dataPointIndex, w }) {
+            return w.globals.series[seriesIndex][dataPointIndex];
+          },
+          function ({ seriesIndex, dataPointIndex, w }) {
+            var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex];
+            var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex];
+            var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex];
+            var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex];
+            return "";
+          },
+        ],
+      },
+      xaxis: {
+        type: "datetime",
+      },
+    };
+    let a = [1000, 2000];
+    let saveCurrentPrice = [];
+    let date = 5000;
+    let interval = 0;
+    let i = 0;
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+   const repeatCoin= setInterval(() => {
+      a[1] += parseInt(Math.random() * 30 - 15) * 5;
+
+      console.log(options.series[0].data[interval]);
+      options.series[0].data[interval] = {
+        x: new Date(date),
+        y: [a[0], a[1], a[1], a[1]],
+      };
+      saveCurrentPrice.push(a[1]);
+      i++;
+      if (i % 5 == 0) {
+        options.series[0].data[interval] = {
+          x: new Date(date),
+          y: [
+            saveCurrentPrice[0],
+            Math.max(...saveCurrentPrice),
+            Math.min(...saveCurrentPrice),
+            saveCurrentPrice[saveCurrentPrice.length - 1],
+          ],
+        };
+        
+        a[0] = saveCurrentPrice[saveCurrentPrice.length - 1];
+        interval++;
+        date += 5000;
+
+        options.series[0].data.push({
+          x: new Date(date),
+          y: [a[0], a[1], a[1], a[1]],
+        });
+        saveCurrentPrice = [];
+      }
+      chart.updateOptions(options);
+    }, 1000);
+    chart.render();
+
+    // function getRan() {
+    //   let randomNum = Math.floor(Math.random() * 10 + 1);
+
+    //   if (randomNum >= 4 && randomNum <= 6) {
+    //     return randomNum;
+    //   } else if (randomNum >= 2 && randomNum <= 9) {
+    //     let temp = Math.floor(Math.random() * 10 + 1);
+    //     if (temp < 4) {
+    //       return randomNum;
+    //     } else {
+    //       return getRan();
+    //     }
+    //   } else {
+    //     let temp = Math.floor(Math.random() * 10 + 1);
+    //     if (temp < 2) {
+    //       return randomNum;
+    //     } else {
+    //       return getRan();
+    //     }
+    //   }
+    // }
+
+    // for (let i = 0; i < 100; i++) {
+    //   console.log(getRan());
+    // }
+  </script>
+</html>

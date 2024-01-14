@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        text-align: center;
+      }
+      #body {
+        position: relative;
+        width: 100%;
+        height: 1200px;
+        /* overflow: scroll; */
+      }
+      #in {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 930px;
+        height: 1000px;
+        /* background-color: yellow; */
+      }
+      #list1 {
+        /* background-color: #888888; */
+        width: 100%;
+        height: 70px;
+        position: relative;
+      }
+      .list {
+        width: 100%;
+        height: 70px;
+        position: relative;
+      }
+      #listin1 {
+        display: flex;
+        float: left;
+        width: 50%;
+        height: 70px;
+        justify-content: center;
+        align-items: center;
+      }
+      #listin2 {
+        display: flex;
+        float: right;
+        width: 50%;
+        height: 70px;
+        justify-content: right;
+        align-items: center;
+        /* background-color: yellow; */
+      }
+      #listin2 span {
+        margin-right: 20px;
+      }
+      #content {
+        width: 100%;
+        height: 300px;
+        background-color: gainsboro;
+      }
+      #comments {
+        margin: auto;
+        width: 700px;
+        height: 300px;
+        background-color: gainsboro;
+        overflow: scroll;
+      }
+      img {
+        width: 50px;
+        height: 50px;
+      }
+      #heart {
+        cursor: pointer;
+        margin: auto;
+      }
+      #heart2 {
+        display: none;
+        margin: auto;
+      }
+      #img1 {
+        width: 70px;
+        height: 70px;
+        /* background-color: antiquewhite; */
+        margin: auto;
+      }
+      #img1 img {
+        width: 100%;
+        height: 100%;
+      }
+      #c_in {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        /* background-color: gainsboro; */
+      }
+      .c_left {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        float: left;
+        margin-left: 100px;
+      }
+      .c_right {
+        right: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-right: 50px;
+      }
+      #val {
+        display: none;
+      }
+      #trans {
+        background-color: transparent;
+        border: 0px;
+      }
+      #b_id,
+      #user_id {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>게시판 상세보기 페이지</h1>
+    <div id="body">
+      <div id="in">
+        <hr />
+        <div id="list1">
+          <div id="listin1"><%= content1[0].title %></div>
+          <div id="listin2"><span><%= content1[0].name %></span></div>
+        </div>
+        <hr />
+        <div id="content"><%= content1[0].content %></div>
+        <br />
+        <div>
+          <div id="img1">
+            <form action="/heart" method="post">
+              <input type="text" name="b_id" id="b_id" />
+              <input type="text" name="user_id" id="user_id" />
+
+              <button id="trans">
+                <img id="heart1" src="../heart1.png" alt="" />
+                <img id="heart2" src="../heart2.png" alt="" />
+              </button>
+            </form>
+          </div>
+          <span id="likenumber">0</span>
+        </div>
+
+        <br /><br />
+        <form method="post">
+          <input
+            type="text"
+            name="c_name"
+            style="width: 390px"
+            placeholder="이름" />
+          <br /><br />
+          <textarea
+            name="c_text"
+            cols="50"
+            rows="5"
+            placeholder="댓글"></textarea>
+          <input type="text" name="c_val" id="val" />
+          <br />
+          <button>등록</button>
+        </form>
+        <div id="comments">
+          <!--  -->
+          <% c_list.forEach((el,index) => { %>
+          <hr />
+          <div id="c_in">
+            <div class="c_left"><%= el.c_content %></div>
+            <div class="c_right">🌻<%= el.anonymous %></div>
+          </div>
+          <% }); %>
+          <!--  -->
+          <hr />
+        </div>
+      </div>
+    </div>
+    <input type="text" name="onoff" id="onoff" />
+  </body>
+  <script>
+    let session = sessionStorage.getItem("mysession");
+    console.log(session);
+    let x = location.href;
+    let xx = x.split("/").pop();
+    console.log(xx);
+    document.querySelector("#val").value = xx;
+    document.querySelector("#b_id").value = xx;
+    document.querySelector("#user_id").value = session;
+
+    async function sendData() {
+      let session = sessionStorage.getItem("mysession");
+      console.log(session);
+      const response = await fetch("/bread2", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: session }),
+      });
+
+      const result = await response.json();
+      console.log("잉", result);
+      // if (result) {
+      //   alert("!");
+      // }else{
+      //   alert("이건2");
+      // }
+    }
+
+    // if(x){
+    //   const mysql = require("../models/config");
+    //   let sql1 = mysql.query("SELECT * from bulletin WHERE b_id=?;", [x]);
+    // }
+    // console.log(sql1);
+    if (session !== null) {
+      document.querySelector("#heart1").addEventListener("click", function () {
+        document.querySelector("#heart1").style.display = "none";
+        document.querySelector("#heart2").style.display = "block";
+        document.querySelector("#likenumber").innerHTML = "1";
+        sendData();
+        // alert("좋아요 눌")
+      });
+      document.querySelector("#heart2").addEventListener("click", function () {
+        document.querySelector("#heart1").style.display = "block";
+        document.querySelector("#heart2").style.display = "none";
+        document.querySelector("#likenumber").innerHTML = "0";
+      });
+    }
+
+    // document.querySelector("#createb").addEventListener("click", function(){
+    //   document.querySelector("#createb").href = "/createb" + x;
+    // });
+
+    // const [mysql00] = mysql.query("SELECT * FROM bulletin");
+    // console.log(mysql00.id);
+  </script>
+</html>

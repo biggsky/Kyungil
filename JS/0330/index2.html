@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 재귀함수
+    // 함수가 함수 자신을 호출하는 함수
+
+    // 쓸일은 그렇게 많지않은데
+    // 알고리즘 문제 풀때 가끔 사용한다.
+
+    // function add(){
+    //     add();
+    // }
+
+    // 임시로 데이터베이스에 추가할때라던지 사용할수있다.
+    function add(n){
+        console.log(n);
+        // 얼마나 반복 실행 시킬건지
+        if(n <2){
+            add(n + 1);
+            console.log("여기", n);
+        }
+    }
+    // add(0);
+    
+    // 함수의 실행 컨택스트
+    // add -> add2 -> add3 -> add4 
+    // add4 -> 실행이 끝나고 -> add3 -> 실행이 끝나고 -> add2 -> 실행이 끝나고 -> add실행 끝
+
+    // 함수가 호출되면 실행컨택스트가 생성되고
+    // 함수의 안에서 함수를 호출하면서 실행 컨택스트가 쌓이고 뒤에서부터 실행하고 실행컨택스트 제거
+
+    // 실행 컨택스트 중요
+
+    // 재귀함수 좀더 써보자
+    // 피보나치 수열을 재귀로
+    // 피보나치 수열 수학적인 성질
+    // 황금비 연속된 두항의 비율
+    // 0, 1, 1, 2, 3, 5, 8 ..
+    // 이전 두항의 합으로 만들어진 수열
+    // 재귀 함수를 사용해서 피보나치 수열을 만들었다.
+
+    function fibonacci(n){
+        if(n < 2) return n;
+        // 이전 두 항을 더해서 반환
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+    for(let i=0; i<10; i++){
+        console.log(fibonacci(i));
+    }
+
+
+</script>
+</html>

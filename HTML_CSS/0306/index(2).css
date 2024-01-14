@@ -1,0 +1,28 @@
+@media only screen and (max-width: 1000px) {
+    /* media query 브라우저 환경에 따라 css를 적용시킨다. */
+    /* media only(이곳에서만) screen(화면일 때) and(조건) {css스타일 작성} */
+    /* 화면 1000px 까지 스타일이 적용된다. */
+
+    /* 여기에 css 스타일 작성을 똑같이 해주면 된다. */
+    .box {
+        width: 500px;
+        height: 500px;
+        border: 1px solid;
+        background-color: red;
+    }
+}
+
+@media only screen and (min-width: 500px) {
+
+    /* 너비가 500px 이상 */
+    .box {
+        width: 500px;
+        height: 500px;
+        border: 1px solid;
+        background-color: blueviolet;
+    }
+}
+/* 1000px까지는 @media only screen and (max-width : 1000px) 속성을 가지고
+500px 이상에서는 @media only screen and (min-width : 500px) 속성을 가진다.
+*/
+

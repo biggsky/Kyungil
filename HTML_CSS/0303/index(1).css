@@ -1,0 +1,38 @@
+.background {
+    width: 50%;
+    height: 300px;
+
+    background-color: beige;
+    /* 배경색 추가 */
+
+    background-image: url("https://blog.ko.playstation.com/tachyon/sites/9/2022/06/28f385658250c13f535ed4cd0edbbd9746193976.jpg");
+    /* 배경 이미지 추가 */
+
+    background-size: contain;
+    /* 배경 이미지의 크기 지정, 이미지가 다 보일수 있게 크기를 맞춰줌(비율 맞춤) */
+
+    background-size: cover;
+    /* 배경 이미지의 크기 지정, 최대크기(비율 맞춤), 이미지가 짤릴수 있다. 이미지와 비율을 맞춰줘야함 */
+
+    /* background-size: 400px 400px; */
+    background-size: 200px;
+    /* 이미지 사이즈 지정 너비, 높이 */
+
+    background-position: 10px 10px;
+    /* 배경 이미지의 위치 지정 x축, y축 */
+
+    background-position: center;
+    /* 배경 이미지의 위치 가운데 맞춤 */
+
+    background-repeat: no-repeat;
+    /* 배경 이미지 반복 여부, 반복하지 않는다. */
+
+    /* background-repeat: repeat; */
+    /* 배경 이미지 반복 여부, 반복한다. 기본값 */
+
+    /* background-repeat: repeat-x; */
+    /* 배경 이미지를 x축으로만 반복한다. */
+
+    /* background-repeat: repeat-y; */
+    /* 배경 이미지를 y축으로만 반복한다. */
+}

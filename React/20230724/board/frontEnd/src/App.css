@@ -1,0 +1,77 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+#body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #D7BBF5;
+}
+#body_in{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 400px;
+  height: 400px;
+  background-color: #EDE4FF;
+  border-radius: 10px;
+}
+#body_in_center{
+  width: 200px;
+  /* height: 200px; */
+  /* background-color: aqua; */
+}
+
+#body_in_center button, #body_in_center input{
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+}
+#body_in_center button:hover{
+  background-color: #A076F9;
+}
+#linkcenter{
+  text-align: center;
+}
+#linkcenter a{
+  font-size: 20px;
+  text-decoration: none;
+}
+#boardpage {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+#boardpage #list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  /* background-color: fuchsia; */
+}
+#boardpage #list input{
+  width: 100%;
+  height: 30px;
+}
+#boardpage #list textarea{
+  width: 100%;
+  height: 250px;
+}
+#boardpage #list button{
+  width: 100%;
+  height: 50px;
+}
+
+#pagelist a{
+  text-decoration: none;
+}
+
+#boardpage #list #editbtn, #deletebtn{
+  width: 242px;
+  height: 30px;
+}

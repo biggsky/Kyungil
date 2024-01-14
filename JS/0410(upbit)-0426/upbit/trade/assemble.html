@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./1chori.css" />
+    <link rel="stylesheet" href="./yeon.css" />
+    <link rel="stylesheet" href="./zerohoneyIndex.css" />
+    <link rel="stylesheet" href="./closeDeal.css" />
+    <link rel="stylesheet" href="../main/main.css" />
+
+    <style>
+      .all-container {
+        width: 1400px;
+        margin: 0 auto;
+        position: relative;
+        height: 1580px;
+      }
+
+      body {
+        background-color: #e9ecf1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <ul>
+        <a href="../main/main.html"
+          ><img
+            width="80px"
+            style="transform: translateY(1px)"
+            src="../main/img/그림03-removebg-preview (1).png"
+            alt=""
+        /></a>
+        <a
+          href="#deal"
+          style="
+            text-decoration: none;
+            color: black;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <li>거래소</li>
+        </a>
+        <a
+          href="#withdraw"
+          style="
+            text-decoration: none;
+            color: black;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <li>입출금</li>
+        </a>
+      </ul>
+      <div class="sub-header">
+        <a
+          id="logOut"
+          style="text-decoration: none; color: black"
+          href="../signIn/signIn.html"
+          >로그아웃</a
+        >
+        <a
+          id="myPage"
+          style="text-decoration: none; color: black"
+          href="../mypage/myPage.html"
+        >
+          My page</a
+        >
+        <div class="con">
+          <img
+            class="con-img"
+            style="margin-right: 30px"
+            src="./img/스크린샷 2023-04-10 172027.png"
+            alt=""
+          />
+          <div class="con-img-box">
+            <div style="color: #797979; font-size: 15px">
+              블록스토리 앱 다운로드
+            </div>
+            <div style="display: flex">
+              <img
+                width="80px"
+                style="margin: 15px"
+                src="../main/img/qrcode_55799122_02ddb728b5daa8f62c53f3ca78e1f7fe.png"
+                alt=""
+              />
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  margin-left: 20pxx;
+                "
+              >
+                <a href="https://play.google.com/store/apps"
+                  ><img
+                    width="150px"
+                    height="50px"
+                    src="./img/스크린샷 2023-04-11 134121.png"
+                    alt=""
+                /></a>
+                <a href="https://www.apple.com/kr/app-store/"
+                  ><img
+                    width="150px"
+                    height="50px"
+                    src="../main/img/스크린샷 2023-04-11 134146.png"
+                    alt=""
+                /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="all-container">
+      <!-- 차트 -->
+      <div class="pageWidth">
+        <div id="chart"></div>
+        <div class="coinInfo">
+          <div class="searchCoin">
+            <input type="text" class="findCoin" placeholder="코인명/심볼검색" />
+            <button class="searchCoinBtn">
+              <img src="../mypage/1093183.png" />
+            </button>
+          </div>
+          <div class="allCoinInfo">
+            <div class="MainTitle">
+              <input class="won" type="radio" id="korMoney" checked />
+              <label for="korMoney" id="won">원화</label>
+              <input class="dollar" type="radio" id="usdollar" />
+              <label for="usdollar" id="dollar">USDT</label>
+              <input class="have" type="radio" id="having" />
+              <label for="having" id="have">보유</label>
+              <input class="bookmark" type="radio" id="bookmarking" />
+              <label for="bookmarking" id="bookmark">관심</label>
+            </div>
+          </div>
+          <div class="subTitle">
+            <ul>
+              <li class="starTitle"></li>
+              <li class="languageTitle">한글명</li>
+              <li class="currentPriceTitle">현재가</li>
+              <li class="ratioTitle">전초대비</li>
+            </ul>
+          </div>
+          <div class="coinSection">
+            <div class="won-tab"></div>
+            <div class="dollar-tab"></div>
+            <div class="have-tab">
+              <p class="noCoin">현재 보유중인 코인이 없습니다.</p>
+            </div>
+            <div class="bookmark-tab">
+              <p class="noBookmark">등록된 관심코인이 없습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 게시판 -->
+      <div class="container">
+        <div class="title">자유게시판</div>
+        <ul class="title_row">
+          <li id="number" style="width: 40px">No</li>
+          <li id="title" style="width: 267px">제목</li>
+          <li id="writer" style="width: 110px">작성자</li>
+          <!-- <li id="view" style="width: 50px;">조회수</li> -->
+        </ul>
+        <div class="sub-container">
+          <div class="list">
+            <!-- <div class="view"></div> -->
+          </div>
+        </div>
+        <!-- 모달창 -->
+        <div class="title-in">
+          <div id="title-con">
+            <div class="comment">
+              <span>
+                <textarea
+                  rows="3"
+                  placeholder="댓글을 입력해 주세요"
+                  id="commentValue"
+                ></textarea>
+                <button id="commentBtn" class="comment-btn">댓글입력</button>
+              </span>
+            </div>
+            <div class="comment-box"></div>
+
+            <div class="content-text" name="">asd</div>
+            <div id="fixBtn" class="fix-Btn">수정</div>
+            <div id="delBtn" class="del-Btn">삭제</div>
+            <button id="con-close">닫기</button>
+          </div>
+        </div>
+        <div id="btn">글 쓰기</div>
+        <div class="page">
+          <div class="pageNa" id="content">
+            <a id="pre">이전</a>
+            <a value="1" id="page1" class="active current-page">1</a>
+            <a value="2" id="page2" class="current-page">2</a>
+            <a value="3" id="page3" class="current-page">3</a>
+            <a id="next">다음</a>
+          </div>
+        </div>
+        <div id="modal">
+          <div class="content">
+            <span>
+              <input
+                class="input-text"
+                type="text"
+                name=""
+                id="text"
+                placeholder="제목을 입력해 주세요"
+              />
+            </span>
+            <span>
+              <textarea
+                class="input-text"
+                style="margin-top: 50px"
+                name=""
+                id="text2"
+                cols="30"
+                rows="10"
+                placeholder="내용을 입력해 주세요"
+              ></textarea>
+            </span>
+          </div>
+          <div style="display: flex">
+            <button id="add-btn">등록</button>
+            <button id="close-btn">등록취소</button>
+          </div>
+        </div>
+        <div id="modal2">
+          <div class="content2">
+            <span>
+              <input
+                class="input-text2"
+                type="text"
+                name=""
+                id="text3"
+                placeholder="수정할 제목을 입력해 주세요"
+              />
+            </span>
+            <span>
+              <textarea
+                class="input-text2"
+                style="margin-top: 50px"
+                name=""
+                id="text4"
+                cols="30"
+                rows="10"
+                placeholder="수정할 내용을 입력해 주세요"
+              ></textarea>
+            </span>
+          </div>
+          <div style="display: flex">
+            <button id="update-Btn">수정</button>
+            <button id="close-btn2">수정취소</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 매수/매도 -->
+      <div class="left-container">
+        <div class="board-trade-conatainer">
+          <div class="sell-buy">
+            <ul>
+              <li class="tab-item">매수</li>
+              <li class="tab-item">매도</li>
+              <li class="tab-item">간편주문</li>
+              <li class="tab-item">거래내역</li>
+            </ul>
+            <hr />
+            <div class="buy-container">
+              <div class="order-type-container">
+                <span style="margin-right: 80px">주문 구분</span>
+                <input type="radio" id="fixPrice" name="price-check" checked />
+                <label for="fixPrice">지정가</label>
+                <input
+                  type="radio"
+                  id="marketPrice"
+                  name="price-check"
+                  disabled
+                />
+                <label for="marketPrice">시장가</label>
+                <input
+                  type="radio"
+                  id="reservePrice"
+                  name="price-check"
+                  disabled
+                />
+                <label for="reservePrice">예약-지정가</label>
+              </div>
+              <div class="order-possible-container">
+                <span>주문 가능</span>
+                <span class="account"
+                  >0 <span class="currency-units">krw</span></span
+                >
+              </div>
+              <div class="buy-price-container">
+                <span>매수 가격</span>
+                <input
+                  type="text"
+                  placeholder="0"
+                  readonly
+                  onfocus="this.blur()"
+                  id="buyPrice"
+                />
+                <span class="control-price"
+                  ><span class="price-subtract">-</span>
+                </span>
+                <span class="control-price"
+                  ><span class="price-add">+</span></span
+                >
+              </div>
+              <div class="buy-steem-container">
+                <span>주문 수량</span>
+                <input
+                  type="text"
+                  placeholder="0"
+                  readonly
+                  onfocus="this.blur()"
+                  id="tradeVolume"
+                />
+              </div>
+              <div class="percent-container">
+                <span value="10">10%</span>
+                <span value="25">25%</span>
+                <span value="50">50%</span>
+                <span value="100">100%</span>
+                <span class="self-input">직접입력</span>
+
+                <div class="self-input-bar">
+                  <input
+                    type="range"
+                    id="progress"
+                    name="progress"
+                    min="0"
+                    max="100"
+                    value="50"
+                    style="width: 300px"
+                  />
+                  <p class="self-input-percent">0%</p>
+                </div>
+              </div>
+              <div class="all-price-container">
+                <span>주문 총액</span>
+                <input
+                  type="text"
+                  placeholder="0"
+                  readonly
+                  onfocus="this.blur()"
+                  id="orderSum"
+                />
+              </div>
+              <div class="btn-container">
+                <a href="../signUp/signUp.html" class="signup-btn">회원가입</a>
+                <a href="../signIn/signIn.html" class="signin-btn">로그인</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 체결 -->
+      <div class="closeDeal">
+        <div class="title">체결</div>
+        <div class="closed-subtitle">
+          <ul>
+            <li class="deal-time">체결시간</li>
+            <li class="deal-currentPrice">체결가격(KRW)</li>
+            <li class="deal-volume">체결량(<span>GIC</span>)</li>
+            <li class="deal-amount">체결금액(KRW)</li>
+          </ul>
+        </div>
+        <div class="deal-content">
+          <!-- <ul>
+        <li class="dealTime">11:29</li>
+        <li class="dealPrice">2000</li>
+        <li class="dealVolume">0.000343</li>
+        <li class="dealAmount">1503</li>
+      </ul> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" style="padding: 30px">
+      <div>
+        <a href="../main/main.html"
+          ><img
+            width="100px"
+            src="../main/img/그림03-removebg-preview (1).png"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="footer-text">
+        <div>
+          <span>고객센터 : </span><span>0123-456 |</span>
+          <span>서울시 천호동</span>
+          <div style="display: flex; height: 25px">
+            <p>블록스토리 주식회사 |</p>
+            <p>서울시 천호동 |</p>
+            <p>대표 : 이무헌 |</p>
+          </div>
+          <div style="display: flex; height: 25px">
+            <p>책임자 장원철 |</p>
+            <p>책임자 조성현 |</p>
+            <p>책임자 고연수 |</p>
+          </div>
+          <div style="display: flex">
+            <p style="color: black">
+              가상자산은 고위험 상품으로써 투자금의 전부 또는 일부 손실을 초래
+              할 수 있습니다.
+            </p>
+          </div>
+          <div class="sns-icon">
+            <a href="https://twitter.com/?lang=ko">
+              <img
+                width="90%"
+                src="https://cdn.upbit.com/upbit-web/images/ic_sns_twitter.b95ef9e.svg"
+                alt=""
+            /></a>
+            <a href="https://ko-kr.facebook.com/">
+              <img
+                width="90%"
+                src="https://cdn.upbit.com/upbit-web/images/ic_sns_facebook.2c4b45b.svg"
+                alt=""
+            /></a>
+            <a href="https://www.naver.com/">
+              <img
+                width="90%"
+                src="https://cdn.upbit.com/upbit-web/images/ic_sns_naver.bd9b815.svg"
+                alt=""
+            /></a>
+            <a href="https://www.instagram.com/">
+              <img
+                width="90%"
+                src="https://cdn.upbit.com/upbit-web/images/ic_sns_linkedin.af76827.svg"
+                alt=""
+            /></a>
+            <a href="https://www.youtube.com/">
+              <img
+                width="90%"
+                src="https://cdn.upbit.com/upbit-web/images/ic_sns_youtube.a0e8102.svg"
+                alt=""
+            /></a>
+          </div>
+          <br />
+          <div>
+            <a href="https://www.samsungfire.com/"
+              ><img
+                src="https://cdn.upbit.com/upbit-web/images/logo_samsung.447ca4a.svg"
+                alt=""
+            /></a>
+            <a href="https://ekyc.naver.com/home/main"
+              ><img
+                style="margin-left: 10px"
+                src="https://cdn.upbit.com/upbit-web/images/logo_naverAuth.1ee2005.svg"
+                alt=""
+            /></a>
+            <a href="https://www.kakaopay.com/main"
+              ><img
+                style="margin-left: 10px"
+                src="https://cdn.upbit.com/upbit-web/images/logo_kakaopay.d05a169.svg"
+                alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <h3 style="margin: 0">회사</h3>
+        <ul
+          style="
+            list-style: none;
+            transform: translateX(-40px);
+            cursor: pointer;
+          "
+        >
+          <li>회사소개</li>
+          <li>공지사항</li>
+          <li>이용약관</li>
+          <li>Open API 이용약관</li>
+          <li>개인정보처리방침</li>
+        </ul>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <h3 style="margin: 0">고객지원</h3>
+        <ul
+          style="
+            list-style: none;
+            transform: translateX(-40px);
+            cursor: pointer;
+          "
+        >
+          <li>자주하는 질문</li>
+          <li>문의하기</li>
+          <li>Open API</li>
+          <li>거래이용 안내</li>
+          <li>입출금 이용 안내</li>
+          <li>거래지원 문의 및 제보(Market Support)</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.Promise ||
+      document.write(
+        '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+      );
+    window.Promise ||
+      document.write(
+        '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+      );
+    window.Promise ||
+      document.write(
+        '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+      );
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="../allData.js"></script>
+  <script src="../util.js"></script>
+  <script src="./liveTrading.js"></script>
+  <script src="./1chori.js"></script>
+  <script src="./zerohoneyIndex.js"></script>
+  <script src="./yeon.js"></script>
+  <script>
+    // let user100 = JSON.parse(localStorage.getItem("nowLogin"));
+    // console.log("user100", user100.id);
+  </script>
+</html>

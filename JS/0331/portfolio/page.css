@@ -1,0 +1,297 @@
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .header {
+        width: 100%;
+        height: 80px;
+        /* border: 1px solid; */
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: absolute;
+        transition: 1s;
+        top: 0;
+        /* background-color: white; */
+    }
+
+    .header.isActive {
+        position: fixed;
+        animation: headerAni 1s;
+        background-color: white;
+    }
+
+    .header ul {
+        display: flex;
+        list-style: none;
+    }
+
+    .header ul li {
+
+        margin: 15px;
+    }
+
+    ul .isActive a{
+        color: blue;
+        font-weight: bold;
+    }
+
+
+    /* ------------------ */
+
+    ul li a {
+        display: inline-block;
+        position: relative;
+        color: #0087ca;
+        text-decoration: none;
+    }
+
+    ul li a::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #0087ca;
+        /* transform-origin: bottom right; */
+        transform-origin: bottom;
+        transition: transform 0.25s ease-out;
+    }
+
+    ul li a:hover::after {
+        transform: scaleX(1);
+        /* transform-origin: bottom left; */
+        /* transform-origin: bottom; */
+    }
+
+    .header ul li:last-child {
+        margin-right: 100px;
+    }
+
+    .header::before {
+        content: "b";
+        background-color: #00c9b7;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        color: #fff;
+        font-weight: 900;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 15px;
+        border-radius: 50%;
+        margin-left: 30px;
+        cursor: pointer;
+    }
+
+    .header::after {
+        content: "itKunst";
+        position: absolute;
+        left: 47px;
+        font-size: 28px;
+        font-weight: 900;
+        margin-left: 30px;
+        cursor: pointer;
+        /* position 속성이 있을때 order를 설정할수있다. */
+        /* z-index: -1; */
+    }
+
+
+
+
+    /* main content-01 ------------------------- */
+    .main {
+        /* view height 브라우저의 높이 */
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        z-index: -1;
+    }
+
+    .main .content-01 {
+        width: 100%;
+        height: 100%;
+    }
+
+    .overlay {
+        width: 50%;
+        height: 100%;
+        background-color: #00c9b7;
+        opacity: 0.1;
+    }
+
+    .content-01 .text-wrap {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .content-01 .text-wrap p {
+        color: #00c9b7;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+    }
+
+    .content-01 .text-wrap h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 54px;
+    }
+
+    .content-01 .text-wrap h2 {
+        margin: 15px 0 0 0;
+        padding: 0;
+        font-size: 30px;
+    }
+
+    /* 3뎊스? 는 하나 둘 셋 */
+    .text-wrap h2 span {
+        color: #00c9b7;
+        position: relative;
+        /* text-decoration: underline; */
+    }
+
+    /* 태그잡고 접근하지 말자 되도록 */
+    .text-wrap h2 span::before {
+        content: "";
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        background-color: #00c9b7;
+        bottom: -5px;
+    }
+
+    .content-01 .mouse {
+        position: absolute;
+        background-color: #edf0ff;
+        width: 70px;
+        height: 70px;
+        bottom: 120px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+    }
+
+    .content-01 .mouse .arrow {
+        height: 20px;
+        width: 2px;
+        background-color: #00c9b7;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        animation: ani 1s infinite;
+    }
+
+    .content-01 .mouse .arrow::before,
+    .content-01 .mouse .arrow::after {
+        content: "";
+        width: 2px;
+        height: 10px;
+        position: absolute;
+        bottom: 0;
+        left: 4px;
+        transform: rotate(45deg);
+        background-color: #00c9b7;
+    }
+
+    .content-01 .mouse .arrow::after {
+        left: -4px;
+        transform: rotate(-45deg);
+    }
+
+    @keyframes ani {
+        from {
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        to {
+            left: 80%;
+            transform: translate(-50%, 60%) rotate(-45deg);
+        }
+    }
+
+    @keyframes headerAni {
+        from {
+            top: -80px;
+        }
+
+        to {
+            top: 0;
+        }
+    }
+    .loader{
+        display: inline-block;
+        position: relative;
+    }
+    .loader::before{
+        position: absolute;
+        content: '';
+        width: 2px;
+        right: 0;
+        height: 100%;
+        background-color: black;
+        animation: ani1 1s steps(3) infinite;
+    }
+    @keyframes ani1{
+        0%,75%{
+            opacity: 1;
+        }
+        76%,100%{
+            opacity: 0;
+        }
+    }
+    .loader h2{
+        /* background-color: yellow; */
+        white-space: nowrap;
+        animation: ani2 4s steps(20) infinite;
+        overflow: hidden;
+    }
+    @keyframes ani2{
+        0%{
+            width: 390px;
+        }
+        50%{
+            width: 0;
+        }
+        100%{
+            width: 390px;
+        }
+    }
+
+    #about {
+        width: 100%;
+        height: 1000px;
+        background-color: antiquewhite;
+    }
+
+    #education {
+        width: 100%;
+        height: 1000px;
+        background-color: beige;
+    }
+
+    #projects {
+        width: 100%;
+        height: 1000px;
+        background-color: darkblue;
+    }
+
+    #contact {
+        width: 100%;
+        height: 1000px;
+        background-color: royalblue;
+    }

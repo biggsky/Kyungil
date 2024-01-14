@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./yeon.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="title">Q&A</div>
+            <ul class="title_row">
+                <li id="number" style="width: 40px;">No</li>
+                <li id="title" style="width: 267px;">제목</li>
+                <li id="writer" style="width: 110px;">작성자</li>
+                <!-- <li id="view" style="width: 50px;">조회수</li> -->
+            </ul>
+            <div class="sub-container">
+                <div class="list">
+                    <div id="num" class="num"></div>
+                    <div id="tit" class="tit"></div>
+                    <div class="writer"></div>
+                    <!-- <div class="view"></div> -->
+                </div>
+            </div>
+            <!-- 모달창 -->
+            <div class="title-in">
+            <div id="title-con">
+                <div class="content-text" name="">asd</div>
+                <div id="fixBtn" class="fix-Btn">수정</div>
+                <div id="delBtn" class="del-Btn">삭제</div>
+
+                <button id="con-close">닫기</button>
+            </div>
+            </div>
+            <div id="btn">글 쓰기</div>
+            <div class="page">
+                <div class="pageNa" id="content">
+                    <a id="pre">이전</a>
+                    <a  value='1' id="page1" class="active current-page">1</a>
+                    <a  value='2' id="page2" class="current-page">2</a>
+                    <a value='3' id="page3" class="current-page">3</a>
+                    <a id="next">다음</a>
+                </div>
+            </div>
+            <div id="modal">
+                <div class="content">
+                    <span>
+                        <input class="input-text" type="text" name="" id="text" placeholder="제목을 입력해 주세요">
+                    </span>
+                    <span>
+                        <textarea class="input-text" style="margin-top: 50px;" name="" id="text2" cols="30" rows="10"
+                            placeholder="내용을 입력해 주세요"></textarea>
+                    </span>
+                </div>
+            <div style="display: flex;">
+                <button id="add-btn">등록</button>
+                <button id="close-btn">등록취소</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../allData.js"></script>
+<script src="../util.js"></script>
+<script src="./yeon.js"></script>
+
+</html>

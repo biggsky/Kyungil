@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #box1 {
+            width: 100%;
+            height: 1200px;
+            position: relative;
+        }
+
+        #box2 {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #box2 p:first-of-type {
+            display: inline;
+            position: absolute;
+            border: 1px solid black;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        #box2 p:last-child {
+            display: inline-block;
+            border: 1px solid black;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        #box3 {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background-color: yellow;
+            overflow: hidden;
+        }
+
+        ul {
+            display: flex;
+            position: relative;
+            width: max-content;
+            height: 400px;
+            left: -400px;
+            top: 0;
+            transition: 1s;
+        }
+
+        ul li {
+            position: relative;
+            float: left;
+            left: 0px;
+            /* -400px -800px*/
+            list-style: none;
+            width: 400px;
+            height: 400px;
+            background-color: bisque;
+            border: 1px solid black;
+            transition-property: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <div id="box2">
+            <div id="box3">
+                <ul>
+                    <li class="li">3</li>
+                    <li class="li">1</li>
+                    <li class="li">2</li>
+                    <li class="li">3</li>
+                    <li class="li">1</li>
+                </ul>
+            </div>
+            <p id="pr">이전</p>
+            <p id="ne">다음</p>
+        </div>
+    </div>
+</body>
+<script>
+    let index = 1;
+    let turn = false;
+
+    let li = document.querySelector("li");
+    let wid = parseInt(getComputedStyle(li).width);
+    _swiper = document.querySelector("#box3");
+
+    var start;
+
+    _swiper.addEventListener("mousedown", function (e) {
+        console.log("클릭 시작");
+        console.log(e);
+        start = e.clientX;
+        console.log(start);
+    });
+    _swiper.addEventListener("mouseup", function (e) {
+        document.querySelector("ul").style.transition = "1s";
+        let end = e.clientX;
+        console.log(end);
+        console.log(start);
+        if(start - end  < 50 && start - end > 0){
+            if(index ==1){
+                document.querySelector("ul").style.left = "-800px";
+                index =2;
+            }else if(index ==2){
+                document.querySelector("ul").style.left = "-1200px";
+                index =3;
+            }else if(index ==3){
+                document.querySelector("ul").style.left = "-1600px";
+                index =1;
+                setTimeout(() => {
+                    document.querySelector("ul").style.transition = "none";
+                    document.querySelector("ul").style.left = "-400px";
+                }, 1000);
+            }
+        }else if(end - start < 50 && end - start >0){
+            if(index ==1){
+                // document.querySelector("ul").style.left = "0px";
+            }
+        }
+    });
+
+
+    document.querySelector("#pr").onclick = function () {
+        // document.querySelector("ul").addEventListener("transitionend", () => { });
+        document.querySelector("ul").style.transition = "1s";
+        if (index == 1) {
+            document.querySelector("ul").style.left = "0px";
+            index = 4;
+            // document.querySelector("ul").style.left = "400px";
+            setTimeout(() => {
+                document.querySelector("ul").style.transition = "none";
+                document.querySelector("ul").style.left = "-1200px";
+            }, 1000);
+        }
+        else if (index == 3) {
+            document.querySelector("ul").style.left = "-800px";
+        }
+        else if (index == 2) {
+            document.querySelector("ul").style.left = "-400px";
+        }
+
+        index--;
+        console.log("index: ", index);
+        console.log("wid : ", wid);
+        console.log(-(wid * index) + "px");
+    }
+    document.querySelector("#ne").onclick = function () {
+        document.querySelector("ul").style.transition = "1s";
+        if (index == 3) {
+            document.querySelector("ul").style.left = "-1600px";
+            index = 0;
+            setTimeout(() => {
+                document.querySelector("ul").style.transition = "none";
+                document.querySelector("ul").style.left = "-400px";
+            }, 1000);
+        } else if (index == 2) {
+            document.querySelector("ul").style.left = "-1200px";
+        }
+        else {
+            // document.querySelector("ul").style.left = -(wid * index) + "px";
+            document.querySelector("ul").style.left = "-800px";
+        }
+
+        index++;
+
+        console.log("index: ", index);
+        console.log(-(wid * index) + "px");
+    }
+    // -400 / -800 / 0
+</script>
+
+</html>
