@@ -3,7 +3,7 @@
 ## 간단요약
 GPT API와 구글맵 API을 이용한 관광명소의 정보, 지도를 보여주는 사이트를 제작
 
-## 배포사이트 [❤](https://www.hyunss.com)
+## 배포사이트 <a href="https://www.hyunss.com" target="_blank">❤</a> 
 
 ## 프로젝트 일시
 2023년 07월 28일 ~ 2023년 08월 28일
