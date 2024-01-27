@@ -102,6 +102,13 @@ height: 30px;
 transform: translate(60px);
 `
 
+const LikeSize3 = styled.img`
+width: 30px;
+height: 30px;
+transform: translate(10px,3px);
+cursor: pointer;
+`
+
 const ImgBoxContainer = styled.div`
   width: 600px;
   height: 300px;
@@ -335,6 +342,7 @@ export {
   Main,
   HeaderDivPc,
   LikeSize2,
+  LikeSize3,
 
   ImgBoxContainer,
   ImgBox,

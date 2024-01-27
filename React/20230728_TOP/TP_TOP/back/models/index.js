@@ -13,7 +13,7 @@ const { Recomment } = require("./Recomment");
 const { Plan } = require("./Plan");
 const { Notice } = require("./Notice");
 const sequelize = new Sequelize(
-  config.dev.database,
+  config.dev.database, // db_name
   config.dev.username,
   config.dev.password,
   config.dev

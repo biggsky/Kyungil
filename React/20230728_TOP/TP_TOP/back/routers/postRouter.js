@@ -27,7 +27,7 @@ const {
   deleteLikes,
 } = require("../controllers/likecommentController");
 const {
-  Boardlikeslist,
+  likeBoard,
   updatBoardLikes,
   BoarddeleteLikes,
 } = require("../controllers/boardlikeController");
@@ -69,5 +69,8 @@ router.get("/deleltlikes/:id", isLogin, deleteLikes);
 
 router.post("/updateboardlikes/:id", isLogin, updatBoardLikes);
 router.get("/deleltboardlikes/:id", isLogin, BoarddeleteLikes);
+
+// biggs
+router.post("/likeboard", isLogin, likeBoard);
 
 module.exports = router;

@@ -4,23 +4,28 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
-
 import { Provider } from "react-redux";
 // store import 해오고 아래 Provider로 감싸기
-
 import { BrowserRouter } from "react-router-dom";
-import { store } from "./redux/store/store";
+
+// redux-persist
+import { persistor, store } from "./redux/store/store";
+import { PersistGate } from "redux-persist/integration/react";
+// -----------
+
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      {/* QueryClientProvider안에는 하나의 컴포넌트만 들어가야 한다! */}
-      <QueryClientProvider client={queryClient} contextSharing={true}>
-        <App />
-      </QueryClientProvider>
-    </BrowserRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        {/* QueryClientProvider안에는 하나의 컴포넌트만 들어가야 한다! */}
+        <QueryClientProvider client={queryClient} contextSharing={true}>
+          <App />
+        </QueryClientProvider>
+      </BrowserRouter>
+    </PersistGate>
   </Provider>
 );
 

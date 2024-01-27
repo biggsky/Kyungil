@@ -1,5 +1,19 @@
 const {User,LikeBoard,Board} = require("../models")
 
+exports.likeBoard = async (req,res)=>{
+  try {
+    const board_id = req.body.board_id;
+    const user_id = req.body.user_id;
+    const like_Exist = await LikeBoard.findAll({
+      where : {board_id: board_id, user_id: user_id}
+    });
+
+    like_Exist.length == 0 ? res.json("heart_off") : res.json("heart_on");
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 // exports.Boardlikeslist = async (req, res) => {
 //   try {
 //     const { id } = req.params;

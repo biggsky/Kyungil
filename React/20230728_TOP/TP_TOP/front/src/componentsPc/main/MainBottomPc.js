@@ -163,7 +163,12 @@ const MainBottomPc = ({
     }
   }, [choiceIndex1, choiceIndex2]);
 
+  const state_confirm = useSelector((state) => {
+    return state.userOrGuest;
+  });
+
   useEffect(() => {
+    console.log("상태확인: ", state_confirm);
     console.log(gptAnswer, "들어옴");
     if (gptAnswer) {
       gptDispatch(

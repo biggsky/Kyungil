@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { check, reset } from "../../redux/features/login";
+import { check, reset, token } from "../../redux/features/login";
 import { ipUrl } from "../../util/util";
 
 const SignupMid = ({ page }) => {
@@ -167,10 +167,11 @@ const SignupMid = ({ page }) => {
       setTextId("");
       document.querySelector("input[name='user_id']").style.border =
         "1px solid blue";
-
-      if (loginClick.data == "login_success") {
-        // 로그인 성공
+        
+        if (loginClick.data.status == "login_success") {
+          // 로그인 성공
         dispatch(check(user_id));
+        dispatch(token(loginClick.data.token));
         
         navigate("/");
       } else if (loginClick.data == "id_exist_but_pw_wrong") {
@@ -267,7 +268,7 @@ const SignupMid = ({ page }) => {
                   });
                 } else {
                   setTextPw(
-                    "8자 이상, 12자 이하에 특수문자 하나가 들어가햐 합니다."
+                    "8자 이상, 12자 이하에 특수문자 하나가 들어가야 합니다."
                   );
                   setTextColor({
                     ...textColor,

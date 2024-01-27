@@ -29,16 +29,17 @@ exports.loginClick = async (req, res) => {
             expiresIn: "2h",
           }
         );
-        // req.session.access_token = token;
+        req.session.access_token = token;
         console.log(req.sessionID, "loggg");
+
         res
           .cookie("access_token", token, {
             httpOnly: true, //XSS공격을 막기위해 추가로 설정한 것
             sameSite: "None",
             secure: true,
           })
-          .json("login_success");
-        // 프론트쪽에서 받아서 화면 전환시킬것.
+          .json({"status":"login_success", "token": token });
+        // // 프론트쪽에서 받아서 화면 전환시킬것.
       } else {
         res.json("id_exist_but_pw_wrong");
         // 프론트쪽에서 받아서 alert를 띄워주거나 경고창 따로 띄워주기

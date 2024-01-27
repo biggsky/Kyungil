@@ -1,6 +1,9 @@
 const express = require("express");
-const dot = require("dotenv").config();
+// const dot = require("dotenv").config();
 require("dotenv").config();
+// env 파일은 환경 변수를 저장하는 파일. 환경변수는 서버의 설정이나 인증 정보와 같은 중요한 정보를 저장하는데 사용됨.
+// 이 코드는 .env 파일을 읽고, 그 내용을 process.env 객체에 설정되고 이후에 process.env 객체를 사용하여 환경 변수를 사용할수있음.
+
 const session = require("express-session");
 const { sequelize } = require("./models");
 const path = require("path");

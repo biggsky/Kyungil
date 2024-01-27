@@ -36,8 +36,10 @@ import {
   DelBtnStyle,
   SubContentSpan,
 } from "../components/boarddetail/boarddetail.styled";
-
 import { ipUrl } from "../util/util";
+
+// biggs
+import BiggsLikes from "./BiggsLikes"
 
 const BoardDetailPc = () => {
   const [trigger, setTrigger] = useState(false);
@@ -69,7 +71,7 @@ const BoardDetailPc = () => {
   };
   const { data, isLoading, refetch } = useQuery(
     ["boardDetail", id],
-    BoardDetailView
+    BoardDetailView,
   );
 
   const boardDelet = async () => {
@@ -124,28 +126,25 @@ const BoardDetailPc = () => {
         <Main>
           <HeaderDivPc>
             {/* 좋아요 */}
-            <BoardLikes
-              boardIndex={data.data.id}
-              boardLikeArr={data.data.LikeBoards}
-              loginUserInfo={loginUserInfo}
-              refetch={refetch}
-            />
+            {/* <BoardLikes boardIndex={data.data.id} boardLikeArr={data.data.LikeBoards} loginUserInfo={loginUserInfo} refetch={refetch}/> */}
+            {/* <div className='likesNum'>{data.data.LikeBoards.length}</div> */}
+            <BiggsLikes boardIndex={data.data.id} boardLikeArr={data.data.LikeBoards} loginUserInfo={loginUserInfo} refetch={refetch} />
             <div className="likesNum">{data.data.LikeBoards.length}</div>
             {/* 수정, 삭제 버튼 */}
             {loginUserInfo.id == data.data.user_id && (
               <EditImg
                 src={`${ImgPath}/more.png`}
-                alt=""
-                srcset=""
+                alt=''
+                srcset=''
                 onClick={ShowboxClick}
               />
             )}
             {showBox && (
-              <div className="dotBox" onClose={() => setShowBox(false)}>
-                <div className="dotBoxBtn editBtn" onClick={boardEditClick}>
+              <div className='dotBox' onClose={() => setShowBox(false)}>
+                <div className='dotBoxBtn editBtn' onClick={boardEditClick}>
                   수정
                 </div>
-                <div className="dotBoxBtn delBtn" onClick={handleDeleteCheck}>
+                <div className='dotBoxBtn delBtn' onClick={handleDeleteCheck}>
                   삭제
                 </div>
               </div>
@@ -153,11 +152,11 @@ const BoardDetailPc = () => {
           </HeaderDivPc>
 
           {/* 게시글 쓴 유저 */}
-          <div className="writer-box">
-            <div className="profile_img">
+          <div className='writer-box'>
+            <div className='profile_img'>
               <img src={`/imgs/profiles/${data.writer.profile_img}`}></img>
             </div>
-            <div className="nickname">{data.writer.nickname}</div>
+            <div className='nickname'>{data.writer.nickname}</div>
           </div>
 
           {/* 이미지 슬라이드 */}
@@ -168,7 +167,7 @@ const BoardDetailPc = () => {
           <SubContentPc detail={data.data.detail} />
 
           {/* 버튼 */}
-          <div className="btnBox">
+          <div className='btnBox'>
             <DayBtnPc DayBtnClick={DayBtnClick} />
             <PlanBtnPc />
           </div>
