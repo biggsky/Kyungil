@@ -34,11 +34,11 @@ const TapMenuPc = ({ user }) => {
 
   // 유저가 만든 일정 가져오기
   const tryGetAll = async () => {
-    console.log("머지");
     try {
       const response1 = await ipUrl.get(`/mypage/getPlan`);
       const response2 = await ipUrl.get(`/mypage/getReview`);
       const response3 = await ipUrl.get(`/mypage/getComment`);
+      console.log("tryGetAll 순서");
       const data1 = response1.data;
       const data2 = response2.data;
       const data3 = response3.data;
@@ -48,7 +48,9 @@ const TapMenuPc = ({ user }) => {
     }
   };
 
-  const { data, isLoading } = useQuery(["getAll"], tryGetAll);
+  const { data, isLoading } = useQuery(["getAll"], tryGetAll,{
+    staleTime: 60000, // 캐시가 60초 동안 최신이 아닌 상태로 간주
+  });
 
   useEffect(() => {
     if (data) {

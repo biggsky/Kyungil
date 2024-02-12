@@ -168,7 +168,8 @@ const MainBottomPc = ({
   });
 
   useEffect(() => {
-    console.log("상태확인: ", state_confirm);
+    // console.log("상태확인: ", state_confirm);
+    // console.log("상태확인: ", state_confirm.isLogin);
     console.log(gptAnswer, "들어옴");
     if (gptAnswer) {
       gptDispatch(
@@ -210,6 +211,7 @@ const MainBottomPc = ({
     return state.gptAnswerSave;
   });
   useEffect(() => {
+    console.log("gptAnswerSaved:",gptAnswerSaved);
     if (gptAnswerSaved.attractions.length > 0) {
       setIsloading(false);
 

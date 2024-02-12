@@ -36,9 +36,10 @@ import { LoadingContainer } from "./componentsPc/main/MainPc.styled";
 import AdminPc from "./pagesPc/AdminPc";
 import EditPlanPc from "./pagesPc/EditPlanPc";
 import { useQuery } from "react-query";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveUser } from "./redux/features/useInfo";
 import { ipUrl } from "./util/util";
+
 function App() {
   const travel = "/imgs/places/travel.gif";
   const isMobile = useMediaQuery({
@@ -67,12 +68,22 @@ function App() {
     height: 100vh;
   `;
   const dispatch = useDispatch();
+  console.log("웡카");
 
   // 현재 로그인한 유저의 정보를 가져오는 로직
   const getLoginUserInfoHandler = async () => {
     const getLoginUserInfo = await ipUrl.get("/user/loginUser");
     return getLoginUserInfo.data;
   };
+
+  const state_confirm = useSelector((state) => {
+    return state.userOrGuest;
+  });
+  useEffect(()=>{
+    if(state_confirm.isLogin == false){
+      // alert("현재 로그인이 안되어있습니다.");
+    }
+  },[]);
 
   // 현재 로그인한 유저의 정보를 가져오는 로직 query
   const getLoginUserInfoQuery = useQuery(

@@ -15,6 +15,7 @@ const PlanMidPc = (props) => {
   } = props;
   let lat, lng;
   if (choiceIndex) {
+    console.log("안녕", choiceIndex);
     lat = choiceIndex.at(-1)?.attractionLocation.latitude;
     lng = choiceIndex.at(-1)?.attractionLocation.longitude;
   }
@@ -74,7 +75,8 @@ const PlanMidPc = (props) => {
             }
           }
           geocode2();
-        } else {
+        }
+        else {
           myLatLng = {
             lat: Number(lat),
             lng: Number(lng),
@@ -117,7 +119,8 @@ const PlanMidPc = (props) => {
             }
           });
         }
-      } else {
+      }
+      else {
         if (selectedUserPlan.length !== 0) {
           // 해당 날짜에 해당하는 인덱스
           const index = selectedUserPlan.findIndex(

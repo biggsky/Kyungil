@@ -85,6 +85,7 @@ const BottomNavPc = () => {
   const tryGetUserInfo = async () => {
     try {
       const response = await ipUrl.get(`/mypage/getInfo`);
+      console.log("bottomNavPc순서");
       const data = response.data;
       dispatch(saveUser(data));
 
@@ -94,8 +95,11 @@ const BottomNavPc = () => {
     }
   };
 
-  const { data, isLoading } = useQuery(["getUserNav"], tryGetUserInfo);
+  const { data, isLoading } = useQuery(["getUserNav"], tryGetUserInfo,{
+    staleTime: 60000, // 캐시가 60초 동안 최신이 아닌 상태로 간주
+  });
 
+  
   useEffect(() => {
     if (data) {
       console.log(data, "프로필");

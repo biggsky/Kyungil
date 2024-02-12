@@ -81,6 +81,8 @@ const AddPlacePc = () => {
 
         {show && <AddPlaceBottom choiceIndex={choiceIndex} />}
       </PlanMidPcLeft>
+      
+      {/* 지도 */}
       <PlanMidPc
         gptAnswerSaved={gptAnswerSaved}
         nearAttractopnLocation={nearAttractopnLocation}

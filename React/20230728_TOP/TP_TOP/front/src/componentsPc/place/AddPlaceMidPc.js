@@ -20,6 +20,7 @@ const AddPlaceMid = ({ page, day, choiceIndex, setChoice, nearPlace }) => {
   const attractionsWithImg = useSelector((state) => {
     return state.attractionsWithImg;
   });
+  console.log("처음엔 없어", attractionsWithImg);
   // attraction에 관련된 모든 정보가 있는 attractionsWithImg dispatch
   const attractionsWithImgDispatch = useDispatch();
 
@@ -36,6 +37,8 @@ const AddPlaceMid = ({ page, day, choiceIndex, setChoice, nearPlace }) => {
         return a.name;
       });
     }
+    // 여기까지는 choiceIndex 값은 [];
+    console.log("나중에 있지",attractionsWithImg);
 
     if (temp.indexOf(value.name) !== -1) {
       let arr = choiceIndex.filter((va) => va.name !== value.name);
@@ -90,6 +93,8 @@ const AddPlaceMid = ({ page, day, choiceIndex, setChoice, nearPlace }) => {
         <Title>day{day} 추천 장소</Title>
         {choiceIndex !== "" &&
           attractionsWithImg.map((value, index) => {
+
+            // 선택이 되었을때
             if (
               choiceIndex.some((ele) => {
                 return ele.name === value.name;
@@ -123,6 +128,7 @@ const AddPlaceMid = ({ page, day, choiceIndex, setChoice, nearPlace }) => {
                       </SelectBtn>
                     </SelectBtnBox>
                   </PlaceBox>
+                  {/* 눌렀을때 뜨는 3곳의 주변 관광지 */}
                   <Title size={"14px"}>주변 관광지</Title>
                   <NearAttractionConatiner>
                     {attractionsWithImg[index]?.nearAttraction?.map(
@@ -181,7 +187,10 @@ const AddPlaceMid = ({ page, day, choiceIndex, setChoice, nearPlace }) => {
                   </NearAttractionConatiner>
                 </>
               );
-            } else {
+            }
+            
+            // 클릭이 되지 않았을때
+            else {
               return (
                 <>
                   <h3 style={{ marginTop: "20px", fontWeight: "bold" }}>

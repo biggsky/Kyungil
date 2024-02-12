@@ -12,7 +12,7 @@ import {
 } from "./SignupPc.styled";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { check, reset, token } from "../../redux/features/login";
 import { ipUrl } from "../../util/util";
 
@@ -185,6 +185,7 @@ const SignupMid = ({ page }) => {
   };
 
   const loginMutation = useMutation(login);
+  // login 함수를 감싸서 리덕스 스토어에 액션을 전달하고, 액션의 결과를 반환하는 역할을 함.
 
   // ---------------------------------
 
@@ -214,7 +215,12 @@ const SignupMid = ({ page }) => {
     // 비밀번호 틀렸을 때
   };
 
+  const state_confirm = useSelector((state) => {
+    return state.userOrGuest;
+  });
+
   useEffect(() => {
+    console.log("딱봐도", state_confirm);
     dispatch(reset());
   }, []);
 
@@ -353,7 +359,8 @@ const SignupMid = ({ page }) => {
         </SignupMidBox>
       </>
     );
-  } else if (page == "로그인") {
+  } 
+  else if (page == "로그인") {
     return (
       <>
         <SignupMidBox>

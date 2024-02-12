@@ -117,6 +117,7 @@ const BoardDetailPc = () => {
   useEffect(() => {
     console.log("로그인 유저: ", loginUserInfo);
   }, [loginUserInfo]);
+  console.log("배열확인", data.data.LikeBoards);
 
   return (
     <>
@@ -128,6 +129,8 @@ const BoardDetailPc = () => {
             {/* 좋아요 */}
             {/* <BoardLikes boardIndex={data.data.id} boardLikeArr={data.data.LikeBoards} loginUserInfo={loginUserInfo} refetch={refetch}/> */}
             {/* <div className='likesNum'>{data.data.LikeBoards.length}</div> */}
+
+            {/* user_id만 뽑아내서 배열을 만들어서 boardLikeArr 넣음 */}
             <BiggsLikes boardIndex={data.data.id} boardLikeArr={data.data.LikeBoards} loginUserInfo={loginUserInfo} refetch={refetch} />
             <div className="likesNum">{data.data.LikeBoards.length}</div>
             {/* 수정, 삭제 버튼 */}
